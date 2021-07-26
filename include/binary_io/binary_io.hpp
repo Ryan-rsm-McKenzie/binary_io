@@ -198,7 +198,7 @@ namespace binary_io
 #endif
 		}
 
-		class basic_stream
+		class basic_seek_stream
 		{
 		public:
 			void seek_absolute(streamoff a_pos) noexcept { this->_pos = a_pos; }
@@ -212,12 +212,12 @@ namespace binary_io
 
 		template <
 			class Derived,
-			class Positioner>
+			class Seeker>
 		class basic_istream :
-			public Positioner
+			public Seeker
 		{
 		private:
-			using super = Positioner;
+			using super = Seeker;
 
 		public:
 			using super::super;
@@ -252,12 +252,12 @@ namespace binary_io
 
 		template <
 			class Derived,
-			class Positioner>
+			class Seeker>
 		class basic_ostream :
-			public Positioner
+			public Seeker
 		{
 		private:
-			using super = Positioner;
+			using super = Seeker;
 
 		public:
 			using super::super;
@@ -321,10 +321,10 @@ namespace binary_io
 	{
 		template <class T>
 		class span_stream_base :
-			public detail::basic_stream
+			public detail::basic_seek_stream
 		{
 		private:
-			using super = detail::basic_stream;
+			using super = detail::basic_seek_stream;
 
 		public:
 			using super::super;
@@ -377,10 +377,10 @@ namespace binary_io
 	{
 		template <class Container>
 		class basic_memory_stream_base :
-			public detail::basic_stream
+			public detail::basic_seek_stream
 		{
 		private:
-			using super = detail::basic_stream;
+			using super = detail::basic_seek_stream;
 
 		public:
 			using container_type = Container;
