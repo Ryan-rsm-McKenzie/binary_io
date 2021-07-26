@@ -78,16 +78,16 @@ namespace binary_io
 
 		void read_bytes(std::span<std::byte> a_dst)
 		{
+			const auto where = this->tell();
 			const auto& buffer = this->rdbuf();
-			if (this->tell() + a_dst.size_bytes() > std::size(buffer)) {
+			if (where < 0 || where + a_dst.size_bytes() > std::size(buffer)) {
 				throw std::out_of_range("read out of range");
 			}
 
-			const auto pos = this->tell();
 			this->seek_relative(static_cast<binary_io::streamoff>(a_dst.size_bytes()));
 			std::memcpy(
 				a_dst.data(),
-				std::data(buffer) + pos,
+				std::data(buffer) + where,
 				a_dst.size_bytes());
 		}
 	};
@@ -109,9 +109,12 @@ namespace binary_io
 
 		void write_bytes(std::span<const std::byte> a_src)
 		{
+			const auto where = this->tell();
 			auto& buffer = this->rdbuf();
-			const auto wantsz = this->tell() + a_src.size_bytes();
-			if (wantsz > std::size(buffer)) {
+			if (where < 0) {
+				throw std::out_of_range("write out of range");
+			} else if (const auto wantsz = where + a_src.size_bytes();
+					   wantsz > std::size(buffer)) {
 				if constexpr (concepts::resizable<container_type>) {
 					buffer.resize(wantsz);
 				} else {
@@ -119,10 +122,9 @@ namespace binary_io
 				}
 			}
 
-			const auto pos = this->tell();
 			this->seek_relative(static_cast<binary_io::streamoff>(a_src.size_bytes()));
 			std::memcpy(
-				std::data(buffer) + pos,
+				std::data(buffer) + where,
 				a_src.data(),
 				a_src.size_bytes());
 		}

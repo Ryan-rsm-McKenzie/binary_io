@@ -134,26 +134,32 @@ namespace binary_io
 
 	void span_istream::read_bytes(std::span<std::byte> a_dst)
 	{
+		const auto where = this->tell();
 		const auto buffer = this->rdbuf();
-		if (this->tell() + a_dst.size_bytes() > buffer.size_bytes()) {
+		if (where < 0 || where + a_dst.size_bytes() > buffer.size_bytes()) {
 			throw std::out_of_range("read out of range");
 		}
 
-		const auto pos = this->tell();
 		this->seek_relative(static_cast<binary_io::streamoff>(a_dst.size_bytes()));
-		std::memcpy(a_dst.data(), buffer.data() + pos, a_dst.size_bytes());
+		std::memcpy(
+			a_dst.data(),
+			buffer.data() + where,
+			a_dst.size_bytes());
 	}
 
 	void span_ostream::write_bytes(std::span<const std::byte> a_src)
 	{
+		const auto where = this->tell();
 		const auto buffer = this->rdbuf();
-		if (this->tell() + a_src.size_bytes() > buffer.size_bytes()) {
+		if (where < 0 || where + a_src.size_bytes() > buffer.size_bytes()) {
 			throw std::out_of_range("write out of range");
 		}
 
-		const auto pos = this->tell();
 		this->seek_relative(static_cast<binary_io::streamoff>(a_src.size_bytes()));
-		std::memcpy(buffer.data() + pos, a_src.data(), a_src.size_bytes());
+		std::memcpy(
+			buffer.data() + where,
+			a_src.data(),
+			a_src.size_bytes());
 	}
 
 	namespace detail
