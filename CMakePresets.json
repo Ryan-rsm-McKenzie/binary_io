@@ -74,7 +74,7 @@
     },
     {
       "cacheVariables": {
-        "CMAKE_CXX_FLAGS": "/MP /W4 /WX /external:anglebrackets /external:W0 $penv{CXXFLAGS}"
+        "CMAKE_CXX_FLAGS": "/EHsc /MP /W4 /WX /external:anglebrackets /external:W0 $penv{CXXFLAGS}"
       },
       "generator": "Visual Studio 16 2019",
       "inherits": [
