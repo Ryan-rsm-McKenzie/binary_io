@@ -133,8 +133,10 @@ namespace binary_io
 	void span_istream::read_bytes(std::span<std::byte> a_dst)
 	{
 		const auto where = this->tell();
+		assert(where >= 0);
+
 		const auto buffer = this->rdbuf();
-		if (where < 0 || where + a_dst.size_bytes() > buffer.size_bytes()) {
+		if (where + a_dst.size_bytes() > buffer.size_bytes()) {
 			throw std::out_of_range("read out of range");
 		}
 
@@ -148,8 +150,10 @@ namespace binary_io
 	void span_ostream::write_bytes(std::span<const std::byte> a_src)
 	{
 		const auto where = this->tell();
+		assert(where >= 0);
+
 		const auto buffer = this->rdbuf();
-		if (where < 0 || where + a_src.size_bytes() > buffer.size_bytes()) {
+		if (where + a_src.size_bytes() > buffer.size_bytes()) {
 			throw std::out_of_range("write out of range");
 		}
 

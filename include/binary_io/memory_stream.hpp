@@ -79,8 +79,10 @@ namespace binary_io
 		void read_bytes(std::span<std::byte> a_dst)
 		{
 			const auto where = this->tell();
+			assert(where >= 0);
+
 			const auto& buffer = this->rdbuf();
-			if (where < 0 || where + a_dst.size_bytes() > std::size(buffer)) {
+			if (where + a_dst.size_bytes() > std::size(buffer)) {
 				throw std::out_of_range("read out of range");
 			}
 
@@ -110,11 +112,11 @@ namespace binary_io
 		void write_bytes(std::span<const std::byte> a_src)
 		{
 			const auto where = this->tell();
+			assert(where >= 0);
+
 			auto& buffer = this->rdbuf();
-			if (where < 0) {
-				throw std::out_of_range("write out of range");
-			} else if (const auto wantsz = where + a_src.size_bytes();
-					   wantsz > std::size(buffer)) {
+			if (const auto wantsz = where + a_src.size_bytes();
+				wantsz > std::size(buffer)) {
 				if constexpr (concepts::resizable<container_type>) {
 					buffer.resize(wantsz);
 				} else {

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <algorithm>
 #include <array>
 #include <cassert>
 #include <concepts>
@@ -230,8 +231,15 @@ namespace binary_io
 		class basic_seek_stream
 		{
 		public:
-			void seek_absolute(binary_io::streamoff a_pos) noexcept { this->_pos = a_pos; }
-			void seek_relative(binary_io::streamoff a_off) noexcept { this->_pos += a_off; }
+			void seek_absolute(binary_io::streamoff a_pos) noexcept
+			{
+				this->_pos = std::max<binary_io::streamoff>(a_pos, 0);
+			}
+
+			void seek_relative(binary_io::streamoff a_off) noexcept
+			{
+				this->seek_absolute(this->_pos + a_off);
+			}
 
 			[[nodiscard]] auto tell() const noexcept
 				-> binary_io::streamoff { return this->_pos; }

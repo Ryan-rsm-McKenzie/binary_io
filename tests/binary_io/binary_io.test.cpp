@@ -62,14 +62,20 @@ TEST_CASE("read/write")
 			REQUIRE(a_stream.template read<std::uint64_t>(std::endian::big) == 0x0102030405060708);
 		}
 
+		const auto pos = a_stream.tell();
+
 		a_stream.seek_absolute(0);
 		a_stream.seek_relative(-1);
-		REQUIRE(a_stream.tell() == -1);
-		REQUIRE_THROWS(a_stream.template read<std::uint32_t>(a_endian));
+		REQUIRE(a_stream.tell() == 0);
 
 		a_stream.seek_absolute(-1);
-		REQUIRE(a_stream.tell() == -1);
+		REQUIRE(a_stream.tell() == 0);
+
+		a_stream.seek_absolute(1000);
 		REQUIRE_THROWS(a_stream.template read<std::uint32_t>(a_endian));
+
+		a_stream.seek_absolute(pos);
+		REQUIRE(a_stream.tell() == pos);
 	};
 
 	const auto write = [](auto& a_stream, std::endian a_endian) {
@@ -85,14 +91,17 @@ TEST_CASE("read/write")
 			a_stream.template write<std::uint64_t>(0x0102030405060708, std::endian::big);
 		}
 
+		const auto pos = a_stream.tell();
+
 		a_stream.seek_absolute(0);
 		a_stream.seek_relative(-1);
-		REQUIRE(a_stream.tell() == -1);
-		REQUIRE_THROWS(a_stream.template write<std::uint32_t>(42, a_endian));
+		REQUIRE(a_stream.tell() == 0);
 
 		a_stream.seek_absolute(-1);
-		REQUIRE(a_stream.tell() == -1);
-		REQUIRE_THROWS(a_stream.template write<std::uint32_t>(42, a_endian));
+		REQUIRE(a_stream.tell() == 0);
+
+		a_stream.seek_absolute(pos);
+		REQUIRE(a_stream.tell() == pos);
 	};
 
 	SECTION("span_stream")
@@ -125,6 +134,9 @@ TEST_CASE("read/write")
 			s.seek_absolute(0);
 			write(s, std::endian::big);
 			REQUIRE(std::memcmp(payload.data(), s.rdbuf().data(), payload.size_bytes()) == 0);
+
+			s.seek_absolute(1000);
+			REQUIRE_THROWS(s.write<std::uint32_t>(42, std::endian::big));
 		}
 	}
 
@@ -196,6 +208,7 @@ TEST_CASE("read/write")
 				{
 					binary_io::file_ostream s(path);
 					s.seek_absolute(written);
+					REQUIRE(s.tell() == static_cast<binary_io::streamoff>(written));
 					s.write(a_value, a_endian);
 				}
 
@@ -219,6 +232,15 @@ TEST_CASE("read/write")
 			writeAndCheck(std::uint16_t{ 0x0102 }, std::endian::big);
 			writeAndCheck(std::uint32_t{ 0x01020304 }, std::endian::big);
 			writeAndCheck(std::uint64_t{ 0x0102030405060708 }, std::endian::big);
+
+			binary_io::file_ostream s(path, binary_io::write_mode::append);
+
+			s.seek_absolute(0);
+			s.seek_relative(-1);
+			REQUIRE(s.tell() == 0);
+
+			s.seek_absolute(-1);
+			REQUIRE(s.tell() == 0);
 		}
 	}
 
@@ -255,6 +277,9 @@ TEST_CASE("read/write")
 			s.seek_absolute(0);
 			write(s, std::endian::big);
 			REQUIRE(std::memcmp(payload.data(), dst.data(), payload.size_bytes()) == 0);
+
+			s.seek_absolute(1000);
+			REQUIRE_THROWS(s.write<std::uint32_t>(42, std::endian::big));
 		}
 	}
 }
