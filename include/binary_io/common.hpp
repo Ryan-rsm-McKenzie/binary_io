@@ -329,5 +329,4 @@ namespace binary_io
 			binary_io::exception("input buffer has been exhausted")
 		{}
 	};
-
 }
