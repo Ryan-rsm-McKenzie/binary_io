@@ -206,19 +206,18 @@ TEST_CASE("read/write")
 			std::size_t written = 0;
 			const auto writeAndCheck = [&](auto a_value, std::endian a_endian) {
 				{
-					binary_io::file_ostream s(path);
+					binary_io::file_ostream s(path, binary_io::write_mode::append);
 					s.seek_absolute(written);
 					REQUIRE(s.tell() == static_cast<binary_io::streamoff>(written));
 					s.write(a_value, a_endian);
 				}
 
 				const auto f = open_file(path.c_str(), "rb");
-				REQUIRE(std::fseek(f.get(), static_cast<long>(written), SEEK_SET) == 0);
-				std::array<std::byte, sizeof(a_value)> dst{};
+				std::vector<std::byte> dst(written + sizeof(a_value));
 				REQUIRE(std::fread(dst.data(), 1, dst.size(), f.get()) == dst.size());
-				REQUIRE(std::memcmp(dst.data(), payload.data() + written, dst.size()) == 0);
+				REQUIRE(std::memcmp(dst.data(), payload.data(), dst.size()) == 0);
 
-				written += dst.size();
+				written = dst.size();
 			};
 
 			writeAndCheck(std::uint8_t{ 0x01 }, std::endian::little);
