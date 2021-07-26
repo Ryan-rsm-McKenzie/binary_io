@@ -108,26 +108,24 @@ namespace binary_io
 
 			int fseek(
 				std::FILE* a_stream,
-				std::ptrdiff_t a_offset,
+				binary_io::streamoff a_offset,
 				int a_origin) noexcept
 			{
 #if BINARY_IO_OS_WINDOWS
-				if constexpr (sizeof(void*) == 8)
-					return ::_fseeki64(a_stream, static_cast<__int64>(a_offset), a_origin);
-				else
+				return ::_fseeki64(a_stream, a_offset, a_origin);
+#else
+				return std::fseek(a_stream, static_cast<long>(a_offset), a_origin);
 #endif
-					return std::fseek(a_stream, static_cast<long>(a_offset), a_origin);
 			}
 
 			[[nodiscard]] auto ftell(std::FILE* a_stream)
-				-> std::ptrdiff_t
+				-> binary_io::streamoff
 			{
 #if BINARY_IO_OS_WINDOWS
-				if constexpr (sizeof(void*) == 8)
-					return static_cast<std::ptrdiff_t>(::_ftelli64(a_stream));
-				else
+				return ::_ftelli64(a_stream);
+#else
+				return std::ftell(a_stream);
 #endif
-					return static_cast<std::ptrdiff_t>(std::ftell(a_stream));
 			}
 		}
 	}
@@ -179,18 +177,18 @@ namespace binary_io
 
 		void file_stream_base::seek_absolute(binary_io::streamoff a_pos) noexcept
 		{
-			os::fseek(this->_buffer, static_cast<std::ptrdiff_t>(a_pos), SEEK_SET);
+			os::fseek(this->_buffer, a_pos, SEEK_SET);
 		}
 
 		void file_stream_base::seek_relative(binary_io::streamoff a_off) noexcept
 		{
-			os::fseek(this->_buffer, static_cast<std::ptrdiff_t>(a_off), SEEK_CUR);
+			os::fseek(this->_buffer, a_off, SEEK_CUR);
 		}
 
 		auto file_stream_base::tell() const noexcept
 			-> binary_io::streamoff
 		{
-			return static_cast<binary_io::streamoff>(os::ftell(this->_buffer));
+			return os::ftell(this->_buffer);
 		}
 
 		file_stream_base::file_stream_base(

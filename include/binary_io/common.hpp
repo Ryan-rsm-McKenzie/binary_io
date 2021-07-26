@@ -64,7 +64,7 @@
 
 namespace binary_io
 {
-	using streamoff = std::ptrdiff_t;
+	using streamoff = long long;
 
 	namespace concepts
 	{
