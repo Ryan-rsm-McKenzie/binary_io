@@ -35,12 +35,12 @@ namespace binary_io
 
 	class span_istream final :
 		public detail::basic_istream<
-			span_istream,
+			binary_io::span_istream,
 			detail::span_stream_base<const std::byte>>
 	{
 	private:
 		using super = detail::basic_istream<
-			span_istream,
+			binary_io::span_istream,
 			detail::span_stream_base<const std::byte>>;
 
 	public:
@@ -50,12 +50,12 @@ namespace binary_io
 
 	class span_ostream final :
 		public detail::basic_ostream<
-			span_ostream,
+			binary_io::span_ostream,
 			detail::span_stream_base<std::byte>>
 	{
 	private:
 		using super = detail::basic_ostream<
-			span_ostream,
+			binary_io::span_ostream,
 			detail::span_stream_base<std::byte>>;
 
 	public:

@@ -65,12 +65,12 @@ namespace binary_io
 	template <class Container>
 	class basic_memory_istream final :
 		public detail::basic_istream<
-			basic_memory_istream<Container>,
+			binary_io::basic_memory_istream<Container>,
 			detail::basic_memory_stream_base<Container>>
 	{
 	private:
 		using super = detail::basic_istream<
-			basic_memory_istream<Container>,
+			binary_io::basic_memory_istream<Container>,
 			detail::basic_memory_stream_base<Container>>;
 
 	public:
@@ -84,7 +84,7 @@ namespace binary_io
 			}
 
 			const auto pos = this->tell();
-			this->seek_relative(static_cast<streamoff>(a_dst.size_bytes()));
+			this->seek_relative(static_cast<binary_io::streamoff>(a_dst.size_bytes()));
 			std::memcpy(
 				a_dst.data(),
 				std::data(buffer) + pos,
@@ -95,12 +95,12 @@ namespace binary_io
 	template <class Container>
 	class basic_memory_ostream final :
 		public detail::basic_ostream<
-			basic_memory_ostream<Container>,
+			binary_io::basic_memory_ostream<Container>,
 			detail::basic_memory_stream_base<Container>>
 	{
 	private:
 		using super = detail::basic_ostream<
-			basic_memory_ostream<Container>,
+			binary_io::basic_memory_ostream<Container>,
 			detail::basic_memory_stream_base<Container>>;
 
 	public:
@@ -120,7 +120,7 @@ namespace binary_io
 			}
 
 			const auto pos = this->tell();
-			this->seek_relative(static_cast<streamoff>(a_src.size_bytes()));
+			this->seek_relative(static_cast<binary_io::streamoff>(a_src.size_bytes()));
 			std::memcpy(
 				std::data(buffer) + pos,
 				a_src.data(),
@@ -128,6 +128,6 @@ namespace binary_io
 		}
 	};
 
-	using memory_istream = basic_memory_istream<std::vector<std::byte>>;
-	using memory_ostream = basic_memory_ostream<std::vector<std::byte>>;
+	using memory_istream = binary_io::basic_memory_istream<std::vector<std::byte>>;
+	using memory_ostream = binary_io::basic_memory_ostream<std::vector<std::byte>>;
 }

@@ -95,12 +95,12 @@ namespace binary_io
 
 		template <class T>
 		concept seekable_stream =
-			requires(T& a_ref, const T& a_cref, streamoff a_off)
+			requires(T& a_ref, const T& a_cref, binary_io::streamoff a_off)
 		{
 			// clang-format off
 			{ a_ref.seek_absolute(a_off) };
 			{ a_ref.seek_relative(a_off) };
-			{ a_cref.tell() } -> std::same_as<streamoff>;
+			{ a_cref.tell() } -> std::same_as<binary_io::streamoff>;
 			// clang-format on
 		};
 
@@ -194,13 +194,14 @@ namespace binary_io
 		class basic_seek_stream
 		{
 		public:
-			void seek_absolute(streamoff a_pos) noexcept { this->_pos = a_pos; }
-			void seek_relative(streamoff a_off) noexcept { this->_pos += a_off; }
+			void seek_absolute(binary_io::streamoff a_pos) noexcept { this->_pos = a_pos; }
+			void seek_relative(binary_io::streamoff a_off) noexcept { this->_pos += a_off; }
 
-			[[nodiscard]] auto tell() const noexcept -> streamoff { return this->_pos; }
+			[[nodiscard]] auto tell() const noexcept
+				-> binary_io::streamoff { return this->_pos; }
 
 		private:
-			streamoff _pos{ 0 };
+			binary_io::streamoff _pos{ 0 };
 		};
 
 		template <
@@ -302,11 +303,11 @@ namespace binary_io
 	};
 
 	class BINARY_IO_VISIBLE buffer_exhausted :
-		public exception
+		public binary_io::exception
 	{
 	public:
 		buffer_exhausted() noexcept :
-			exception("input buffer has been exhausted")
+			binary_io::exception("input buffer has been exhausted")
 		{}
 	};
 }

@@ -49,7 +49,7 @@ namespace binary_io
 		};
 
 		class erased_istream_base :
-			public erased_stream_base
+			public detail::erased_stream_base
 		{
 		public:
 			virtual void read_bytes(std::span<std::byte> a_dst) = 0;
@@ -57,10 +57,10 @@ namespace binary_io
 
 		template <class Stream>
 		class erased_istream :
-			public erased_stream<Stream, erased_istream_base>
+			public detail::erased_stream<Stream, detail::erased_istream_base>
 		{
 		private:
-			using super = erased_stream<Stream, erased_istream_base>;
+			using super = detail::erased_stream<Stream, detail::erased_istream_base>;
 
 		public:
 			using super::super;
@@ -74,7 +74,7 @@ namespace binary_io
 		};
 
 		class erased_ostream_base :
-			public erased_stream_base
+			public detail::erased_stream_base
 		{
 		public:
 			virtual void write_bytes(std::span<const std::byte> a_src) = 0;
@@ -82,10 +82,10 @@ namespace binary_io
 
 		template <class Stream>
 		class erased_ostream :
-			public erased_stream<Stream, erased_ostream_base>
+			public detail::erased_stream<Stream, detail::erased_ostream_base>
 		{
 		private:
-			using super = erased_stream<Stream, erased_ostream_base>;
+			using super = detail::erased_stream<Stream, detail::erased_ostream_base>;
 
 		public:
 			using super::super;
@@ -133,14 +133,14 @@ namespace binary_io
 
 	class any_istream final :
 		public detail::basic_istream<
-			any_istream,
+			binary_io::any_istream,
 			detail::any_stream_base<
 				detail::erased_istream_base,
 				detail::erased_istream>>
 	{
 	private:
 		using super = detail::basic_istream<
-			any_istream,
+			binary_io::any_istream,
 			detail::any_stream_base<
 				detail::erased_istream_base,
 				detail::erased_istream>>;
@@ -152,14 +152,14 @@ namespace binary_io
 
 	class any_ostream final :
 		public detail::basic_ostream<
-			any_ostream,
+			binary_io::any_ostream,
 			detail::any_stream_base<
 				detail::erased_ostream_base,
 				detail::erased_ostream>>
 	{
 	private:
 		using super = detail::basic_ostream<
-			any_ostream,
+			binary_io::any_ostream,
 			detail::any_stream_base<
 				detail::erased_ostream_base,
 				detail::erased_ostream>>;

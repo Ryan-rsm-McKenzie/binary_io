@@ -140,7 +140,7 @@ namespace binary_io
 		}
 
 		const auto pos = this->tell();
-		this->seek_relative(static_cast<streamoff>(a_dst.size_bytes()));
+		this->seek_relative(static_cast<binary_io::streamoff>(a_dst.size_bytes()));
 		std::memcpy(a_dst.data(), buffer.data() + pos, a_dst.size_bytes());
 	}
 
@@ -152,7 +152,7 @@ namespace binary_io
 		}
 
 		const auto pos = this->tell();
-		this->seek_relative(static_cast<streamoff>(a_src.size_bytes()));
+		this->seek_relative(static_cast<binary_io::streamoff>(a_src.size_bytes()));
 		std::memcpy(buffer.data() + pos, a_src.data(), a_src.size_bytes());
 	}
 
@@ -171,18 +171,18 @@ namespace binary_io
 			std::fflush(this->_buffer);
 		}
 
-		void file_stream_base::seek_absolute(streamoff a_pos) noexcept
+		void file_stream_base::seek_absolute(binary_io::streamoff a_pos) noexcept
 		{
 			os::fseek(this->_buffer, static_cast<std::ptrdiff_t>(a_pos), SEEK_SET);
 		}
 
-		void file_stream_base::seek_relative(streamoff a_off) noexcept
+		void file_stream_base::seek_relative(binary_io::streamoff a_off) noexcept
 		{
 			os::fseek(this->_buffer, static_cast<std::ptrdiff_t>(a_off), SEEK_CUR);
 		}
 
 		auto file_stream_base::tell() const noexcept
-			-> streamoff
+			-> binary_io::streamoff
 		{
 			return os::ftell(this->_buffer);
 		}
@@ -214,7 +214,7 @@ namespace binary_io
 	void file_istream::read_bytes(std::span<std::byte> a_dst)
 	{
 		if (!os::fread(a_dst, this->_buffer)) {
-			throw buffer_exhausted();
+			throw binary_io::buffer_exhausted();
 		}
 	}
 
@@ -225,7 +225,7 @@ namespace binary_io
 				1,
 				a_src.size_bytes(),
 				this->_buffer) != a_src.size_bytes()) {
-			throw buffer_exhausted();
+			throw binary_io::buffer_exhausted();
 		}
 	}
 }

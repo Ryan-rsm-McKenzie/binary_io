@@ -24,10 +24,10 @@ namespace binary_io
 			[[nodiscard]] auto rdbuf() const noexcept
 				-> const std::FILE* { return this->_buffer; }
 
-			void seek_absolute(streamoff a_pos) noexcept;
-			void seek_relative(streamoff a_off) noexcept;
+			void seek_absolute(binary_io::streamoff a_pos) noexcept;
+			void seek_relative(binary_io::streamoff a_off) noexcept;
 
-			[[nodiscard]] auto tell() const noexcept -> streamoff;
+			[[nodiscard]] auto tell() const noexcept -> binary_io::streamoff;
 
 		protected:
 			file_stream_base(const std::filesystem::path& a_path, const char* a_mode);
@@ -38,12 +38,12 @@ namespace binary_io
 
 	class file_istream final :
 		public detail::basic_istream<
-			file_istream,
+			binary_io::file_istream,
 			detail::file_stream_base>
 	{
 	private:
 		using super = detail::basic_istream<
-			file_istream,
+			binary_io::file_istream,
 			detail::file_stream_base>;
 
 	public:
@@ -58,12 +58,12 @@ namespace binary_io
 
 	class file_ostream final :
 		public detail::basic_ostream<
-			file_ostream,
+			binary_io::file_ostream,
 			detail::file_stream_base>
 	{
 	private:
 		using super = detail::basic_ostream<
-			file_ostream,
+			binary_io::file_ostream,
 			detail::file_stream_base>;
 
 	public:
