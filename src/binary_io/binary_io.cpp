@@ -198,7 +198,11 @@ namespace binary_io
 			case std::filesystem::file_type::none:
 				throw std::system_error{ errno, std::generic_category() };
 			default:
-				throw std::system_error{ ENOENT, std::generic_category(), "file is not a regular file" };
+				throw std::system_error{
+					ENOENT,
+					std::generic_category(),
+					"file is not a regular file"
+				};
 			}
 
 			this->_buffer = os::fopen(a_path.c_str(), a_mode);
