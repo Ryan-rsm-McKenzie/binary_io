@@ -2,7 +2,12 @@ set(ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/..")
 
 set(INCLUDE_DIR "${ROOT_DIR}/include")
 set(HEADER_FILES
+	"${INCLUDE_DIR}/binary_io/any_stream.hpp"
 	"${INCLUDE_DIR}/binary_io/binary_io.hpp"
+	"${INCLUDE_DIR}/binary_io/common.hpp"
+	"${INCLUDE_DIR}/binary_io/file_stream.hpp"
+	"${INCLUDE_DIR}/binary_io/memory_stream.hpp"
+	"${INCLUDE_DIR}/binary_io/span_stream.hpp"
 )
 
 set(SOURCE_DIR "${ROOT_DIR}/src")
