@@ -1,0 +1,12 @@
+{
+  "name": "binary-io",
+  "version-string": "1",
+  "features": {
+    "tests": {
+      "description": "Build tests",
+      "dependencies": [
+        "catch2"
+      ]
+    }
+  }
+}
