@@ -9,6 +9,12 @@
 
 namespace binary_io
 {
+	enum class write_mode
+	{
+		truncate,
+		append
+	};
+
 	namespace detail
 	{
 		class file_stream_base
@@ -69,8 +75,10 @@ namespace binary_io
 	public:
 		using super::super;
 
-		file_ostream(const std::filesystem::path& a_path) :
-			super(a_path, "wb")
+		file_ostream(
+			const std::filesystem::path& a_path,
+			write_mode a_mode = write_mode::truncate) :
+			super(a_path, a_mode == write_mode::truncate ? "wb" : "ab")
 		{}
 
 		void write_bytes(std::span<const std::byte> a_src);
