@@ -13,6 +13,10 @@
 
 #include <catch2/catch.hpp>
 
+#ifdef _WIN32
+#	include <Windows.h>  // ensure windows.h compatibility
+#endif
+
 #include "binary_io/binary_io.hpp"
 
 using namespace std::literals;
