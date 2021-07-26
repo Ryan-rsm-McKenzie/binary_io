@@ -190,7 +190,43 @@ namespace binary_io
 			static_assert(false);
 #endif
 		}
+	}
 
+	template <concepts::integral T>
+	[[nodiscard]] T read(
+		std::span<const std::byte, sizeof(T)> a_src,
+		std::endian a_endian)
+	{
+		switch (a_endian) {
+		case std::endian::little:
+			return endian::load<std::endian::little, T>(a_src);
+		case std::endian::big:
+			return endian::load<std::endian::big, T>(a_src);
+		default:
+			detail::declare_unreachable();
+		}
+	}
+
+	template <concepts::integral T>
+	void write(
+		std::span<std::byte, sizeof(T)> a_dst,
+		T a_value,
+		std::endian a_endian)
+	{
+		switch (a_endian) {
+		case std::endian::little:
+			endian::store<std::endian::little>(a_dst, a_value);
+			break;
+		case std::endian::big:
+			endian::store<std::endian::big>(a_dst, a_value);
+			break;
+		default:
+			detail::declare_unreachable();
+		}
+	}
+
+	namespace detail
+	{
 		class basic_seek_stream
 		{
 		public:
@@ -223,14 +259,7 @@ namespace binary_io
 				const auto bytes = std::span{ buffer };
 				this->derive()->read_bytes(bytes);
 
-				switch (a_endian) {
-				case std::endian::little:
-					return endian::load<std::endian::little, T>(bytes);
-				case std::endian::big:
-					return endian::load<std::endian::big, T>(bytes);
-				default:
-					detail::declare_unreachable();
-				}
+				return binary_io::read<T>(bytes, a_endian);
 			}
 
 		private:
@@ -262,18 +291,8 @@ namespace binary_io
 				std::array<std::byte, sizeof(T)> buffer{};
 				const auto bytes = std::span{ buffer };
 
-				switch (a_endian) {
-				case std::endian::little:
-					endian::store<std::endian::little>(bytes, a_value);
-					break;
-				case std::endian::big:
-					endian::store<std::endian::big>(bytes, a_value);
-					break;
-				default:
-					detail::declare_unreachable();
-				}
-
-				this->derive()->write_bytes(std::as_bytes(bytes));
+				binary_io::write(bytes, a_value, a_endian);
+				this->derive()->write_bytes(bytes);
 			}
 
 		private:
@@ -310,4 +329,5 @@ namespace binary_io
 			binary_io::exception("input buffer has been exhausted")
 		{}
 	};
+
 }
