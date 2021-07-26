@@ -113,7 +113,7 @@ namespace binary_io
 			{
 #if BINARY_IO_OS_WINDOWS
 				if constexpr (sizeof(void*) == 8)
-					return ::_fseeki64(a_stream, a_offset, a_origin);
+					return ::_fseeki64(a_stream, static_cast<__int64>(a_offset), a_origin);
 				else
 #endif
 					return std::fseek(a_stream, static_cast<long>(a_offset), a_origin);
@@ -124,10 +124,10 @@ namespace binary_io
 			{
 #if BINARY_IO_OS_WINDOWS
 				if constexpr (sizeof(void*) == 8)
-					return ::_ftelli64(a_stream);
+					return static_cast<std::ptrdiff_t>(::_ftelli64(a_stream));
 				else
 #endif
-					return std::ftell(a_stream);
+					return static_cast<std::ptrdiff_t>(std::ftell(a_stream));
 			}
 		}
 	}
@@ -184,7 +184,7 @@ namespace binary_io
 		auto file_stream_base::tell() const noexcept
 			-> binary_io::streamoff
 		{
-			return os::ftell(this->_buffer);
+			return static_cast<binary_io::streamoff>(os::ftell(this->_buffer));
 		}
 
 		file_stream_base::file_stream_base(
