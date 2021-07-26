@@ -62,7 +62,13 @@ TEST_CASE("read/write")
 			REQUIRE(a_stream.template read<std::uint64_t>(std::endian::big) == 0x0102030405060708);
 		}
 
+		a_stream.seek_absolute(0);
+		a_stream.seek_relative(-1);
+		REQUIRE(a_stream.tell() == -1);
+		REQUIRE_THROWS(a_stream.template read<std::uint32_t>(a_endian));
+
 		a_stream.seek_absolute(-1);
+		REQUIRE(a_stream.tell() == -1);
 		REQUIRE_THROWS(a_stream.template read<std::uint32_t>(a_endian));
 	};
 
@@ -79,7 +85,13 @@ TEST_CASE("read/write")
 			a_stream.template write<std::uint64_t>(0x0102030405060708, std::endian::big);
 		}
 
+		a_stream.seek_absolute(0);
+		a_stream.seek_relative(-1);
+		REQUIRE(a_stream.tell() == -1);
+		REQUIRE_THROWS(a_stream.template write<std::uint32_t>(42, a_endian));
+
 		a_stream.seek_absolute(-1);
+		REQUIRE(a_stream.tell() == -1);
 		REQUIRE_THROWS(a_stream.template write<std::uint32_t>(42, a_endian));
 	};
 
