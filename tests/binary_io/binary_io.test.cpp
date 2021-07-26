@@ -47,29 +47,29 @@ TEST_CASE("read/write")
 
 	const auto read = [](auto& a_stream, std::endian a_endian) {
 		if (a_endian == std::endian::little) {
-			REQUIRE(a_stream.read<std::uint8_t>(std::endian::little) == 0x01);
-			REQUIRE(a_stream.read<std::uint16_t>(std::endian::little) == 0x0201);
-			REQUIRE(a_stream.read<std::uint32_t>(std::endian::little) == 0x04030201);
-			REQUIRE(a_stream.read<std::uint64_t>(std::endian::little) == 0x0807060504030201);
+			REQUIRE(a_stream.template read<std::uint8_t>(std::endian::little) == 0x01);
+			REQUIRE(a_stream.template read<std::uint16_t>(std::endian::little) == 0x0201);
+			REQUIRE(a_stream.template read<std::uint32_t>(std::endian::little) == 0x04030201);
+			REQUIRE(a_stream.template read<std::uint64_t>(std::endian::little) == 0x0807060504030201);
 		} else {
-			REQUIRE(a_stream.read<std::uint8_t>(std::endian::big) == 0x01);
-			REQUIRE(a_stream.read<std::uint16_t>(std::endian::big) == 0x0102);
-			REQUIRE(a_stream.read<std::uint32_t>(std::endian::big) == 0x01020304);
-			REQUIRE(a_stream.read<std::uint64_t>(std::endian::big) == 0x0102030405060708);
+			REQUIRE(a_stream.template read<std::uint8_t>(std::endian::big) == 0x01);
+			REQUIRE(a_stream.template read<std::uint16_t>(std::endian::big) == 0x0102);
+			REQUIRE(a_stream.template read<std::uint32_t>(std::endian::big) == 0x01020304);
+			REQUIRE(a_stream.template read<std::uint64_t>(std::endian::big) == 0x0102030405060708);
 		}
 	};
 
 	const auto write = [](auto& a_stream, std::endian a_endian) {
 		if (a_endian == std::endian::little) {
-			a_stream.write<std::uint8_t>(0x01, std::endian::little);
-			a_stream.write<std::uint16_t>(0x0201, std::endian::little);
-			a_stream.write<std::uint32_t>(0x04030201, std::endian::little);
-			a_stream.write<std::uint64_t>(0x0807060504030201, std::endian::little);
+			a_stream.template write<std::uint8_t>(0x01, std::endian::little);
+			a_stream.template write<std::uint16_t>(0x0201, std::endian::little);
+			a_stream.template write<std::uint32_t>(0x04030201, std::endian::little);
+			a_stream.template write<std::uint64_t>(0x0807060504030201, std::endian::little);
 		} else {
-			a_stream.write<std::uint8_t>(0x01, std::endian::big);
-			a_stream.write<std::uint16_t>(0x0102, std::endian::big);
-			a_stream.write<std::uint32_t>(0x01020304, std::endian::big);
-			a_stream.write<std::uint64_t>(0x0102030405060708, std::endian::big);
+			a_stream.template write<std::uint8_t>(0x01, std::endian::big);
+			a_stream.template write<std::uint16_t>(0x0102, std::endian::big);
+			a_stream.template write<std::uint32_t>(0x01020304, std::endian::big);
+			a_stream.template write<std::uint64_t>(0x0102030405060708, std::endian::big);
 		}
 	};
 
@@ -77,7 +77,6 @@ TEST_CASE("read/write")
 	{
 		SECTION("input")
 		{
-			std::array<std::byte, payload.size()> dst{};
 			binary_io::span_istream s{ payload };
 
 			read(s, std::endian::little);

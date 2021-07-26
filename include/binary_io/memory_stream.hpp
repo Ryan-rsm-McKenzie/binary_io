@@ -41,7 +41,7 @@ namespace binary_io
 
 			template <class... Args>
 			basic_memory_stream_base(std::in_place_t, Args&&... a_args)  //
-				noexcept(std::is_nothrow_constructible_v<container_type, Args&&>) :
+				noexcept(std::is_nothrow_constructible_v<container_type, Args&&...>) :
 				_buffer(std::forward<Args>(a_args)...)
 			{}
 
