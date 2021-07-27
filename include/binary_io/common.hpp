@@ -72,21 +72,23 @@ namespace binary_io
 	{
 		template <class T>
 		concept integral =
-			std::is_enum_v<T> ||
+			!std::same_as<T, std::endian> &&
+			(  //
+				std::is_enum_v<T> ||
 
-			std::same_as<T, char> ||
+				std::same_as<T, char> ||
 
-			std::same_as<T, signed char> ||
-			std::same_as<T, signed short int> ||
-			std::same_as<T, signed int> ||
-			std::same_as<T, signed long int> ||
-			std::same_as<T, signed long long int> ||
+				std::same_as<T, signed char> ||
+				std::same_as<T, signed short int> ||
+				std::same_as<T, signed int> ||
+				std::same_as<T, signed long int> ||
+				std::same_as<T, signed long long int> ||
 
-			std::same_as<T, unsigned char> ||
-			std::same_as<T, unsigned short int> ||
-			std::same_as<T, unsigned int> ||
-			std::same_as<T, unsigned long int> ||
-			std::same_as<T, unsigned long long int>;
+				std::same_as<T, unsigned char> ||
+				std::same_as<T, unsigned short int> ||
+				std::same_as<T, unsigned int> ||
+				std::same_as<T, unsigned long int> ||
+				std::same_as<T, unsigned long long int>);
 
 		template <class T>
 		concept resizable =
@@ -272,6 +274,12 @@ namespace binary_io
 		public:
 			using super::super;
 
+			template <class T>
+			[[nodiscard]] T read()
+			{
+				return this->read<T>(this->_endian);
+			}
+
 			template <concepts::integral T>
 			[[nodiscard]] T read(std::endian a_endian)
 			{
@@ -281,7 +289,7 @@ namespace binary_io
 				} else {
 					std::array<std::byte, sizeof(T)> buffer{};
 					const auto bytes = std::span{ buffer };
-					this->derive()->read_bytes(bytes);
+					this->derive().read_bytes(bytes);
 					return binary_io::read<T>(bytes, a_endian);
 				}
 			}
@@ -291,16 +299,35 @@ namespace binary_io
 				[[nodiscard]] auto read_bytes()
 					-> std::span<const std::byte, N>
 			{
-				return this->derive()->read_bytes(N).subspan<0, N>();
+				return this->derive().read_bytes(N).subspan<0, N>();
+			}
+
+			friend derived_type& operator>>(
+				derived_type& a_in,
+				std::endian a_endian)
+			{
+				a_in._endian = a_endian;
+				return a_in.derive();
+			}
+
+			template <concepts::integral T>
+			friend derived_type& operator>>(
+				derived_type& a_in,
+				T& a_value)
+			{
+				a_value = a_in.template read<T>();
+				return a_in.derive();
 			}
 
 		private:
 			[[nodiscard]] auto derive() noexcept
-				-> derived_type* { return static_cast<derived_type*>(this); }
+				-> derived_type& { return static_cast<derived_type&>(*this); }
 			[[nodiscard]] auto derive() const noexcept
-				-> const derived_type* { return static_cast<const derived_type*>(this); }
+				-> const derived_type& { return static_cast<const derived_type&>(*this); }
 			[[nodiscard]] auto cderive() const noexcept
-				-> const derived_type* { return static_cast<const derived_type*>(this); }
+				-> const derived_type& { return static_cast<const derived_type&>(*this); }
+
+			std::endian _endian{ std::endian::native };
 		};
 
 		template <
@@ -311,9 +338,16 @@ namespace binary_io
 		{
 		private:
 			using super = Seeker;
+			using derived_type = Derived;
 
 		public:
 			using super::super;
+
+			template <class T>
+			void write(T&& a_value)
+			{
+				this->write(std::forward<T>(a_value), this->_endian);
+			}
 
 			template <concepts::integral T>
 			void write(T a_value, std::endian a_endian)
@@ -322,18 +356,35 @@ namespace binary_io
 				const auto bytes = std::span{ buffer };
 
 				binary_io::write(bytes, a_value, a_endian);
-				this->derive()->write_bytes(bytes);
+				this->derive().write_bytes(bytes);
+			}
+
+			friend derived_type& operator<<(
+				derived_type& a_out,
+				std::endian a_endian) noexcept
+			{
+				a_out._endian = a_endian;
+				return a_out.derive();
+			}
+
+			template <concepts::integral T>
+			friend derived_type& operator<<(
+				derived_type& a_out,
+				T a_value) noexcept
+			{
+				a_out.write(a_value);
+				return a_out.derive();
 			}
 
 		private:
-			using derived_type = Derived;
-
 			[[nodiscard]] auto derive() noexcept
-				-> derived_type* { return static_cast<derived_type*>(this); }
+				-> derived_type& { return static_cast<derived_type&>(*this); }
 			[[nodiscard]] auto derive() const noexcept
-				-> const derived_type* { return static_cast<const derived_type*>(this); }
+				-> const derived_type& { return static_cast<const derived_type&>(*this); }
 			[[nodiscard]] auto cderive() const noexcept
-				-> const derived_type* { return static_cast<const derived_type*>(this); }
+				-> const derived_type& { return static_cast<const derived_type&>(*this); }
+
+			std::endian _endian{ std::endian::native };
 		};
 	}
 
