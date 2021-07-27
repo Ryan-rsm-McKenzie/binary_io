@@ -46,6 +46,7 @@ namespace binary_io
 	public:
 		using super::super;
 		void read_bytes(std::span<std::byte> a_dst);
+		[[nodiscard]] auto read_bytes(std::size_t a_count) -> std::span<const std::byte>;
 	};
 
 	class span_ostream final :

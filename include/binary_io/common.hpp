@@ -121,6 +121,16 @@ namespace binary_io
 		{
 			{ a_ref.write_bytes(a_bytes) };
 		};
+
+		template <class T>
+		concept no_copy_input_stream =
+			input_stream<T> &&
+			requires(T& a_ref, std::size_t a_count)
+		{
+			// clang-format off
+			{ a_ref.read_bytes(a_count) } -> std::same_as<std::span<const std::byte>>;
+			// clang-format on
+		};
 	}
 
 	namespace type_traits
@@ -257,6 +267,7 @@ namespace binary_io
 		{
 		private:
 			using super = Seeker;
+			using derived_type = Derived;
 
 		public:
 			using super::super;
@@ -264,16 +275,26 @@ namespace binary_io
 			template <concepts::integral T>
 			[[nodiscard]] T read(std::endian a_endian)
 			{
-				std::array<std::byte, sizeof(T)> buffer{};
-				const auto bytes = std::span{ buffer };
-				this->derive()->read_bytes(bytes);
+				if constexpr (concepts::no_copy_input_stream<derived_type>) {
+					const auto bytes = this->read_bytes<sizeof(T)>();
+					return binary_io::read<T>(bytes, a_endian);
+				} else {
+					std::array<std::byte, sizeof(T)> buffer{};
+					const auto bytes = std::span{ buffer };
+					this->derive()->read_bytes(bytes);
+					return binary_io::read<T>(bytes, a_endian);
+				}
+			}
 
-				return binary_io::read<T>(bytes, a_endian);
+			template <std::size_t N>
+			requires(concepts::no_copy_input_stream<derived_type>)
+				[[nodiscard]] auto read_bytes()
+					-> std::span<const std::byte, N>
+			{
+				return this->derive()->read_bytes(N).subspan<0, N>();
 			}
 
 		private:
-			using derived_type = Derived;
-
 			[[nodiscard]] auto derive() noexcept
 				-> derived_type* { return static_cast<derived_type*>(this); }
 			[[nodiscard]] auto derive() const noexcept
