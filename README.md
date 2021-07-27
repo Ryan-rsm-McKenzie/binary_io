@@ -39,26 +39,25 @@ struct local_file_header
 int main()
 {
 	binary_io::file_istream in{ "example.zip" };
-	const auto read_int = [&]<class T>(T& a_value) {
-		a_value = in.read<T>(std::endian::little);
-	};
 	const auto read_string = [&](std::string& a_dst, std::size_t a_len) {
 		a_dst.resize(a_len);
 		in.read_bytes(std::as_writable_bytes(std::span{ a_dst.data(), a_dst.size() }));
 	};
 
 	local_file_header h;
-	read_int(h.local_file_header_signature);
-	read_int(h.version_needed_to_extract);
-	read_int(h.general_purpose_bit_flag);
-	read_int(h.compression_method);
-	read_int(h.file_last_modification_time);
-	read_int(h.file_last_modification_date);
-	read_int(h.crc_32_of_uncompressed_data);
-	read_int(h.compressed_size);
-	read_int(h.uncompressed_size);
-	read_int(h.file_name_length);
-	read_int(h.extra_field_length);
+	in >>
+		std::endian::little >>
+		h.local_file_header_signature >>
+		h.version_needed_to_extract >>
+		h.general_purpose_bit_flag >>
+		h.compression_method >>
+		h.file_last_modification_time >>
+		h.file_last_modification_date >>
+		h.crc_32_of_uncompressed_data >>
+		h.compressed_size >>
+		h.uncompressed_size >>
+		h.file_name_length >>
+		h.extra_field_length;
 	read_string(h.file_name, h.file_name_length);
 	read_string(h.extra_field, h.extra_field_length);
 
