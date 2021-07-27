@@ -299,7 +299,7 @@ namespace binary_io
 				[[nodiscard]] auto read_bytes()
 					-> std::span<const std::byte, N>
 			{
-				return this->derive().read_bytes(N).subspan<0, N>();
+				return this->derive().read_bytes(N).template subspan<0, N>();
 			}
 
 			friend derived_type& operator>>(
