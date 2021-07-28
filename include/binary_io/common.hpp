@@ -274,7 +274,7 @@ namespace binary_io
 		public:
 			using super::super;
 
-			template <class T>
+			template <concepts::integral T>
 			[[nodiscard]] T read()
 			{
 				return this->read<T>(this->_endian);
@@ -283,14 +283,29 @@ namespace binary_io
 			template <concepts::integral T>
 			[[nodiscard]] T read(std::endian a_endian)
 			{
+				auto value = T();
+				this->read(a_endian, value);
+				return value;
+			}
+
+			template <concepts::integral... Args>
+			void read(Args&... a_args)
+			{
+				this->read(this->_endian, a_args...);
+			}
+
+			template <concepts::integral... Args>
+			void read(std::endian a_endian, Args&... a_args)
+			{
+				constexpr auto size = (sizeof(a_args) + ...);
 				if constexpr (concepts::no_copy_input_stream<derived_type>) {
-					const auto bytes = this->read_bytes<sizeof(T)>();
-					return binary_io::read<T>(bytes, a_endian);
+					const auto bytes = this->read_bytes<size>();
+					this->do_read(bytes, a_endian, a_args...);
 				} else {
-					std::array<std::byte, sizeof(T)> buffer{};
+					std::array<std::byte, size> buffer{};
 					const auto bytes = std::span{ buffer };
 					this->derive().read_bytes(bytes);
-					return binary_io::read<T>(bytes, a_endian);
+					this->do_read(bytes, a_endian, a_args...);
 				}
 			}
 
@@ -327,6 +342,20 @@ namespace binary_io
 			[[nodiscard]] auto cderive() const noexcept
 				-> const derived_type& { return static_cast<const derived_type&>(*this); }
 
+			template <concepts::integral... Args>
+			void do_read(
+				std::span<const std::byte> a_bytes,
+				std::endian a_endian,
+				Args&... a_args)
+			{
+				std::size_t offset = 0;
+				((a_args = binary_io::read<Args>(
+					  a_bytes.subspan(offset, sizeof(Args)).subspan<0, sizeof(Args)>(),
+					  a_endian),
+					 offset += sizeof(Args)),
+					...);
+			}
+
 			std::endian _endian{ std::endian::native };
 		};
 
@@ -343,19 +372,27 @@ namespace binary_io
 		public:
 			using super::super;
 
-			template <class T>
-			void write(T&& a_value)
+			template <concepts::integral... Args>
+			void write(Args... a_args)
 			{
-				this->write(std::forward<T>(a_value), this->_endian);
+				this->write(this->_endian, a_args...);
 			}
 
-			template <concepts::integral T>
-			void write(T a_value, std::endian a_endian)
+			template <concepts::integral... Args>
+			void write(std::endian a_endian, Args... a_args)
 			{
-				std::array<std::byte, sizeof(T)> buffer{};
+				constexpr auto size = (sizeof(Args) + ...);
+				std::array<std::byte, size> buffer{};
 				const auto bytes = std::span{ buffer };
 
-				binary_io::write(bytes, a_value, a_endian);
+				std::size_t offset = 0;
+				((binary_io::write(
+					  bytes.subspan(offset, sizeof(Args)).subspan<0, sizeof(Args)>(),
+					  a_args,
+					  a_endian),
+					 offset += sizeof(Args)),
+					...);
+
 				this->derive().write_bytes(bytes);
 			}
 
