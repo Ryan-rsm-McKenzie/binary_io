@@ -387,7 +387,7 @@ namespace binary_io
 
 				std::size_t offset = 0;
 				((binary_io::write(
-					  bytes.subspan(offset, sizeof(Args)).subspan<0, sizeof(Args)>(),
+					  bytes.subspan(offset, sizeof(Args)).template subspan<0, sizeof(Args)>(),
 					  a_args,
 					  a_endian),
 					 offset += sizeof(Args)),
