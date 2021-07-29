@@ -135,7 +135,7 @@ namespace binary_io
 		};
 	}
 
-	namespace type_traits
+	namespace detail::type_traits
 	{
 		template <class T>
 		using integral_type = std::conditional_t<
@@ -152,7 +152,7 @@ namespace binary_io
 		template <concepts::integral T>
 		[[nodiscard]] T reverse(T a_value) noexcept
 		{
-			using integral_t = type_traits::integral_type_t<T>;
+			using integral_t = detail::type_traits::integral_type_t<T>;
 			const auto value = static_cast<integral_t>(a_value);
 			if constexpr (sizeof(T) == 1) {
 				return static_cast<T>(value);
@@ -239,7 +239,7 @@ namespace binary_io
 		}
 	}
 
-	namespace detail
+	namespace components
 	{
 		class basic_seek_stream
 		{

@@ -7,14 +7,14 @@
 
 namespace binary_io
 {
-	namespace detail
+	namespace components
 	{
 		template <class T>
 		class span_stream_base :
-			public detail::basic_seek_stream
+			public components::basic_seek_stream
 		{
 		private:
-			using super = detail::basic_seek_stream;
+			using super = components::basic_seek_stream;
 
 		public:
 			using super::super;
@@ -34,11 +34,11 @@ namespace binary_io
 	}
 
 	class span_istream final :
-		public detail::span_stream_base<const std::byte>,
+		public components::span_stream_base<const std::byte>,
 		public binary_io::istream_interface<span_istream>
 	{
 	private:
-		using super = detail::span_stream_base<const std::byte>;
+		using super = components::span_stream_base<const std::byte>;
 
 	public:
 		using super::super;
@@ -47,11 +47,11 @@ namespace binary_io
 	};
 
 	class span_ostream final :
-		public detail::span_stream_base<std::byte>,
+		public components::span_stream_base<std::byte>,
 		public binary_io::ostream_interface<span_ostream>
 	{
 	private:
-		using super = detail::span_stream_base<std::byte>;
+		using super = components::span_stream_base<std::byte>;
 
 	public:
 		using super::super;

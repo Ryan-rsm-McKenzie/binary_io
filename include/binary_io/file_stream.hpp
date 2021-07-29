@@ -15,7 +15,7 @@ namespace binary_io
 		append
 	};
 
-	namespace detail
+	namespace components
 	{
 		class file_stream_base
 		{
@@ -43,11 +43,11 @@ namespace binary_io
 	}
 
 	class file_istream final :
-		public detail::file_stream_base,
+		public components::file_stream_base,
 		public binary_io::istream_interface<binary_io::file_istream>
 	{
 	private:
-		using super = detail::file_stream_base;
+		using super = components::file_stream_base;
 
 	public:
 		using super::super;
@@ -60,11 +60,11 @@ namespace binary_io
 	};
 
 	class file_ostream final :
-		public detail::file_stream_base,
+		public components::file_stream_base,
 		public binary_io::ostream_interface<binary_io::file_ostream>
 	{
 	private:
-		using super = detail::file_stream_base;
+		using super = components::file_stream_base;
 
 	public:
 		using super::super;

@@ -172,7 +172,7 @@ namespace binary_io
 			a_src.size_bytes());
 	}
 
-	namespace detail
+	namespace components
 	{
 		file_stream_base::~file_stream_base() noexcept
 		{
