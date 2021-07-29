@@ -4,6 +4,7 @@
 #include <array>
 #include <bit>
 #include <cassert>
+#include <climits>
 #include <concepts>
 #include <cstddef>
 #include <cstring>
@@ -11,6 +12,11 @@
 #include <new>
 #include <span>
 #include <type_traits>
+
+static_assert(CHAR_BIT == 8, "unsupported platform");
+static_assert(
+	std::endian::native == std::endian::little || std::endian::native == std::endian::big,
+	"unsupported platform");
 
 #if defined(__clang__)
 #	define BINARY_IO_COMP_CLANG true
