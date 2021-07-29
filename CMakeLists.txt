@@ -21,3 +21,8 @@ if(BUILD_TESTING)
 	include(Catch)
 	add_subdirectory(tests)
 endif()
+
+option(BINARY_IO_BUILD_DOCS "whether we should build documentation" OFF)
+if(BINARY_IO_BUILD_DOCS)
+	add_subdirectory(docs)
+endif()

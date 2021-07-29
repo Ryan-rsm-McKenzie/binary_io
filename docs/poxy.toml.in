@@ -1,0 +1,33 @@
+author = 'Ryan McKenzie'
+cpp = 20
+github = 'Ryan-rsm-McKenzie/binary_io'
+license = [ 'MIT', 'https://github.com/Ryan-rsm-McKenzie/binary_io/blob/main/LICENSE' ]
+name = 'binary_io'
+navbar = [ 'classes', 'namespaces' ]
+
+[badges]
+'build' = [
+	'https://img.shields.io/github/workflow/status/Ryan-rsm-McKenzie/binary_io/Main%20CI?logo=github&style=flat-square',
+	'https://github.com/Ryan-rsm-McKenzie/binary_io/actions/workflows/main_ci.yml'
+]
+'codecov' = [
+	'https://img.shields.io/codecov/c/github/Ryan-rsm-McKenzie/binary_io?logo=codecov&logoColor=white&style=flat-square',
+	'https://app.codecov.io/gh/Ryan-rsm-McKenzie/binary_io'
+]
+'platform' = [
+	'https://img.shields.io/static/v1?label=platform&message=windows%20|%20linux&color=dimgray&style=flat-square',
+	'#'
+]
+
+[macros]
+'protected' = 'private'
+'BINARY_IO_VISIBLE' = ''
+
+[sources]
+extract_all = true
+paths = [ '@DOCS_DIR@/index.doxy' ]
+recursive_paths = [ '@INCLUDE_DIR@' ]
+strip_paths = [ '@INCLUDE_DIR@' ]
+
+[warnings]
+treat_as_errors = true
