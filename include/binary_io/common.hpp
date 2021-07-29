@@ -72,10 +72,12 @@ static_assert(
 
 namespace binary_io
 {
+	/// \brief An integral type which can be used to seek any stream.
 	using streamoff = long long;
 
 	namespace concepts
 	{
+		/// \brief Constraint for basic integer types or enums.
 		template <class T>
 		concept integral =
 			!std::same_as<T, std::endian> &&
@@ -96,6 +98,11 @@ namespace binary_io
 				std::same_as<T, unsigned long int> ||
 				std::same_as<T, unsigned long long int>);
 
+		/// \brief A constraint for container types which can be resized.
+		///
+		/// \remark
+		/// * `T` must provide the following methods:
+		///		* `void resize(T::size_type)`
 		template <class T>
 		concept resizable =
 			requires(T a_container, typename T::size_type a_count)
@@ -103,6 +110,13 @@ namespace binary_io
 			{ a_container.resize(a_count) };
 		};
 
+		/// \brief A constraint for streams which meet the seekable stream interface.
+		///
+		/// \remark
+		/// * `T` must provide the following methods:
+		///		* `void seek_absolute(binary_io::streamoff)`
+		///		* `void seek_relative(binary_io::streamoff)`
+		///		* `binary_io::streamoff tell() const`
 		template <class T>
 		concept seekable_stream =
 			requires(T& a_ref, const T& a_cref, binary_io::streamoff a_off)
@@ -114,6 +128,12 @@ namespace binary_io
 			// clang-format on
 		};
 
+		/// \brief A constraint for streams which meet the input stream interface.
+		///
+		/// \remark
+		/// * `T` must meet the requirements of \ref seekable_stream.
+		/// * Additionally, `T` must provide the following methods:
+		///		* `void read_bytes(std::span<std::byte>)`
 		template <class T>
 		concept input_stream =
 			seekable_stream<T> &&
@@ -122,6 +142,12 @@ namespace binary_io
 			{ a_ref.read_bytes(a_bytes) };
 		};
 
+		/// \brief A constraint for streams which meet the output stream interface.
+		///
+		/// \remark
+		/// * `T` must meet the requirements of \ref seekable_stream.
+		/// * Additionally, `T` must provide the following methods:
+		///		* `void write_bytes(std::span<const std::byte>)`
 		template <class T>
 		concept output_stream =
 			seekable_stream<T> &&
@@ -130,6 +156,12 @@ namespace binary_io
 			{ a_ref.write_bytes(a_bytes) };
 		};
 
+		/// \brief A constraint for streams which provide a `read_bytes` overload which doesn't
+		///		require an intermediate copy.
+		///
+		/// \remark
+		/// * `T` must provide the following methods:
+		///		* `std::span<const std::byte> read_bytes(std::size_t a_count)`
 		template <class T>
 		concept no_copy_input_stream =
 			input_stream<T> &&
@@ -141,6 +173,7 @@ namespace binary_io
 		};
 	}
 
+#ifndef DOXYGEN
 	namespace detail::type_traits
 	{
 		template <class T>
@@ -152,9 +185,11 @@ namespace binary_io
 		template <class T>
 		using integral_type_t = typename integral_type<T>::type;
 	}
+#endif
 
 	namespace endian
 	{
+		/// \brief Reverses the endian format of a given input.
 		template <concepts::integral T>
 		[[nodiscard]] T reverse(T a_value) noexcept
 		{
@@ -173,6 +208,11 @@ namespace binary_io
 			}
 		}
 
+		/// \brief Loads the given type from the given buffer, with the given endian format,
+		///		into the native endian format.
+		///
+		/// \param a_src The buffer to load from.
+		/// \return The value loaded from the given buffer.
 		template <std::endian E, concepts::integral T>
 		[[nodiscard]] T load(std::span<const std::byte, sizeof(T)> a_src) noexcept
 		{
@@ -186,6 +226,11 @@ namespace binary_io
 			}
 		}
 
+		/// \brief Stores the given type into the given buffer, from the native endian format
+		///		into the given endian format.
+		///
+		/// \param a_dst The buffer to store into.
+		/// \param a_value The value to be stored.
 		template <std::endian E, concepts::integral T>
 		void store(std::span<std::byte, sizeof(T)> a_dst, T a_value) noexcept
 		{
@@ -197,21 +242,26 @@ namespace binary_io
 		}
 	}
 
+#ifndef DOXYGEN
 	namespace detail
 	{
 		[[noreturn]] inline void declare_unreachable()
 		{
 			assert(false);
-#if BINARY_IO_COMP_GNUC || BINARY_IO_COMP_CLANG
+#	if BINARY_IO_COMP_GNUC || BINARY_IO_COMP_CLANG
 			__builtin_unreachable();
-#elif BINARY_IO_COMP_MSVC || BINARY_IO_COMP_EDG
+#	elif BINARY_IO_COMP_MSVC || BINARY_IO_COMP_EDG
 			__assume(false);
-#else
+#	else
 			static_assert(false, "unsupported compiler");
-#endif
+#	endif
 		}
 	}
+#endif
 
+	/// \copydoc endian::load()
+	///
+	/// \param a_endian The endian format the given value is stored in.
 	template <concepts::integral T>
 	[[nodiscard]] T read(
 		std::span<const std::byte, sizeof(T)> a_src,
@@ -227,6 +277,9 @@ namespace binary_io
 		}
 	}
 
+	/// \copydoc endian::store()
+	///
+	/// \param a_endian The endian format to store the given value in.
 	template <concepts::integral T>
 	void write(
 		std::span<std::byte, sizeof(T)> a_dst,
@@ -247,19 +300,27 @@ namespace binary_io
 
 	namespace components
 	{
+		/// \brief Defines the basic seeking methods required for every stream.
 		class basic_seek_stream
 		{
 		public:
+			/// \brief Seek to an absolute position in the stream (i.e. from the beginning).
+			///
+			/// \param a_pos The absolute position to seek to.
 			void seek_absolute(binary_io::streamoff a_pos) noexcept
 			{
 				this->_pos = std::max<binary_io::streamoff>(a_pos, 0);
 			}
 
+			/// \brief Seek to a position in the stream relative to the current position.
+			///
+			/// \param a_off The offset to seek to.
 			void seek_relative(binary_io::streamoff a_off) noexcept
 			{
 				this->seek_absolute(this->_pos + a_off);
 			}
 
+			/// \brief Gets the current stream position.
 			[[nodiscard]] auto tell() const noexcept
 				-> binary_io::streamoff { return this->_pos; }
 
@@ -268,6 +329,9 @@ namespace binary_io
 		};
 	}
 
+	/// \brief A CRTP utility which can be used to flesh out the interface of a given stream.
+	///
+	/// \tparam Derived A stream type which meets the requirements of \ref concepts::input_stream.
 	template <class Derived>
 	class istream_interface
 	{
