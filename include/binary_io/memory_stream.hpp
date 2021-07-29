@@ -64,14 +64,11 @@ namespace binary_io
 
 	template <class Container>
 	class basic_memory_istream final :
-		public detail::basic_istream<
-			binary_io::basic_memory_istream<Container>,
-			detail::basic_memory_stream_base<Container>>
+		public detail::basic_memory_stream_base<Container>,
+		public binary_io::istream_interface<basic_memory_istream<Container>>
 	{
 	private:
-		using super = detail::basic_istream<
-			binary_io::basic_memory_istream<Container>,
-			detail::basic_memory_stream_base<Container>>;
+		using super = detail::basic_memory_stream_base<Container>;
 
 	public:
 		using super::super;
@@ -104,14 +101,11 @@ namespace binary_io
 
 	template <class Container>
 	class basic_memory_ostream final :
-		public detail::basic_ostream<
-			binary_io::basic_memory_ostream<Container>,
-			detail::basic_memory_stream_base<Container>>
+		public detail::basic_memory_stream_base<Container>,
+		public binary_io::ostream_interface<basic_memory_ostream<Container>>
 	{
 	private:
-		using super = detail::basic_ostream<
-			binary_io::basic_memory_ostream<Container>,
-			detail::basic_memory_stream_base<Container>>;
+		using super = detail::basic_memory_stream_base<Container>;
 
 	public:
 		using container_type = typename super::container_type;

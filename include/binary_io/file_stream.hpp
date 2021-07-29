@@ -43,14 +43,11 @@ namespace binary_io
 	}
 
 	class file_istream final :
-		public detail::basic_istream<
-			binary_io::file_istream,
-			detail::file_stream_base>
+		public detail::file_stream_base,
+		public binary_io::istream_interface<binary_io::file_istream>
 	{
 	private:
-		using super = detail::basic_istream<
-			binary_io::file_istream,
-			detail::file_stream_base>;
+		using super = detail::file_stream_base;
 
 	public:
 		using super::super;
@@ -63,14 +60,11 @@ namespace binary_io
 	};
 
 	class file_ostream final :
-		public detail::basic_ostream<
-			binary_io::file_ostream,
-			detail::file_stream_base>
+		public detail::file_stream_base,
+		public binary_io::ostream_interface<binary_io::file_ostream>
 	{
 	private:
-		using super = detail::basic_ostream<
-			binary_io::file_ostream,
-			detail::file_stream_base>;
+		using super = detail::file_stream_base;
 
 	public:
 		using super::super;

@@ -260,170 +260,158 @@ namespace binary_io
 		private:
 			binary_io::streamoff _pos{ 0 };
 		};
+	}
 
-		template <
-			class Derived,
-			class Seeker>
-		class basic_istream :
-			public Seeker
+	template <class Derived>
+	class istream_interface
+	{
+	private:
+		using derived_type = Derived;
+
+	public:
+		template <concepts::integral T>
+		[[nodiscard]] T read()
 		{
-		private:
-			using super = Seeker;
-			using derived_type = Derived;
+			return this->read<T>(this->_endian);
+		}
 
-		public:
-			using super::super;
-
-			template <concepts::integral T>
-			[[nodiscard]] T read()
-			{
-				return this->read<T>(this->_endian);
-			}
-
-			template <concepts::integral T>
-			[[nodiscard]] T read(std::endian a_endian)
-			{
-				auto value = T();
-				this->read(a_endian, value);
-				return value;
-			}
-
-			template <concepts::integral... Args>
-			void read(Args&... a_args)
-			{
-				this->read(this->_endian, a_args...);
-			}
-
-			template <concepts::integral... Args>
-			void read(std::endian a_endian, Args&... a_args)
-			{
-				constexpr auto size = (sizeof(a_args) + ...);
-				if constexpr (concepts::no_copy_input_stream<derived_type>) {
-					const auto bytes = this->read_bytes<size>();
-					this->do_read(bytes, a_endian, a_args...);
-				} else {
-					std::array<std::byte, size> buffer{};
-					const auto bytes = std::span{ buffer };
-					this->derive().read_bytes(bytes);
-					this->do_read(bytes, a_endian, a_args...);
-				}
-			}
-
-			template <std::size_t N>
-			requires(concepts::no_copy_input_stream<derived_type>)
-				[[nodiscard]] auto read_bytes()
-					-> std::span<const std::byte, N>
-			{
-				return this->derive().read_bytes(N).template subspan<0, N>();
-			}
-
-			friend derived_type& operator>>(
-				derived_type& a_in,
-				std::endian a_endian)
-			{
-				a_in._endian = a_endian;
-				return a_in.derive();
-			}
-
-			template <concepts::integral T>
-			friend derived_type& operator>>(
-				derived_type& a_in,
-				T& a_value)
-			{
-				a_value = a_in.template read<T>();
-				return a_in.derive();
-			}
-
-		private:
-			[[nodiscard]] auto derive() noexcept
-				-> derived_type& { return static_cast<derived_type&>(*this); }
-			[[nodiscard]] auto derive() const noexcept
-				-> const derived_type& { return static_cast<const derived_type&>(*this); }
-			[[nodiscard]] auto cderive() const noexcept
-				-> const derived_type& { return static_cast<const derived_type&>(*this); }
-
-			template <concepts::integral... Args>
-			void do_read(
-				std::span<const std::byte> a_bytes,
-				std::endian a_endian,
-				Args&... a_args)
-			{
-				std::size_t offset = 0;
-				((a_args = binary_io::read<Args>(
-					  a_bytes.subspan(offset, sizeof(Args)).subspan<0, sizeof(Args)>(),
-					  a_endian),
-					 offset += sizeof(Args)),
-					...);
-			}
-
-			std::endian _endian{ std::endian::native };
-		};
-
-		template <
-			class Derived,
-			class Seeker>
-		class basic_ostream :
-			public Seeker
+		template <concepts::integral T>
+		[[nodiscard]] T read(std::endian a_endian)
 		{
-		private:
-			using super = Seeker;
-			using derived_type = Derived;
+			auto value = T();
+			this->read(a_endian, value);
+			return value;
+		}
 
-		public:
-			using super::super;
+		template <concepts::integral... Args>
+		void read(Args&... a_args)
+		{
+			this->read(this->_endian, a_args...);
+		}
 
-			template <concepts::integral... Args>
-			void write(Args... a_args)
-			{
-				this->write(this->_endian, a_args...);
-			}
-
-			template <concepts::integral... Args>
-			void write(std::endian a_endian, Args... a_args)
-			{
-				constexpr auto size = (sizeof(Args) + ...);
+		template <concepts::integral... Args>
+		void read(std::endian a_endian, Args&... a_args)
+		{
+			constexpr auto size = (sizeof(a_args) + ...);
+			if constexpr (concepts::no_copy_input_stream<derived_type>) {
+				const auto bytes = this->read_bytes<size>();
+				this->do_read(bytes, a_endian, a_args...);
+			} else {
 				std::array<std::byte, size> buffer{};
 				const auto bytes = std::span{ buffer };
-
-				std::size_t offset = 0;
-				((binary_io::write(
-					  bytes.subspan(offset, sizeof(Args)).template subspan<0, sizeof(Args)>(),
-					  a_args,
-					  a_endian),
-					 offset += sizeof(Args)),
-					...);
-
-				this->derive().write_bytes(bytes);
+				this->derive().read_bytes(bytes);
+				this->do_read(bytes, a_endian, a_args...);
 			}
+		}
 
-			friend derived_type& operator<<(
-				derived_type& a_out,
-				std::endian a_endian) noexcept
-			{
-				a_out._endian = a_endian;
-				return a_out.derive();
-			}
+		template <std::size_t N>
+		requires(concepts::no_copy_input_stream<derived_type>)
+			[[nodiscard]] auto read_bytes()
+				-> std::span<const std::byte, N>
+		{
+			return this->derive().read_bytes(N).template subspan<0, N>();
+		}
 
-			template <concepts::integral T>
-			friend derived_type& operator<<(
-				derived_type& a_out,
-				T a_value) noexcept
-			{
-				a_out.write(a_value);
-				return a_out.derive();
-			}
+		friend derived_type& operator>>(
+			derived_type& a_in,
+			std::endian a_endian)
+		{
+			a_in._endian = a_endian;
+			return a_in.derive();
+		}
 
-		private:
-			[[nodiscard]] auto derive() noexcept
-				-> derived_type& { return static_cast<derived_type&>(*this); }
-			[[nodiscard]] auto derive() const noexcept
-				-> const derived_type& { return static_cast<const derived_type&>(*this); }
-			[[nodiscard]] auto cderive() const noexcept
-				-> const derived_type& { return static_cast<const derived_type&>(*this); }
+		template <concepts::integral T>
+		friend derived_type& operator>>(
+			derived_type& a_in,
+			T& a_value)
+		{
+			a_value = a_in.template read<T>();
+			return a_in.derive();
+		}
 
-			std::endian _endian{ std::endian::native };
-		};
-	}
+	private:
+		[[nodiscard]] auto derive() noexcept
+			-> derived_type&
+		{
+			static_assert(concepts::input_stream<derived_type>);
+			return static_cast<derived_type&>(*this);
+		}
+
+		template <concepts::integral... Args>
+		void do_read(
+			std::span<const std::byte> a_bytes,
+			std::endian a_endian,
+			Args&... a_args)
+		{
+			std::size_t offset = 0;
+			((a_args = binary_io::read<Args>(
+				  a_bytes.subspan(offset, sizeof(Args)).subspan<0, sizeof(Args)>(),
+				  a_endian),
+				 offset += sizeof(Args)),
+				...);
+		}
+
+		std::endian _endian{ std::endian::native };
+	};
+
+	template <class Derived>
+	class ostream_interface
+	{
+	private:
+		using derived_type = Derived;
+
+	public:
+		template <concepts::integral... Args>
+		void write(Args... a_args)
+		{
+			this->write(this->_endian, a_args...);
+		}
+
+		template <concepts::integral... Args>
+		void write(std::endian a_endian, Args... a_args)
+		{
+			constexpr auto size = (sizeof(Args) + ...);
+			std::array<std::byte, size> buffer{};
+			const auto bytes = std::span{ buffer };
+
+			std::size_t offset = 0;
+			((binary_io::write(
+				  bytes.subspan(offset, sizeof(Args)).template subspan<0, sizeof(Args)>(),
+				  a_args,
+				  a_endian),
+				 offset += sizeof(Args)),
+				...);
+
+			this->derive().write_bytes(bytes);
+		}
+
+		friend derived_type& operator<<(
+			derived_type& a_out,
+			std::endian a_endian) noexcept
+		{
+			a_out._endian = a_endian;
+			return a_out.derive();
+		}
+
+		template <concepts::integral T>
+		friend derived_type& operator<<(
+			derived_type& a_out,
+			T a_value) noexcept
+		{
+			a_out.write(a_value);
+			return a_out.derive();
+		}
+
+	private:
+		[[nodiscard]] auto derive() noexcept
+			-> derived_type&
+		{
+			static_assert(concepts::output_stream<derived_type>);
+			return static_cast<derived_type&>(*this);
+		}
+
+		std::endian _endian{ std::endian::native };
+	};
 
 	class BINARY_IO_VISIBLE exception :
 		public std::exception

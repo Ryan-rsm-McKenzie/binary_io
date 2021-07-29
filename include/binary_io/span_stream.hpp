@@ -34,14 +34,11 @@ namespace binary_io
 	}
 
 	class span_istream final :
-		public detail::basic_istream<
-			binary_io::span_istream,
-			detail::span_stream_base<const std::byte>>
+		public detail::span_stream_base<const std::byte>,
+		public binary_io::istream_interface<span_istream>
 	{
 	private:
-		using super = detail::basic_istream<
-			binary_io::span_istream,
-			detail::span_stream_base<const std::byte>>;
+		using super = detail::span_stream_base<const std::byte>;
 
 	public:
 		using super::super;
@@ -50,14 +47,11 @@ namespace binary_io
 	};
 
 	class span_ostream final :
-		public detail::basic_ostream<
-			binary_io::span_ostream,
-			detail::span_stream_base<std::byte>>
+		public detail::span_stream_base<std::byte>,
+		public binary_io::ostream_interface<span_ostream>
 	{
 	private:
-		using super = detail::basic_ostream<
-			binary_io::span_ostream,
-			detail::span_stream_base<std::byte>>;
+		using super = detail::span_stream_base<std::byte>;
 
 	public:
 		using super::super;

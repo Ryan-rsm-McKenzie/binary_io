@@ -132,18 +132,15 @@ namespace binary_io
 	}
 
 	class any_istream final :
-		public detail::basic_istream<
-			binary_io::any_istream,
-			detail::any_stream_base<
-				detail::erased_istream_base,
-				detail::erased_istream>>
+		public detail::any_stream_base<
+			detail::erased_istream_base,
+			detail::erased_istream>,
+		public binary_io::istream_interface<binary_io::any_istream>
 	{
 	private:
-		using super = detail::basic_istream<
-			binary_io::any_istream,
-			detail::any_stream_base<
-				detail::erased_istream_base,
-				detail::erased_istream>>;
+		using super = detail::any_stream_base<
+			detail::erased_istream_base,
+			detail::erased_istream>;
 
 	public:
 		using super::super;
@@ -151,18 +148,15 @@ namespace binary_io
 	};
 
 	class any_ostream final :
-		public detail::basic_ostream<
-			binary_io::any_ostream,
-			detail::any_stream_base<
-				detail::erased_ostream_base,
-				detail::erased_ostream>>
+		public detail::any_stream_base<
+			detail::erased_ostream_base,
+			detail::erased_ostream>,
+		public binary_io::ostream_interface<any_ostream>
 	{
 	private:
-		using super = detail::basic_ostream<
-			binary_io::any_ostream,
-			detail::any_stream_base<
-				detail::erased_ostream_base,
-				detail::erased_ostream>>;
+		using super = detail::any_stream_base<
+			detail::erased_ostream_base,
+			detail::erased_ostream>;
 
 	public:
 		using super::super;
