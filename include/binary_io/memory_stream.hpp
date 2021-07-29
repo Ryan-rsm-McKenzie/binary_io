@@ -45,12 +45,16 @@ namespace binary_io
 				_buffer(std::forward<Args>(a_args)...)
 			{}
 
-			static_assert(std::same_as<
-				std::byte,
-				typename Container::value_type>);
-			static_assert(std::same_as<
-				std::random_access_iterator_tag,
-				typename std::iterator_traits<typename Container::iterator>::iterator_category>);
+			static_assert(
+				std::same_as<
+					std::byte,
+					typename Container::value_type>,
+				"container value type must be std::byte");
+			static_assert(
+				std::same_as<
+					std::random_access_iterator_tag,
+					typename std::iterator_traits<typename Container::iterator>::iterator_category>,
+				"container type must be random access");
 
 			[[nodiscard]] auto rdbuf() noexcept
 				-> container_type& { return this->_buffer; }

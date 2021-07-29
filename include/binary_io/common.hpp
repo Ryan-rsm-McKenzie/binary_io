@@ -67,7 +67,7 @@ static_assert(
 #	define BINARY_IO_BSWAP32 _byteswap_ulong
 #	define BINARY_IO_BSWAP64 _byteswap_uint64
 #else
-#	error "unsupported"
+#	error "unsupported compiler"
 #endif
 
 namespace binary_io
@@ -169,7 +169,7 @@ namespace binary_io
 			} else if constexpr (sizeof(T) == 8) {
 				return static_cast<T>(BINARY_IO_BSWAP64(value));
 			} else {
-				static_assert(sizeof(T) && false);
+				static_assert(sizeof(T) && false, "unsupported integral size");
 			}
 		}
 
@@ -207,7 +207,7 @@ namespace binary_io
 #elif BINARY_IO_COMP_MSVC || BINARY_IO_COMP_EDG
 			__assume(false);
 #else
-			static_assert(false);
+			static_assert(false, "unsupported compiler");
 #endif
 		}
 	}
@@ -339,7 +339,9 @@ namespace binary_io
 		[[nodiscard]] auto derive() noexcept
 			-> derived_type&
 		{
-			static_assert(concepts::input_stream<derived_type>);
+			static_assert(
+				concepts::input_stream<derived_type>,
+				"derived type does not meet the minimum requirements for being an input stream");
 			return static_cast<derived_type&>(*this);
 		}
 
@@ -412,7 +414,9 @@ namespace binary_io
 		[[nodiscard]] auto derive() noexcept
 			-> derived_type&
 		{
-			static_assert(concepts::output_stream<derived_type>);
+			static_assert(
+				concepts::output_stream<derived_type>,
+				"derived type does not meet the minimum requirements for being an output stream");
 			return static_cast<derived_type&>(*this);
 		}
 

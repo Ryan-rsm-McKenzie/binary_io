@@ -65,7 +65,9 @@ namespace binary_io
 		public:
 			using super::super;
 
-			static_assert(concepts::input_stream<Stream>);
+			static_assert(
+				concepts::input_stream<Stream>,
+				"stream type does not meet the minimum requirements for being an input stream");
 
 			void read_bytes(std::span<std::byte> a_dst) override
 			{
@@ -90,7 +92,9 @@ namespace binary_io
 		public:
 			using super::super;
 
-			static_assert(concepts::output_stream<Stream>);
+			static_assert(
+				concepts::output_stream<Stream>,
+				"stream type does not meet the minimum requirements for being an output stream");
 
 			void write_bytes(std::span<const std::byte> a_src) override
 			{
