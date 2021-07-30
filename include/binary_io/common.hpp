@@ -447,7 +447,7 @@ namespace binary_io
 		/// \return A reference to the input stream, for chaining.
 		friend derived_type& operator>>(
 			derived_type& a_in,
-			std::endian a_endian)
+			std::endian a_endian) noexcept
 		{
 			a_in.endian(a_endian);
 			return a_in.derive();
