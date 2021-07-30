@@ -44,19 +44,19 @@ int main()
 	};
 
 	local_file_header h;
-	in >>
-		std::endian::little >>
-		h.local_file_header_signature >>
-		h.version_needed_to_extract >>
-		h.general_purpose_bit_flag >>
-		h.compression_method >>
-		h.file_last_modification_time >>
-		h.file_last_modification_date >>
-		h.crc_32_of_uncompressed_data >>
-		h.compressed_size >>
-		h.uncompressed_size >>
-		h.file_name_length >>
-		h.extra_field_length;
+	in.read(
+		std::endian::little,
+		h.local_file_header_signature,
+		h.version_needed_to_extract,
+		h.general_purpose_bit_flag,
+		h.compression_method,
+		h.file_last_modification_time,
+		h.file_last_modification_date,
+		h.crc_32_of_uncompressed_data,
+		h.compressed_size,
+		h.uncompressed_size,
+		h.file_name_length,
+		h.extra_field_length);
 	read_string(h.file_name, h.file_name_length);
 	read_string(h.extra_field, h.extra_field_length);
 
