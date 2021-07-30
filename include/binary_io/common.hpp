@@ -351,8 +351,8 @@ namespace binary_io
 			binary_io::streamoff _pos{ 0 };
 		};
 
-		/// \brief Implements default endian behaviours for a stream.
-		class basic_endian_stream
+		/// \brief Implements default formatting behaviours for a stream.
+		class basic_format_stream
 		{
 		public:
 			/// \name Formatting
@@ -380,7 +380,7 @@ namespace binary_io
 	/// \tparam Derived A stream type which meets the requirements of \ref concepts::input_stream.
 	template <class Derived>
 	class istream_interface :
-		public components::basic_endian_stream
+		public components::basic_format_stream
 	{
 	private:
 		using derived_type = Derived;
@@ -518,7 +518,7 @@ namespace binary_io
 	/// \tparam Derived A stream type which meets the requirements of \ref concepts::output_stream.
 	template <class Derived>
 	class ostream_interface :
-		public components::basic_endian_stream
+		public components::basic_format_stream
 	{
 	private:
 		using derived_type = Derived;
