@@ -8,6 +8,7 @@
 #include <memory>
 #include <span>
 #include <string_view>
+#include <system_error>
 #include <type_traits>
 #include <typeinfo>
 #include <utility>
@@ -240,6 +241,11 @@ TEST_CASE("stream read/write")
 					REQUIRE(buf.data() == dst.data());
 					REQUIRE(buf.size_bytes() == payload.size_bytes());
 					REQUIRE(std::memcmp(buf.data(), payload.data(), payload.size_bytes()) == 0);
+
+					REQUIRE_THROWS_AS(a_stream.write<std::uint32_t>(42), binary_io::buffer_exhausted);
+					REQUIRE_THROWS_WITH(
+						a_stream.write<std::uint32_t>(42),
+						Catch::Contains("exhausted", Catch::CaseSensitive::No));
 				});
 		}
 	}
@@ -312,6 +318,15 @@ TEST_CASE("stream read/write")
 
 					REQUIRE(std::freopen(path.string().c_str(), "wb", f) != nullptr);
 				});
+		}
+
+		SECTION("exceptions")
+		{
+			REQUIRE_THROWS_AS(binary_io::file_istream{ root }, std::system_error);
+
+			const auto path = root / "locked.txt"sv;
+			binary_io::file_ostream out{ path };
+			REQUIRE_THROWS_AS(binary_io::file_istream{ path }, std::system_error);
 		}
 	}
 }
