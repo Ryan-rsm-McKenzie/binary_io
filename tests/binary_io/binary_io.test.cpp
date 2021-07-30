@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <array>
 #include <cstddef>
 #include <cstdint>
@@ -38,7 +39,68 @@ namespace
 	}
 }
 
-TEST_CASE("read/write")
+TEST_CASE("endian store/load")
+{
+	const auto test = []<class T>(std::in_place_type_t<T>, std::size_t a_little, std::size_t a_big) {
+		// test against unaligned memory
+		const char payload[] = "\x00\x01\x02\x03\x04\x05\x06\x07\x08";
+		std::array<char, sizeof(payload) - 1> buffer{};
+
+		const auto readable = std::as_bytes(std::span{ payload }).subspan<1, sizeof(T)>();
+		const auto writable = std::as_writable_bytes(std::span{ buffer }).subspan<1, sizeof(T)>();
+
+		SECTION("reverse")
+		{
+			REQUIRE(a_little == binary_io::endian::reverse(static_cast<T>(a_big)));
+		}
+
+		SECTION("load little-endian")
+		{
+			const auto i = binary_io::endian::load<std::endian::little, T>(readable);
+			REQUIRE(i == a_little);
+		}
+
+		SECTION("load big-endian")
+		{
+			const auto i = binary_io::endian::load<std::endian::big, T>(readable);
+			REQUIRE(i == a_big);
+		}
+
+		SECTION("store little-endian")
+		{
+			binary_io::endian::store<std::endian::little>(writable, static_cast<T>(a_little));
+			REQUIRE(std::ranges::equal(readable, writable));
+		}
+
+		SECTION("store big-endian")
+		{
+			binary_io::endian::store<std::endian::big>(writable, static_cast<T>(a_big));
+			REQUIRE(std::ranges::equal(readable, writable));
+		}
+	};
+
+	SECTION("1 byte")
+	{
+		test(std::in_place_type<std::uint8_t>, 0x01, 0x01);
+	}
+
+	SECTION("2 bytes")
+	{
+		test(std::in_place_type<std::uint16_t>, 0x0201, 0x0102);
+	}
+
+	SECTION("4 bytes")
+	{
+		test(std::in_place_type<std::uint32_t>, 0x04030201, 0x01020304);
+	}
+
+	SECTION("8 bytes")
+	{
+		test(std::in_place_type<std::uint64_t>, 0x0807060504030201, 0x0102030405060708);
+	}
+}
+
+TEST_CASE("stream read/write")
 {
 	const char payloadData[] =
 		"\x01"
