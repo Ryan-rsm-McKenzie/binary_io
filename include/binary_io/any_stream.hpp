@@ -179,6 +179,7 @@ namespace binary_io
 			/// \copydoc get_if()
 			///
 			/// \pre \ref has_value _must_ be `true`.
+			/// \exception std::bad_cast Thrown if the underlying stream is _not_ of the given type.
 			template <class S>
 			[[nodiscard]] auto get() const
 				-> const S&
