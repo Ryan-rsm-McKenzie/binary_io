@@ -1,9 +1,13 @@
 author = 'Ryan McKenzie'
 cpp = 20
+extra_files = [
+	'@DOCS_DIR@/images/banner_small.png'
+]
 github = 'Ryan-rsm-McKenzie/binary_io'
 license = [ 'MIT', 'https://github.com/Ryan-rsm-McKenzie/binary_io/blob/main/LICENSE' ]
 name = 'binary_io'
 navbar = [ 'classes', 'namespaces' ]
+private_repo = true
 show_includes = false
 
 [autolinks]
@@ -23,6 +27,9 @@ show_includes = false
 	'https://img.shields.io/static/v1?label=platform&message=windows%20|%20linux&color=dimgray&style=flat-square',
 	'#'
 ]
+
+[images]
+paths = [ '@DOCS_DIR@/images' ]
 
 [macros]
 'protected' = 'private'

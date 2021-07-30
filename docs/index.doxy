@@ -1,6 +1,7 @@
 /*!
 
 \mainpage binary_io
+\image html banner_small.png width=1280px
 
 Loosely based on [Modern std::byte stream IO for C++](https://wg21.link/p2146r2).
 
