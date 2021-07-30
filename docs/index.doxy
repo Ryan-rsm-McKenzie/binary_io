@@ -4,7 +4,7 @@
 
 Loosely based on [Modern std::byte stream IO for C++](https://wg21.link/p2146r2).
 
-`binary_io` is a _not_ a serialization library, such as [cereal](https://github.com/USCiLab/cereal) or [Boost.Serialization](https://www.boost.org/doc/libs/1_76_0/libs/serialization/doc/index.html). It does not define its own binary formats to seralize data to/from. Instead, it is a library which empowers developers to read/write _artbitrary_ file/data formats in a cross-platform manner.
+`%binary_io` is a _not_ a serialization library, such as [cereal](https://github.com/USCiLab/cereal) or [Boost.Serialization](https://www.boost.org/doc/libs/1_76_0/libs/serialization/doc/index.html). It does not define its own binary formats to seralize data to/from. Instead, it is a library which empowers developers to read/write _artbitrary_ file/data formats in a cross-platform manner.
 
 \section examples Examples
 
