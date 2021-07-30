@@ -170,22 +170,42 @@ namespace binary_io
 
 			/// \copydoc get() const
 			template <class S>
-			[[nodiscard]] S& get()
+			[[nodiscard]] auto get()
+				-> S&
 			{
 				return const_cast<S&>(std::as_const(*this).template get<S>());
 			}
 
-			/// \brief Attempts to get the underlying stream as the given type.
+			/// \copydoc get_if()
 			///
 			/// \pre \ref has_value _must_ be `true`.
-			/// \tparam S The type to attempt to cast to the underlying stream to.
-			/// \return A reference to the underlying stream.
 			template <class S>
-			[[nodiscard]] const S& get() const
+			[[nodiscard]] auto get() const
+				-> const S&
 			{
 				assert(this->has_value());
 				auto& erased = dynamic_cast<StreamErased<S>&>(*this->_stream);
 				return erased.get();
+			}
+
+			/// \copydoc get_if() const
+			template <class S>
+			[[nodiscard]] auto get_if() noexcept
+				-> S*
+			{
+				return const_cast<S*>(std::as_const(*this).template get_if<S>());
+			}
+
+			/// \brief Attempts to get the underlying stream as the given type.
+			///
+			/// \tparam S The type to attempt to cast to the underlying stream to.
+			/// \return The underlying stream.
+			template <class S>
+			[[nodiscard]] auto get_if() const noexcept
+				-> const S*
+			{
+				const auto erased = dynamic_cast<StreamErased<S>*>(this->_stream.get());
+				return erased ? std::addressof(erased->get()) : nullptr;
 			}
 
 			/// \brief Checks if there is an active underlying buffer.

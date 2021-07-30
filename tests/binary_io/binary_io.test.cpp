@@ -231,6 +231,7 @@ TEST_CASE("stream read/write")
 			write(
 				{ std::in_place_type<binary_io::span_ostream>, dst },
 				[&](binary_io::any_ostream& a_stream) {
+					REQUIRE(a_stream.get_if<binary_io::span_ostream>() != nullptr);
 					auto& s = a_stream.get<binary_io::span_ostream>();
 					const auto buf = s.rdbuf();
 					REQUIRE(buf.data() == dst.data());
@@ -256,6 +257,7 @@ TEST_CASE("stream read/write")
 			write(
 				{ std::in_place_type<binary_io::memory_ostream> },
 				[&](binary_io::any_ostream& a_stream) {
+					REQUIRE(a_stream.get_if<binary_io::memory_ostream>() != nullptr);
 					auto& s = a_stream.get<binary_io::memory_ostream>();
 					auto& buf = s.rdbuf();
 					REQUIRE(buf.size() == payload.size_bytes());
@@ -295,6 +297,7 @@ TEST_CASE("stream read/write")
 					a_stream.flush();
 					REQUIRE(std::filesystem::file_size(path) == payload.size_bytes());
 
+					REQUIRE(a_stream.get_if<binary_io::file_ostream>() != nullptr);
 					auto& s = a_stream.get<binary_io::file_ostream>();
 					const auto f = s.rdbuf();
 					REQUIRE(f != nullptr);
