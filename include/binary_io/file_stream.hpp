@@ -9,6 +9,7 @@
 
 namespace binary_io
 {
+	/// \brief The mode to open an output stream in.
 	enum class write_mode
 	{
 		truncate,
@@ -17,22 +18,30 @@ namespace binary_io
 
 	namespace components
 	{
+		/// \brief Implements the common interface of every `file_stream`.
 		class file_stream_base
 		{
 		public:
 			file_stream_base() = delete;
 			~file_stream_base() noexcept;
 
+			/// \brief Flushes the underlying file buffer.
 			void flush() noexcept;
 
+			/// \copydoc binary_io::components::span_stream_base::rdbuf()
 			[[nodiscard]] auto rdbuf() noexcept
 				-> std::FILE* { return this->_buffer; }
+
+			/// \copydoc binary_io::components::span_stream_base::rdbuf() const
 			[[nodiscard]] auto rdbuf() const noexcept
 				-> const std::FILE* { return this->_buffer; }
 
+			/// \copydoc binary_io::components::basic_seek_stream::seek_absolute()
 			void seek_absolute(binary_io::streamoff a_pos) noexcept;
+			/// \copydoc binary_io::components::basic_seek_stream::seek_relative()
 			void seek_relative(binary_io::streamoff a_off) noexcept;
 
+			/// \copydoc binary_io::components::basic_seek_stream::tell()
 			[[nodiscard]] auto tell() const noexcept -> binary_io::streamoff;
 
 		protected:
@@ -42,6 +51,7 @@ namespace binary_io
 		};
 	}
 
+	/// \brief A stream which composes a file handle.
 	class file_istream final :
 		public components::file_stream_base,
 		public binary_io::istream_interface<binary_io::file_istream>
@@ -56,9 +66,11 @@ namespace binary_io
 			super(a_path, "rb")
 		{}
 
+		/// \copydoc span_istream::read_bytes()
 		void read_bytes(std::span<std::byte> a_dst);
 	};
 
+	/// \copydoc file_istream
 	class file_ostream final :
 		public components::file_stream_base,
 		public binary_io::ostream_interface<binary_io::file_ostream>
@@ -75,6 +87,7 @@ namespace binary_io
 			super(a_path, a_mode == write_mode::truncate ? "wb" : "ab")
 		{}
 
+		/// \copydoc span_ostream::write_bytes()
 		void write_bytes(std::span<const std::byte> a_src);
 	};
 }

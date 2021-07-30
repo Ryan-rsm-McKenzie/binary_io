@@ -4,6 +4,7 @@ github = 'Ryan-rsm-McKenzie/binary_io'
 license = [ 'MIT', 'https://github.com/Ryan-rsm-McKenzie/binary_io/blob/main/LICENSE' ]
 name = 'binary_io'
 navbar = [ 'classes', 'namespaces' ]
+show_includes = false
 
 [badges]
 'build' = [

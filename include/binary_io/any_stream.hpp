@@ -10,6 +10,7 @@
 
 namespace binary_io
 {
+#ifndef DOXYGEN
 	namespace detail
 	{
 		class erased_stream_base
@@ -101,33 +102,51 @@ namespace binary_io
 				this->_stream.write_bytes(a_src);
 			}
 		};
+	}
+#endif
 
+	namespace components
+	{
+		/// \brief Implements the common interface of every `any_stream`.
 		template <
 			class StreamBase,
 			template <class> class StreamErased>
 		class any_stream_base
 		{
 		public:
+			/// \brief Constructs the stream without any active underlying stream.
 			any_stream_base() = default;
 
+			/// \brief Uses the given stream as the active underlying stream.
+			///
+			/// \param a_stream The underlying stream to copy from.
 			template <class S>
 			any_stream_base(const S& a_stream) :
 				any_stream_base(std::in_place_type<S>, a_stream)
 			{}
 
+			/// \copybrief any_stream_base(const S&)
+			///
+			/// \param a_stream The underlying stream to move from.
 			template <class S>
 			any_stream_base(S&& a_stream) :
 				any_stream_base(std::in_place_type<S>, std::move(a_stream))
 			{}
 
+			/// \brief Constructs the given underlying stream in-place, using the given arguments.
+			///
+			/// \param a_args The arguments to use to construct the underlying stream in-place.
 			template <class S, class... Args>
 			any_stream_base(std::in_place_type_t<S>, Args&&... a_args) :
 				_stream(std::make_unique<StreamErased<S>>(std::forward<Args>(a_args)...))
 			{}
 
+			/// \copydoc binary_io::components::basic_seek_stream::seek_absolute()
 			void seek_absolute(streamoff a_pos) noexcept { this->_stream->seek_absolute(a_pos); }
+			/// \copydoc binary_io::components::basic_seek_stream::seek_relative()
 			void seek_relative(streamoff a_off) noexcept { this->_stream->seek_relative(a_off); }
 
+			/// \copydoc binary_io::components::basic_seek_stream::tell()
 			[[nodiscard]] auto tell() const noexcept -> streamoff { return this->_stream->tell(); }
 
 		protected:
@@ -135,35 +154,41 @@ namespace binary_io
 		};
 	}
 
+	/// \brief A polymorphic input stream which can be used to abstract any valid input stream.
 	class any_istream final :
-		public detail::any_stream_base<
+		public components::any_stream_base<
 			detail::erased_istream_base,
 			detail::erased_istream>,
 		public binary_io::istream_interface<binary_io::any_istream>
 	{
 	private:
-		using super = detail::any_stream_base<
+		using super = components::any_stream_base<
 			detail::erased_istream_base,
 			detail::erased_istream>;
 
 	public:
 		using super::super;
+
+		/// \copydoc span_istream::read_bytes()
 		void read_bytes(std::span<std::byte> a_dst) { this->_stream->read_bytes(a_dst); }
 	};
 
+	/// \brief A polymorphic output stream which can be used to abstract any valid output stream.
 	class any_ostream final :
-		public detail::any_stream_base<
+		public components::any_stream_base<
 			detail::erased_ostream_base,
 			detail::erased_ostream>,
 		public binary_io::ostream_interface<any_ostream>
 	{
 	private:
-		using super = detail::any_stream_base<
+		using super = components::any_stream_base<
 			detail::erased_ostream_base,
 			detail::erased_ostream>;
 
 	public:
 		using super::super;
+
+		/// \copydoc span_ostream::write_bytes()
 		void write_bytes(std::span<const std::byte> a_src) { this->_stream->write_bytes(a_src); }
 	};
 }

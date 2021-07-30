@@ -190,6 +190,9 @@ namespace binary_io
 	namespace endian
 	{
 		/// \brief Reverses the endian format of a given input.
+		///
+		/// \param a_value The value to reverse.
+		/// \return The reversed value.
 		template <concepts::integral T>
 		[[nodiscard]] T reverse(T a_value) noexcept
 		{
@@ -300,7 +303,7 @@ namespace binary_io
 
 	namespace components
 	{
-		/// \brief Defines the basic seeking methods required for every stream.
+		/// \brief Implements the basic seeking methods required for every stream.
 		class basic_seek_stream
 		{
 		public:
@@ -321,6 +324,8 @@ namespace binary_io
 			}
 
 			/// \brief Gets the current stream position.
+			///
+			/// \return The current stream position.
 			[[nodiscard]] auto tell() const noexcept
 				-> binary_io::streamoff { return this->_pos; }
 
@@ -339,12 +344,21 @@ namespace binary_io
 		using derived_type = Derived;
 
 	public:
+		/// \brief Reads the given type from the input stream.
+		///
+		/// \tparam T The type to read.
+		/// \return The value read from the input stream.
 		template <concepts::integral T>
 		[[nodiscard]] T read()
 		{
 			return this->read<T>(this->_endian);
 		}
 
+		/// \brief Reads the given type with the given endian format from the input stream.
+		///
+		/// \tparam T The type to read.
+		/// \param a_endian The endian format the type is stored in.
+		/// \return The value read from the input stream.
 		template <concepts::integral T>
 		[[nodiscard]] T read(std::endian a_endian)
 		{
@@ -353,12 +367,19 @@ namespace binary_io
 			return value;
 		}
 
+		/// \brief Batch reads the given values from the input stream.
+		///
+		/// \param a_args The values to be read from the input stream.
 		template <concepts::integral... Args>
 		void read(Args&... a_args)
 		{
 			this->read(this->_endian, a_args...);
 		}
 
+		/// \brief Batch reads the given values with the given endian format from the input stream.
+		///
+		/// \param a_endian The endian format the type is stored in.
+		/// \param a_args The values to be read from the input stream.
 		template <concepts::integral... Args>
 		void read(std::endian a_endian, Args&... a_args)
 		{
@@ -374,6 +395,10 @@ namespace binary_io
 			}
 		}
 
+		/// \brief Reads `N` bytes from the input stream without making a copy.
+		///
+		/// \tparam N The number of bytes to read.
+		/// \return The bytes read from the input stream.
 		template <std::size_t N>
 		requires(concepts::no_copy_input_stream<derived_type>)
 			[[nodiscard]] auto read_bytes()
@@ -382,6 +407,11 @@ namespace binary_io
 			return this->derive().read_bytes(N).template subspan<0, N>();
 		}
 
+		/// \brief Sets the default endian format types will be read as when no format is specified.
+		///
+		/// \param a_in The input stream to modify.
+		/// \param a_endian The new default endian format.
+		/// \return A reference to the input stream, for chaining.
 		friend derived_type& operator>>(
 			derived_type& a_in,
 			std::endian a_endian)
@@ -390,6 +420,11 @@ namespace binary_io
 			return a_in.derive();
 		}
 
+		/// \brief Reads the given value from the input stream.
+		///
+		/// \param a_in The input stream to read from.
+		/// \param a_value The value to be read from the input stream.
+		/// \return A reference to the input stream, for chaining.
 		template <concepts::integral T>
 		friend derived_type& operator>>(
 			derived_type& a_in,
@@ -426,6 +461,9 @@ namespace binary_io
 		std::endian _endian{ std::endian::native };
 	};
 
+	/// \copybrief istream_interface
+	///
+	/// \tparam Derived A stream type which meets the requirements of \ref concepts::output_stream.
 	template <class Derived>
 	class ostream_interface
 	{
@@ -433,12 +471,19 @@ namespace binary_io
 		using derived_type = Derived;
 
 	public:
+		/// \brief Writes the given values into the output stream.
+		///
+		/// \param a_args The values to be written into the output stream.
 		template <concepts::integral... Args>
 		void write(Args... a_args)
 		{
 			this->write(this->_endian, a_args...);
 		}
 
+		/// \brief Writes the given values into the output stream, with the given endian format.
+		///
+		/// \param a_endian The endian format the values will be written as.
+		/// \param a_args The values to be written into the output stream.
 		template <concepts::integral... Args>
 		void write(std::endian a_endian, Args... a_args)
 		{
@@ -457,6 +502,11 @@ namespace binary_io
 			this->derive().write_bytes(bytes);
 		}
 
+		/// \brief Sets the default endian format types will be written as when no format is specified.
+		///
+		/// \param a_out The output stream to modify.
+		/// \param a_endian The new default endian format.
+		/// \return A reference to the output stream, for chaining.
 		friend derived_type& operator<<(
 			derived_type& a_out,
 			std::endian a_endian) noexcept
@@ -465,6 +515,11 @@ namespace binary_io
 			return a_out.derive();
 		}
 
+		/// \brief Writes the given value into the output stream.
+		///
+		/// \param a_out The output stream to write to.
+		/// \param a_value The value to be written into the output stream.
+		/// \return A reference to the output stream, for chaining.
 		template <concepts::integral T>
 		friend derived_type& operator<<(
 			derived_type& a_out,
@@ -487,20 +542,26 @@ namespace binary_io
 		std::endian _endian{ std::endian::native };
 	};
 
+	/// \brief The base exception type for all `binary_io` exceptions.
 	class BINARY_IO_VISIBLE exception :
 		public std::exception
 	{
 	public:
+		/// \brief Constructs an exception with the given message.
 		exception(const char* a_what) noexcept :
 			_what(a_what)
 		{}
 
+		/// \brief Gets the stored message from the given exception.
+		///
+		/// \return The stored error message.
 		const char* what() const noexcept { return _what; }
 
 	private:
 		const char* _what{ nullptr };
 	};
 
+	/// \brief An exception which indicates the underlying buffer for a stream has been exhausted.
 	class BINARY_IO_VISIBLE buffer_exhausted :
 		public binary_io::exception
 	{

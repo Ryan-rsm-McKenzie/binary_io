@@ -16,6 +16,7 @@ namespace binary_io
 {
 	namespace components
 	{
+		/// \brief Implements the common interface of every `memory_stream`.
 		template <class Container>
 		class basic_memory_stream_base :
 			public components::basic_seek_stream
@@ -27,18 +28,28 @@ namespace binary_io
 			using container_type = Container;
 			using super::super;
 
+			/// \brief Default constructs the underlying buffer.
 			basic_memory_stream_base() = default;
 
+			/// \brief Copy constructs the underlying buffer.
+			///
+			/// \param a_container The container to copy from.
 			basic_memory_stream_base(const container_type& a_container)  //
 				noexcept(std::is_nothrow_copy_constructible_v<container_type>) :
 				_buffer(a_container)
 			{}
 
+			/// \brief Move constructs the underlying buffer.
+			///
+			/// \param a_container The container to move from.
 			basic_memory_stream_base(container_type&& a_container)  //
 				noexcept(std::is_nothrow_move_constructible_v<container_type>) :
 				_buffer(std::move(a_container))
 			{}
 
+			/// \brief Constructs the underlying buffer, in-place, using the given args.
+			///
+			/// \param a_args The args to construct the buffer with.
 			template <class... Args>
 			basic_memory_stream_base(std::in_place_t, Args&&... a_args)  //
 				noexcept(std::is_nothrow_constructible_v<container_type, Args&&...>) :
@@ -56,8 +67,10 @@ namespace binary_io
 					typename std::iterator_traits<typename Container::iterator>::iterator_category>,
 				"container type must be random access");
 
+			/// \copydoc binary_io::components::span_stream_base::rdbuf()
 			[[nodiscard]] auto rdbuf() noexcept
 				-> container_type& { return this->_buffer; }
+			/// \copydoc binary_io::components::span_stream_base::rdbuf() const
 			[[nodiscard]] auto rdbuf() const noexcept
 				-> const container_type& { return this->_buffer; }
 
@@ -66,6 +79,9 @@ namespace binary_io
 		};
 	}
 
+	/// \brief A stream which composes a dynamically sized container.
+	///
+	/// \tparam Container The container type to use as the underlying buffer.
 	template <class Container>
 	class basic_memory_istream final :
 		public components::basic_memory_stream_base<Container>,
@@ -77,6 +93,7 @@ namespace binary_io
 	public:
 		using super::super;
 
+		/// \copydoc span_istream::read_bytes
 		void read_bytes(std::span<std::byte> a_dst)
 		{
 			const auto count = a_dst.size_bytes();
@@ -84,6 +101,7 @@ namespace binary_io
 			std::memcpy(a_dst.data(), bytes.data(), count);
 		}
 
+		/// \copydoc span_istream::read_bytes(std::size_t)
 		[[nodiscard]] auto read_bytes(std::size_t a_count)
 			-> std::span<const std::byte>
 		{
@@ -103,6 +121,7 @@ namespace binary_io
 		}
 	};
 
+	/// \copydoc basic_memory_istream
 	template <class Container>
 	class basic_memory_ostream final :
 		public components::basic_memory_stream_base<Container>,
@@ -115,6 +134,7 @@ namespace binary_io
 		using container_type = typename super::container_type;
 		using super::super;
 
+		/// \copydoc span_ostream::write_bytes
 		void write_bytes(std::span<const std::byte> a_src)
 		{
 			const auto where = this->tell();
