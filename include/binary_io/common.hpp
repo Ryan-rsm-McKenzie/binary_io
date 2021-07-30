@@ -332,13 +332,32 @@ namespace binary_io
 		private:
 			binary_io::streamoff _pos{ 0 };
 		};
+
+		/// \brief Implements default endian behaviours for a stream.
+		class basic_endian_stream
+		{
+		public:
+			/// \brief Gets the current default endian format.
+			///
+			/// \return The default endian format.
+			[[nodiscard]] auto endian() const noexcept -> std::endian { return this->_endian; }
+
+			/// \brief Sets the default endian format.
+			///
+			/// \param a_endian The new endian format.
+			void endian(std::endian a_endian) noexcept { this->_endian = a_endian; }
+
+		private:
+			std::endian _endian{ std::endian::native };
+		};
 	}
 
 	/// \brief A CRTP utility which can be used to flesh out the interface of a given stream.
 	///
 	/// \tparam Derived A stream type which meets the requirements of \ref concepts::input_stream.
 	template <class Derived>
-	class istream_interface
+	class istream_interface :
+		public components::basic_endian_stream
 	{
 	private:
 		using derived_type = Derived;
@@ -351,7 +370,7 @@ namespace binary_io
 		template <concepts::integral T>
 		[[nodiscard]] T read()
 		{
-			return this->read<T>(this->_endian);
+			return this->read<T>(this->endian());
 		}
 
 		/// \brief Reads the given type with the given endian format from the input stream.
@@ -373,7 +392,7 @@ namespace binary_io
 		template <concepts::integral... Args>
 		void read(Args&... a_args)
 		{
-			this->read(this->_endian, a_args...);
+			this->read(this->endian(), a_args...);
 		}
 
 		/// \brief Batch reads the given values with the given endian format from the input stream.
@@ -416,7 +435,7 @@ namespace binary_io
 			derived_type& a_in,
 			std::endian a_endian)
 		{
-			a_in._endian = a_endian;
+			a_in.endian(a_endian);
 			return a_in.derive();
 		}
 
@@ -457,15 +476,14 @@ namespace binary_io
 				 offset += sizeof(Args)),
 				...);
 		}
-
-		std::endian _endian{ std::endian::native };
 	};
 
 	/// \copybrief istream_interface
 	///
 	/// \tparam Derived A stream type which meets the requirements of \ref concepts::output_stream.
 	template <class Derived>
-	class ostream_interface
+	class ostream_interface :
+		public components::basic_endian_stream
 	{
 	private:
 		using derived_type = Derived;
@@ -477,7 +495,7 @@ namespace binary_io
 		template <concepts::integral... Args>
 		void write(Args... a_args)
 		{
-			this->write(this->_endian, a_args...);
+			this->write(this->endian(), a_args...);
 		}
 
 		/// \brief Writes the given values into the output stream, with the given endian format.
@@ -511,7 +529,7 @@ namespace binary_io
 			derived_type& a_out,
 			std::endian a_endian) noexcept
 		{
-			a_out._endian = a_endian;
+			a_out.endian(a_endian);
 			return a_out.derive();
 		}
 
@@ -538,8 +556,6 @@ namespace binary_io
 				"derived type does not meet the minimum requirements for being an output stream");
 			return static_cast<derived_type&>(*this);
 		}
-
-		std::endian _endian{ std::endian::native };
 	};
 
 	/// \brief The base exception type for all `binary_io` exceptions.
