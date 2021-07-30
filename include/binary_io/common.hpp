@@ -340,8 +340,7 @@ namespace binary_io
 			/// \brief Gets the current stream position.
 			///
 			/// \return The current stream position.
-			[[nodiscard]] auto tell() const noexcept
-				-> binary_io::streamoff { return this->_pos; }
+			[[nodiscard]] binary_io::streamoff tell() const noexcept { return this->_pos; }
 
 		private:
 			binary_io::streamoff _pos{ 0 };
@@ -354,7 +353,7 @@ namespace binary_io
 			/// \brief Gets the current default endian format.
 			///
 			/// \return The default endian format.
-			[[nodiscard]] auto endian() const noexcept -> std::endian { return this->_endian; }
+			[[nodiscard]] std::endian endian() const noexcept { return this->_endian; }
 
 			/// \brief Sets the default endian format.
 			///

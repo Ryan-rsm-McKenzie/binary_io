@@ -67,11 +67,9 @@ namespace binary_io
 				"container type must be random access");
 
 			/// \copydoc binary_io::components::span_stream_base::rdbuf()
-			[[nodiscard]] auto rdbuf() noexcept
-				-> container_type& { return this->_buffer; }
+			[[nodiscard]] container_type& rdbuf() noexcept { return this->_buffer; }
 			/// \copydoc binary_io::components::span_stream_base::rdbuf() const
-			[[nodiscard]] auto rdbuf() const noexcept
-				-> const container_type& { return this->_buffer; }
+			[[nodiscard]] const container_type& rdbuf() const noexcept { return this->_buffer; }
 
 		private:
 			container_type _buffer;

@@ -29,12 +29,10 @@ namespace binary_io
 			void flush() noexcept;
 
 			/// \copydoc binary_io::components::span_stream_base::rdbuf()
-			[[nodiscard]] auto rdbuf() noexcept
-				-> std::FILE* { return this->_buffer; }
+			[[nodiscard]] std::FILE* rdbuf() noexcept { return this->_buffer; }
 
 			/// \copydoc binary_io::components::span_stream_base::rdbuf() const
-			[[nodiscard]] auto rdbuf() const noexcept
-				-> const std::FILE* { return this->_buffer; }
+			[[nodiscard]] const std::FILE* rdbuf() const noexcept { return this->_buffer; }
 
 			/// \copydoc binary_io::components::basic_seek_stream::seek_absolute()
 			void seek_absolute(binary_io::streamoff a_pos) noexcept;
@@ -42,7 +40,7 @@ namespace binary_io
 			void seek_relative(binary_io::streamoff a_off) noexcept;
 
 			/// \copydoc binary_io::components::basic_seek_stream::tell()
-			[[nodiscard]] auto tell() const noexcept -> binary_io::streamoff;
+			[[nodiscard]] binary_io::streamoff tell() const noexcept;
 
 		protected:
 			file_stream_base(const std::filesystem::path& a_path, const char* a_mode);

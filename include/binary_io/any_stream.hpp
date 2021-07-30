@@ -170,8 +170,7 @@ namespace binary_io
 
 			/// \copydoc get() const
 			template <class S>
-			[[nodiscard]] auto get()
-				-> S&
+			[[nodiscard]] S& get()
 			{
 				return const_cast<S&>(std::as_const(*this).template get<S>());
 			}
@@ -181,8 +180,7 @@ namespace binary_io
 			/// \pre \ref has_value _must_ be `true`.
 			/// \exception std::bad_cast Thrown if the underlying stream is _not_ of the given type.
 			template <class S>
-			[[nodiscard]] auto get() const
-				-> const S&
+			[[nodiscard]] const S& get() const
 			{
 				assert(this->has_value());
 				auto& erased = dynamic_cast<StreamErased<S>&>(*this->_stream);
@@ -191,8 +189,7 @@ namespace binary_io
 
 			/// \copydoc get_if() const
 			template <class S>
-			[[nodiscard]] auto get_if() noexcept
-				-> S*
+			[[nodiscard]] S* get_if() noexcept
 			{
 				return const_cast<S*>(std::as_const(*this).template get_if<S>());
 			}
@@ -202,8 +199,7 @@ namespace binary_io
 			/// \tparam S The type to attempt to cast to the underlying stream to.
 			/// \return The underlying stream.
 			template <class S>
-			[[nodiscard]] auto get_if() const noexcept
-				-> const S*
+			[[nodiscard]] const S* get_if() const noexcept
 			{
 				const auto erased = dynamic_cast<StreamErased<S>*>(this->_stream.get());
 				return erased ? std::addressof(erased->get()) : nullptr;
@@ -238,8 +234,7 @@ namespace binary_io
 			/// \copydoc binary_io::components::basic_seek_stream::tell()
 			///
 			/// \pre \ref has_value() _must_ be `true`.
-			[[nodiscard]] auto tell() const noexcept
-				-> binary_io::streamoff { return this->_stream->tell(); }
+			[[nodiscard]] binary_io::streamoff tell() const noexcept { return this->_stream->tell(); }
 
 		protected:
 			std::unique_ptr<StreamBase> _stream;
