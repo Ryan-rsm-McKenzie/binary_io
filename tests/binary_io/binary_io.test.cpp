@@ -9,6 +9,7 @@
 #include <span>
 #include <string_view>
 #include <type_traits>
+#include <typeinfo>
 #include <utility>
 #include <vector>
 
@@ -148,13 +149,14 @@ TEST_CASE("stream read/write")
 			REQUIRE(a_stream.tell() == 0);
 
 			a_stream.seek_absolute(1000);
-			REQUIRE_THROWS(a_stream.read<std::uint32_t>(a_endian));
+			REQUIRE_THROWS_AS(a_stream.read<std::uint32_t>(a_endian), binary_io::buffer_exhausted);
 
 			a_stream.seek_absolute(pos);
 			REQUIRE(a_stream.tell() == pos);
 		};
 
 		REQUIRE(a_stream.has_value());
+		REQUIRE_THROWS_AS(a_stream.get<binary_io::any_istream>(), std::bad_cast);
 
 		f(std::endian::little, true);
 		f(std::endian::little, false);
@@ -208,6 +210,7 @@ TEST_CASE("stream read/write")
 		};
 
 		REQUIRE(a_stream.has_value());
+		REQUIRE_THROWS_AS(a_stream.get<binary_io::any_ostream>(), std::bad_cast);
 
 		f(std::endian::little, true);
 		f(std::endian::little, false);
