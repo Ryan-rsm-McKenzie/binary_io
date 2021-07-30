@@ -432,7 +432,9 @@ namespace binary_io
 		/// \tparam N The number of bytes to read.
 		/// \return The bytes read from the input stream.
 		template <std::size_t N>
+#ifndef DOXYGEN
 		requires(concepts::no_copy_input_stream<derived_type>)
+#endif
 			[[nodiscard]] auto read_bytes()
 				-> std::span<const std::byte, N>
 		{
