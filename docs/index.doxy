@@ -21,6 +21,8 @@ https://en.wikipedia.org/wiki/ZIP_(file_format)#Local_file_header
 #include <span>
 #include <string>
 
+#include <binary_io/binary_io.hpp>
+
 struct local_file_header
 {
 	std::uint32_t local_file_header_signature{ 0 };
