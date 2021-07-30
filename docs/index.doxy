@@ -134,4 +134,11 @@ int main()
 }
 \ecpp
 
+\section integration Integration
+
+`%binary_io` uses [CMake](https://cmake.org/) as its primary build system. Assuming that `%binary_io` has been installed to a place where CMake can find it, then using it in your project is as simple as:
+
+	find_package(binary_io REQUIRED CONFIG)
+	target_link_libraries(${PROJECT_NAME} PUBLIC binary_io::binary_io)
+
 */
