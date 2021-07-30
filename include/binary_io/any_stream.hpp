@@ -142,12 +142,20 @@ namespace binary_io
 			{}
 
 			/// \copydoc binary_io::components::basic_seek_stream::seek_absolute()
-			void seek_absolute(streamoff a_pos) noexcept { this->_stream->seek_absolute(a_pos); }
+			void seek_absolute(binary_io::streamoff a_pos) noexcept
+			{
+				this->_stream->seek_absolute(a_pos);
+			}
+
 			/// \copydoc binary_io::components::basic_seek_stream::seek_relative()
-			void seek_relative(streamoff a_off) noexcept { this->_stream->seek_relative(a_off); }
+			void seek_relative(binary_io::streamoff a_off) noexcept
+			{
+				this->_stream->seek_relative(a_off);
+			}
 
 			/// \copydoc binary_io::components::basic_seek_stream::tell()
-			[[nodiscard]] auto tell() const noexcept -> streamoff { return this->_stream->tell(); }
+			[[nodiscard]] auto tell() const noexcept
+				-> binary_io::streamoff { return this->_stream->tell(); }
 
 		protected:
 			std::unique_ptr<StreamBase> _stream;
