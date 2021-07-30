@@ -18,7 +18,10 @@ jobs:
         submodules: true
 
     - name: Install Doxygen
-      run: sudo apt install doxygen -y
+      run: |
+        wget https://doxygen.nl/files/doxygen-1.9.1.linux.bin.tar.gz
+        tar -xzf doxygen-1.9.1.linux.bin.tar.gz
+        sudo mv doxygen-1.9.1/bin/doxygen /usr/local/bin
 
     - name: Install Poxy
       run: sudo pip install poxy
