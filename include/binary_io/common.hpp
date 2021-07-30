@@ -128,6 +128,20 @@ namespace binary_io
 			// clang-format on
 		};
 
+		/// \brief A constraint for streams which implement buffering, and require an explicit call
+		///		to `flush` to synchronize that buffer.
+		///
+		/// \remark
+		/// * `T` must provide the following methods:
+		///		* `void flush() noexcept`
+		template <class T>
+		concept buffered_stream =
+			seekable_stream<T> &&
+			requires(T& a_ref)
+		{
+			{ a_ref.flush() };
+		};
+
 		/// \brief A constraint for streams which meet the input stream interface.
 		///
 		/// \remark

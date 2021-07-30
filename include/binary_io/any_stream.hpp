@@ -18,6 +18,8 @@ namespace binary_io
 		public:
 			virtual ~erased_stream_base() noexcept = default;
 
+			virtual void flush() noexcept = 0;
+
 			virtual void seek_absolute(streamoff a_pos) = 0;
 			virtual void seek_relative(streamoff a_off) = 0;
 
@@ -39,6 +41,16 @@ namespace binary_io
 				noexcept(std::is_nothrow_constructible_v<stream_type, Args&&...>) :
 				_stream(std::forward<Args>(a_args)...)
 			{}
+
+			void flush() noexcept override
+			{
+				if constexpr (concepts::buffered_stream<stream_type>) {
+					this->_stream.flush();
+				}
+			}
+
+			[[nodiscard]] auto get() noexcept -> stream_type& { return this->_stream; }
+			[[nodiscard]] auto get() const noexcept -> const stream_type& { return this->_stream; }
 
 			void seek_absolute(streamoff a_pos) override { this->_stream.seek_absolute(a_pos); }
 			void seek_relative(streamoff a_off) override { this->_stream.seek_relative(a_off); }
@@ -133,27 +145,78 @@ namespace binary_io
 				any_stream_base(std::in_place_type<S>, std::move(a_stream))
 			{}
 
+			/// \copydoc emplace()
+			template <class S, class... Args>
+			any_stream_base(std::in_place_type_t<S>, Args&&... a_args)
+			{
+				this->emplace<S>(std::forward<Args>(a_args)...);
+			}
+
 			/// \brief Constructs the given underlying stream in-place, using the given arguments.
 			///
+			/// \tparam S The stream to construct in-place.
+			/// \tparam Args The arg types.
 			/// \param a_args The arguments to use to construct the underlying stream in-place.
 			template <class S, class... Args>
-			any_stream_base(std::in_place_type_t<S>, Args&&... a_args) :
-				_stream(std::make_unique<StreamErased<S>>(std::forward<Args>(a_args)...))
-			{}
+			void emplace(Args&&... a_args)
+			{
+				this->_stream = std::make_unique<StreamErased<S>>(std::forward<Args>(a_args)...);
+			}
+
+			/// \brief Flushes the underlying stream's buffers, if applicable.
+			///
+			/// \pre \ref has_value _must_ be `true`.
+			void flush() noexcept { this->_stream->flush(); }
+
+			/// \copydoc get() const
+			template <class S>
+			[[nodiscard]] S& get()
+			{
+				return const_cast<S&>(std::as_const(*this).get<S>());
+			}
+
+			/// \brief Attempts to get the underlying stream as the given type.
+			///
+			/// \pre \ref has_value _must_ be `true`.
+			/// \tparam S The type to attempt to cast to the underlying stream to.
+			/// \return A reference to the underlying stream.
+			template <class S>
+			[[nodiscard]] const S& get() const
+			{
+				assert(this->has_value());
+				auto& erased = dynamic_cast<StreamErased<S>&>(*this->_stream);
+				return erased.get();
+			}
+
+			/// \brief Checks if there is an active underlying buffer.
+			///
+			/// \return `true` if there _is_ an active underlying buffer, `false` otherwise.
+			[[nodiscard]] bool has_value() const noexcept { return this->_stream != nullptr; }
+
+			/// \brief Destroys the underlying buffer, if there is any.
+			///
+			/// \post \ref has_value() will be `false`.
+			void reset() noexcept { this->_stream.reset(); }
 
 			/// \copydoc binary_io::components::basic_seek_stream::seek_absolute()
+			///
+			/// \pre \ref has_value() _must_ be `true`.
 			void seek_absolute(binary_io::streamoff a_pos) noexcept
 			{
 				this->_stream->seek_absolute(a_pos);
 			}
 
 			/// \copydoc binary_io::components::basic_seek_stream::seek_relative()
+			///
+			/// \pre \ref has_value() _must_ be `true`.
 			void seek_relative(binary_io::streamoff a_off) noexcept
 			{
 				this->_stream->seek_relative(a_off);
 			}
 
 			/// \copydoc binary_io::components::basic_seek_stream::tell()
+			///
+			/// \pre \ref has_value() _must_ be `true`.
 			[[nodiscard]] auto tell() const noexcept
 				-> binary_io::streamoff { return this->_stream->tell(); }
 
@@ -178,6 +241,8 @@ namespace binary_io
 		using super::super;
 
 		/// \copydoc span_istream::read_bytes()
+		///
+		/// \pre \ref has_value() _must_ be `true`.
 		void read_bytes(std::span<std::byte> a_dst) { this->_stream->read_bytes(a_dst); }
 	};
 
@@ -197,6 +262,8 @@ namespace binary_io
 		using super::super;
 
 		/// \copydoc span_ostream::write_bytes()
+		///
+		/// \pre \ref has_value() _must_ be `true`.
 		void write_bytes(std::span<const std::byte> a_src) { this->_stream->write_bytes(a_src); }
 	};
 }
