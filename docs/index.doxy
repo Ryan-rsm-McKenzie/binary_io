@@ -83,4 +83,54 @@ int main()
 }
 \ecpp
 
+\subsection examples-writing Writing an anonymous compiled papyrus script header
+https://en.uesp.net/wiki/Skyrim_Mod:Compiled_Script_File_Format#Header
+\cpp
+#include <bit>
+#include <cstdint>
+#include <span>
+#include <string>
+#include <string_view>
+
+#include <binary_io/binary_io.hpp>
+
+struct script_header
+{
+	enum class game_id : std::uint16_t
+	{
+		skyrim = 1,
+	};
+
+	std::uint32_t magic{ 0xFA57C0DE };
+	std::uint8_t major{ 3 };
+	std::uint8_t minor{ 2 };
+	game_id id{ game_id::skyrim };
+	std::uint64_t timestamp{ 0 };
+	std::string source_name{ "script.psc" };
+	std::string user_name;
+	std::string machine_name;
+};
+
+int main()
+{
+	binary_io::file_ostream out{ "script.pex" };
+	out.endian(std::endian::big);
+	const auto write_wstring = [&](std::string_view a_str) {
+		out.write(static_cast<std::uint16_t>(a_str.length()));
+		out.write_bytes(std::as_bytes(std::span{ a_str.data(), a_str.length() }));
+	};
+
+	script_header h;
+	out.write(
+		h.magic,
+		h.major,
+		h.minor,
+		h.id,
+		h.timestamp);
+	write_wstring(h.source_name);
+	write_wstring(h.user_name);
+	write_wstring(h.machine_name);
+}
+\ecpp
+
 */
