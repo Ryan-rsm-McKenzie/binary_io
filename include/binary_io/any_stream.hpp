@@ -172,7 +172,7 @@ namespace binary_io
 			template <class S>
 			[[nodiscard]] S& get()
 			{
-				return const_cast<S&>(std::as_const(*this).get<S>());
+				return const_cast<S&>(std::as_const(*this).template get<S>());
 			}
 
 			/// \brief Attempts to get the underlying stream as the given type.
