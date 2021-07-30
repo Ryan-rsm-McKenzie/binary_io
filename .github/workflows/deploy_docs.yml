@@ -19,6 +19,8 @@ jobs:
 
     - name: Install Doxygen
       run: |
+        sudo apt install libclang-cpp9 libclang-9-dev -y
+
         wget https://doxygen.nl/files/doxygen-1.9.1.linux.bin.tar.gz
         tar -xzf doxygen-1.9.1.linux.bin.tar.gz
         sudo mv doxygen-1.9.1/bin/doxygen /usr/local/bin
