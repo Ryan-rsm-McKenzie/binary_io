@@ -25,6 +25,9 @@ namespace binary_io
 				_buffer(a_span)
 			{}
 
+			/// \name Buffer management
+			/// @{
+
 			/// \brief Provides mutable access to the underlying buffer.
 			///
 			/// \return The underlying buffer.
@@ -36,6 +39,8 @@ namespace binary_io
 			/// \return The underlying buffer.
 			[[nodiscard]] auto rdbuf() const noexcept
 				-> std::span<const T> { return std::as_bytes(this->_buffer); }
+
+			/// @}
 
 		private:
 			std::span<T> _buffer;
@@ -53,6 +58,9 @@ namespace binary_io
 	public:
 		using super::super;
 
+		/// \name Reading
+		/// @{
+
 		/// \brief Reads bytes into the given buffer.
 		///
 		/// \exception binary_io::buffer_exhausted Thrown when the buffer has less than the
@@ -67,6 +75,8 @@ namespace binary_io
 		/// \param a_count The number of bytes to be read.
 		/// \return A view of the bytes read.
 		[[nodiscard]] auto read_bytes(std::size_t a_count) -> std::span<const std::byte>;
+
+		/// @}
 	};
 
 	/// \copydoc span_istream
@@ -80,11 +90,16 @@ namespace binary_io
 	public:
 		using super::super;
 
+		/// \name Writing
+		/// @{
+
 		/// \brief Writes bytes into the given buffer.
 		///
 		/// \exception binary_io::buffer_exhausted Thrown when the buffer has less than the
 		///		requested number of bytes.
 		/// \param a_src The buffer to write bytes from.
 		void write_bytes(std::span<const std::byte> a_src);
+
+		/// @}
 	};
 }

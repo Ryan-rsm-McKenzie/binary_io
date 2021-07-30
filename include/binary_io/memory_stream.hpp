@@ -66,10 +66,15 @@ namespace binary_io
 					typename std::iterator_traits<typename Container::iterator>::iterator_category>,
 				"container type must be random access");
 
+			/// \name Buffer management
+			/// @{
+
 			/// \copydoc binary_io::components::span_stream_base::rdbuf()
 			[[nodiscard]] container_type& rdbuf() noexcept { return this->_buffer; }
 			/// \copydoc binary_io::components::span_stream_base::rdbuf() const
 			[[nodiscard]] const container_type& rdbuf() const noexcept { return this->_buffer; }
+
+			/// @}
 
 		private:
 			container_type _buffer;
@@ -89,6 +94,9 @@ namespace binary_io
 
 	public:
 		using super::super;
+
+		/// \name Reading
+		/// @{
 
 		/// \copydoc span_istream::read_bytes
 		void read_bytes(std::span<std::byte> a_dst)
@@ -116,6 +124,8 @@ namespace binary_io
 				a_count
 			};
 		}
+
+		/// @}
 	};
 
 	/// \copydoc basic_memory_istream
@@ -130,6 +140,9 @@ namespace binary_io
 	public:
 		using container_type = typename super::container_type;
 		using super::super;
+
+		/// \name Writing
+		/// @{
 
 		/// \copydoc span_ostream::write_bytes
 		void write_bytes(std::span<const std::byte> a_src)
@@ -153,6 +166,8 @@ namespace binary_io
 				a_src.data(),
 				a_src.size_bytes());
 		}
+
+		/// @}
 	};
 
 	using memory_istream = binary_io::basic_memory_istream<std::vector<std::byte>>;

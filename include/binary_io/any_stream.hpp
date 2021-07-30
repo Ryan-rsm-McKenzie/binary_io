@@ -145,6 +145,19 @@ namespace binary_io
 				any_stream_base(std::in_place_type<S>, std::move(a_stream))
 			{}
 
+			/// \name Buffering
+			/// @{
+
+			/// \brief Flushes the underlying stream's buffers, if applicable.
+			///
+			/// \pre \ref has_value _must_ be `true`.
+			void flush() noexcept { this->_stream->flush(); }
+
+			/// @}
+
+			/// \name Modifiers
+			/// @{
+
 			/// \copydoc emplace()
 			template <class S, class... Args>
 			any_stream_base(std::in_place_type_t<S>, Args&&... a_args)
@@ -163,10 +176,15 @@ namespace binary_io
 				this->_stream = std::make_unique<StreamErased<S>>(std::forward<Args>(a_args)...);
 			}
 
-			/// \brief Flushes the underlying stream's buffers, if applicable.
+			/// \brief Destroys the underlying buffer, if there is any.
 			///
-			/// \pre \ref has_value _must_ be `true`.
-			void flush() noexcept { this->_stream->flush(); }
+			/// \post \ref has_value() will be `false`.
+			void reset() noexcept { this->_stream.reset(); }
+
+			/// @}
+
+			/// \name Observers
+			/// @{
 
 			/// \copydoc get() const
 			template <class S>
@@ -210,10 +228,10 @@ namespace binary_io
 			/// \return `true` if there _is_ an active underlying buffer, `false` otherwise.
 			[[nodiscard]] bool has_value() const noexcept { return this->_stream != nullptr; }
 
-			/// \brief Destroys the underlying buffer, if there is any.
-			///
-			/// \post \ref has_value() will be `false`.
-			void reset() noexcept { this->_stream.reset(); }
+			/// @}
+
+			/// \name Position
+			/// @{
 
 			/// \copydoc binary_io::components::basic_seek_stream::seek_absolute()
 			///
@@ -236,6 +254,8 @@ namespace binary_io
 			/// \pre \ref has_value() _must_ be `true`.
 			[[nodiscard]] binary_io::streamoff tell() const noexcept { return this->_stream->tell(); }
 
+			/// @}
+
 		protected:
 			std::unique_ptr<StreamBase> _stream;
 		};
@@ -256,10 +276,15 @@ namespace binary_io
 	public:
 		using super::super;
 
+		/// \name Reading
+		/// @{
+
 		/// \copydoc span_istream::read_bytes()
 		///
 		/// \pre \ref has_value() _must_ be `true`.
 		void read_bytes(std::span<std::byte> a_dst) { this->_stream->read_bytes(a_dst); }
+
+		/// @}
 	};
 
 	/// \brief A polymorphic output stream which can be used to abstract any valid output stream.
@@ -277,9 +302,14 @@ namespace binary_io
 	public:
 		using super::super;
 
+		/// \name Writing
+		/// @{
+
 		/// \copydoc span_ostream::write_bytes()
 		///
 		/// \pre \ref has_value() _must_ be `true`.
 		void write_bytes(std::span<const std::byte> a_src) { this->_stream->write_bytes(a_src); }
+
+		/// @}
 	};
 }

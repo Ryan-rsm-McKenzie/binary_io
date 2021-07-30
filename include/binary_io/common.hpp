@@ -321,6 +321,9 @@ namespace binary_io
 		class basic_seek_stream
 		{
 		public:
+			/// \name Position
+			/// @{
+
 			/// \brief Seek to an absolute position in the stream (i.e. from the beginning).
 			///
 			/// \param a_pos The absolute position to seek to.
@@ -342,6 +345,8 @@ namespace binary_io
 			/// \return The current stream position.
 			[[nodiscard]] binary_io::streamoff tell() const noexcept { return this->_pos; }
 
+			/// @}
+
 		private:
 			binary_io::streamoff _pos{ 0 };
 		};
@@ -350,6 +355,9 @@ namespace binary_io
 		class basic_endian_stream
 		{
 		public:
+			/// \name Formatting
+			/// @{
+
 			/// \brief Gets the current default endian format.
 			///
 			/// \return The default endian format.
@@ -359,6 +367,8 @@ namespace binary_io
 			///
 			/// \param a_endian The new endian format.
 			void endian(std::endian a_endian) noexcept { this->_endian = a_endian; }
+
+			/// @}
 
 		private:
 			std::endian _endian{ std::endian::native };
@@ -376,6 +386,9 @@ namespace binary_io
 		using derived_type = Derived;
 
 	public:
+		/// \name Reading
+		/// @{
+
 		/// \brief Reads the given type from the input stream.
 		///
 		/// \tparam T The type to read.
@@ -441,19 +454,6 @@ namespace binary_io
 			return this->derive().read_bytes(N).template subspan<0, N>();
 		}
 
-		/// \brief Sets the default endian format types will be read as when no format is specified.
-		///
-		/// \param a_in The input stream to modify.
-		/// \param a_endian The new default endian format.
-		/// \return A reference to the input stream, for chaining.
-		friend derived_type& operator>>(
-			derived_type& a_in,
-			std::endian a_endian) noexcept
-		{
-			a_in.endian(a_endian);
-			return a_in.derive();
-		}
-
 		/// \brief Reads the given value from the input stream.
 		///
 		/// \param a_in The input stream to read from.
@@ -467,6 +467,26 @@ namespace binary_io
 			a_value = a_in.template read<T>();
 			return a_in.derive();
 		}
+
+		/// @}
+
+		/// \name Formatting
+		/// @{
+
+		/// \brief Sets the default endian format types will be read as when no format is specified.
+		///
+		/// \param a_in The input stream to modify.
+		/// \param a_endian The new default endian format.
+		/// \return A reference to the input stream, for chaining.
+		friend derived_type& operator>>(
+			derived_type& a_in,
+			std::endian a_endian) noexcept
+		{
+			a_in.endian(a_endian);
+			return a_in.derive();
+		}
+
+		/// @}
 
 	private:
 		[[nodiscard]] auto derive() noexcept
@@ -504,6 +524,9 @@ namespace binary_io
 		using derived_type = Derived;
 
 	public:
+		/// \name Writing
+		/// @{
+
 		/// \brief Writes the given values into the output stream.
 		///
 		/// \param a_args The values to be written into the output stream.
@@ -535,19 +558,6 @@ namespace binary_io
 			this->derive().write_bytes(bytes);
 		}
 
-		/// \brief Sets the default endian format types will be written as when no format is specified.
-		///
-		/// \param a_out The output stream to modify.
-		/// \param a_endian The new default endian format.
-		/// \return A reference to the output stream, for chaining.
-		friend derived_type& operator<<(
-			derived_type& a_out,
-			std::endian a_endian) noexcept
-		{
-			a_out.endian(a_endian);
-			return a_out.derive();
-		}
-
 		/// \brief Writes the given value into the output stream.
 		///
 		/// \param a_out The output stream to write to.
@@ -561,6 +571,26 @@ namespace binary_io
 			a_out.write(a_value);
 			return a_out.derive();
 		}
+
+		/// @}
+
+		/// \name Formatting
+		/// @{
+
+		/// \brief Sets the default endian format types will be written as when no format is specified.
+		///
+		/// \param a_out The output stream to modify.
+		/// \param a_endian The new default endian format.
+		/// \return A reference to the output stream, for chaining.
+		friend derived_type& operator<<(
+			derived_type& a_out,
+			std::endian a_endian) noexcept
+		{
+			a_out.endian(a_endian);
+			return a_out.derive();
+		}
+
+		/// @}
 
 	private:
 		[[nodiscard]] auto derive() noexcept

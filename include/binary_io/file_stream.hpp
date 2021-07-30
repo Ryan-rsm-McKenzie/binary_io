@@ -25,14 +25,27 @@ namespace binary_io
 			file_stream_base() = delete;
 			~file_stream_base() noexcept;
 
+			/// \name Buffering
+			/// @{
+
 			/// \brief Flushes the underlying file buffer.
 			void flush() noexcept;
+
+			/// @}
+
+			/// \name Buffer management
+			/// @{
 
 			/// \copydoc binary_io::components::span_stream_base::rdbuf()
 			[[nodiscard]] std::FILE* rdbuf() noexcept { return this->_buffer; }
 
 			/// \copydoc binary_io::components::span_stream_base::rdbuf() const
 			[[nodiscard]] const std::FILE* rdbuf() const noexcept { return this->_buffer; }
+
+			/// @}
+
+			/// \name Position
+			/// @{
 
 			/// \copydoc binary_io::components::basic_seek_stream::seek_absolute()
 			void seek_absolute(binary_io::streamoff a_pos) noexcept;
@@ -41,6 +54,8 @@ namespace binary_io
 
 			/// \copydoc binary_io::components::basic_seek_stream::tell()
 			[[nodiscard]] binary_io::streamoff tell() const noexcept;
+
+			/// @}
 
 		protected:
 			file_stream_base(const std::filesystem::path& a_path, const char* a_mode);
@@ -64,8 +79,13 @@ namespace binary_io
 			super(a_path, "rb")
 		{}
 
+		/// \name Reading
+		/// @{
+
 		/// \copydoc span_istream::read_bytes()
 		void read_bytes(std::span<std::byte> a_dst);
+
+		/// @}
 	};
 
 	/// \copydoc file_istream
@@ -85,7 +105,12 @@ namespace binary_io
 			super(a_path, a_mode == write_mode::truncate ? "wb" : "ab")
 		{}
 
+		/// \name Writing
+		/// @{
+
 		/// \copydoc span_ostream::write_bytes()
 		void write_bytes(std::span<const std::byte> a_src);
+
+		/// @}
 	};
 }
