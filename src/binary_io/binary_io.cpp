@@ -173,36 +173,41 @@ namespace binary_io
 
 	namespace components
 	{
-		file_stream_base::~file_stream_base() noexcept
-		{
-			assert(this->_buffer != nullptr);
-			std::fclose(this->_buffer);
-			this->_buffer = nullptr;
-		}
-
 		void file_stream_base::flush() noexcept
 		{
-			assert(this->_buffer != nullptr);
-			std::fflush(this->_buffer);
+			if (this->is_open()) {
+				std::fflush(this->_buffer);
+			}
+		}
+
+		void file_stream_base::close() noexcept
+		{
+			if (this->is_open()) {
+				std::fclose(this->_buffer);
+				this->_buffer = nullptr;
+			}
 		}
 
 		void file_stream_base::seek_absolute(binary_io::streamoff a_pos) noexcept
 		{
+			assert(this->is_open());
 			os::fseek(this->_buffer, a_pos, SEEK_SET);
 		}
 
 		void file_stream_base::seek_relative(binary_io::streamoff a_off) noexcept
 		{
+			assert(this->is_open());
 			os::fseek(this->_buffer, a_off, SEEK_CUR);
 		}
 
 		auto file_stream_base::tell() const noexcept
 			-> binary_io::streamoff
 		{
+			assert(this->is_open());
 			return os::ftell(this->_buffer);
 		}
 
-		file_stream_base::file_stream_base(
+		void file_stream_base::open(
 			const std::filesystem::path& a_path,
 			const char* a_mode)
 		{
@@ -228,6 +233,7 @@ namespace binary_io
 				};
 			}
 		}
+
 	}
 
 	void file_istream::read_bytes(std::span<std::byte> a_dst)

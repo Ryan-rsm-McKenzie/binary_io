@@ -308,6 +308,7 @@ TEST_CASE("stream read/write")
 
 					REQUIRE(a_stream.get_if<binary_io::file_ostream>() != nullptr);
 					auto& s = a_stream.get<binary_io::file_ostream>();
+					REQUIRE(s.is_open());
 					const auto f = s.rdbuf();
 					REQUIRE(f != nullptr);
 					REQUIRE(std::freopen(path.string().c_str(), "rb", f) != nullptr);

@@ -22,8 +22,7 @@ namespace binary_io
 		class file_stream_base
 		{
 		public:
-			file_stream_base() = delete;
-			~file_stream_base() noexcept;
+			~file_stream_base() noexcept { this->close(); }
 
 			/// \name Buffering
 			/// @{
@@ -44,21 +43,43 @@ namespace binary_io
 
 			/// @}
 
+			/// \name File operations
+			/// @{
+
+			/// \brief Checks if the stream has an open file handle.
+			///
+			/// \return `true` if the stream has an open file handle, `false` otherwise.
+			[[nodiscard]] bool is_open() const noexcept { return this->rdbuf() != nullptr; }
+
+			/// \brief Closes the stream's file handle, if applicable.
+			///
+			/// \post \ref is_open() is `false`.
+			void close() noexcept;
+
+			/// @}
+
 			/// \name Position
 			/// @{
 
 			/// \copydoc binary_io::components::basic_seek_stream::seek_absolute()
+			///
+			/// \pre \ref is_open() _must_ be `true`.
 			void seek_absolute(binary_io::streamoff a_pos) noexcept;
+
 			/// \copydoc binary_io::components::basic_seek_stream::seek_relative()
+			///
+			/// \pre \ref is_open() _must_ be `true`.
 			void seek_relative(binary_io::streamoff a_off) noexcept;
 
 			/// \copydoc binary_io::components::basic_seek_stream::tell()
+			///
+			/// \pre \ref is_open() _must_ be `true`.
 			[[nodiscard]] binary_io::streamoff tell() const noexcept;
 
 			/// @}
 
 		protected:
-			file_stream_base(const std::filesystem::path& a_path, const char* a_mode);
+			void open(const std::filesystem::path& a_path, const char* a_mode);
 
 			std::FILE* _buffer{ nullptr };
 		};
@@ -75,9 +96,19 @@ namespace binary_io
 	public:
 		using super::super;
 
-		file_istream(const std::filesystem::path& a_path) :
-			super(a_path, "rb")
-		{}
+		file_istream(const std::filesystem::path& a_path) { this->open(a_path); }
+
+		/// \name File operations
+		/// @{
+
+		/// \brief Opens the file at the given path.
+		///
+		/// \exception std::system_error Thrown when filesystem errors are encountered.
+		/// \post \ref is_open() is `true`.
+		/// \param a_path The path to the file to open.
+		void open(const std::filesystem::path& a_path) { this->super::open(a_path, "rb"); }
+
+		/// @}
 
 		/// \name Reading
 		/// @{
@@ -101,9 +132,25 @@ namespace binary_io
 
 		file_ostream(
 			const std::filesystem::path& a_path,
-			write_mode a_mode = write_mode::truncate) :
-			super(a_path, a_mode == write_mode::truncate ? "wb" : "ab")
-		{}
+			write_mode a_mode = write_mode::truncate)
+		{
+			this->open(a_path, a_mode);
+		}
+
+		/// \name File operations
+		/// @{
+
+		/// \copydoc file_istream::open()
+		///
+		/// \param a_mode The mode to open the file in.
+		void open(
+			const std::filesystem::path& a_path,
+			write_mode a_mode = write_mode::truncate)
+		{
+			this->super::open(a_path, a_mode == write_mode::truncate ? "wb" : "ab");
+		}
+
+		/// @}
 
 		/// \name Writing
 		/// @{
