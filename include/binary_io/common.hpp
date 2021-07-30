@@ -114,9 +114,9 @@ namespace binary_io
 		///
 		/// \remark
 		/// * `T` must provide the following methods:
-		///		* `void seek_absolute(binary_io::streamoff)`
-		///		* `void seek_relative(binary_io::streamoff)`
-		///		* `binary_io::streamoff tell() const`
+		///		* `void seek_absolute(binary_io::streamoff) noexcept`
+		///		* `void seek_relative(binary_io::streamoff) noexcept`
+		///		* `binary_io::streamoff tell() const noexcept`
 		template <class T>
 		concept seekable_stream =
 			requires(T& a_ref, const T& a_cref, binary_io::streamoff a_off)
