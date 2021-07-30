@@ -324,9 +324,11 @@ TEST_CASE("stream read/write")
 		{
 			REQUIRE_THROWS_AS(binary_io::file_istream{ root }, std::system_error);
 
+#if BINARY_IO_OS_WINDOWS
 			const auto path = root / "locked.txt"sv;
 			binary_io::file_ostream out{ path };
 			REQUIRE_THROWS_AS(binary_io::file_istream{ path }, std::system_error);
+#endif
 		}
 	}
 }
