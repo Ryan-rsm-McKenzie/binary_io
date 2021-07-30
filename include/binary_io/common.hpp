@@ -555,7 +555,7 @@ namespace binary_io
 		template <concepts::integral T>
 		friend derived_type& operator<<(
 			derived_type& a_out,
-			T a_value) noexcept
+			T a_value)
 		{
 			a_out.write(a_value);
 			return a_out.derive();
