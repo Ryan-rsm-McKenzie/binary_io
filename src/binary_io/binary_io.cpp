@@ -7,7 +7,6 @@
 #include <cstring>
 #include <filesystem>
 #include <span>
-#include <stdexcept>
 #include <string>
 #include <system_error>
 
@@ -145,7 +144,7 @@ namespace binary_io
 
 		const auto buffer = this->rdbuf();
 		if (where + a_count > buffer.size_bytes()) {
-			throw std::out_of_range("read out of range");
+			throw binary_io::buffer_exhausted();
 		}
 
 		this->seek_relative(static_cast<binary_io::streamoff>(a_count));
@@ -162,7 +161,7 @@ namespace binary_io
 
 		const auto buffer = this->rdbuf();
 		if (where + a_src.size_bytes() > buffer.size_bytes()) {
-			throw std::out_of_range("write out of range");
+			throw binary_io::buffer_exhausted();
 		}
 
 		this->seek_relative(static_cast<binary_io::streamoff>(a_src.size_bytes()));

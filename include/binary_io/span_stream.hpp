@@ -55,11 +55,15 @@ namespace binary_io
 
 		/// \brief Reads bytes into the given buffer.
 		///
+		/// \exception binary_io::buffer_exhausted Thrown when the buffer has less than the
+		///		requested number of bytes.
 		/// \param a_dst The buffer to read bytes into.
 		void read_bytes(std::span<std::byte> a_dst);
 
 		/// \brief Yields a no-copy view of `a_count` bytes from the underlying buffer.
 		///
+		/// \exception binary_io::buffer_exhausted Thrown when the buffer has less than the
+		///		requested number of bytes.
 		/// \param a_count The number of bytes to be read.
 		/// \return A view of the bytes read.
 		[[nodiscard]] auto read_bytes(std::size_t a_count) -> std::span<const std::byte>;
@@ -78,6 +82,8 @@ namespace binary_io
 
 		/// \brief Writes bytes into the given buffer.
 		///
+		/// \exception binary_io::buffer_exhausted Thrown when the buffer has less than the
+		///		requested number of bytes.
 		/// \param a_src The buffer to write bytes from.
 		void write_bytes(std::span<const std::byte> a_src);
 	};

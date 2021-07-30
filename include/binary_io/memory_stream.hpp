@@ -5,7 +5,6 @@
 #include <cstring>
 #include <iterator>
 #include <span>
-#include <stdexcept>
 #include <type_traits>
 #include <utility>
 #include <vector>
@@ -110,7 +109,7 @@ namespace binary_io
 
 			const auto& buffer = this->rdbuf();
 			if (where + a_count > std::size(buffer)) {
-				throw std::out_of_range("read out of range");
+				throw binary_io::buffer_exhausted();
 			}
 
 			this->seek_relative(static_cast<binary_io::streamoff>(a_count));
@@ -146,7 +145,7 @@ namespace binary_io
 				if constexpr (concepts::resizable<container_type>) {
 					buffer.resize(wantsz);
 				} else {
-					throw std::out_of_range("write out of range");
+					throw binary_io::buffer_exhausted();
 				}
 			}
 
