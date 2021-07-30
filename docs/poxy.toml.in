@@ -6,6 +6,10 @@ name = 'binary_io'
 navbar = [ 'classes', 'namespaces' ]
 show_includes = false
 
+[autolinks]
+'binary_io::streamoff' = 'namespacebinary__io.html#aef6f65ec52818493995621626af0f1c3'
+'std::endian' = 'https://en.cppreference.com/w/cpp/types/endian'
+
 [badges]
 'build' = [
 	'https://img.shields.io/github/workflow/status/Ryan-rsm-McKenzie/binary_io/Main%20CI?logo=github&style=flat-square',
