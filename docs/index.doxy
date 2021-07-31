@@ -6,11 +6,8 @@
 
 \section overview Overview
 
-\subsection overview-what-is What is binary_io?
-`%binary_io` is a cross-platform i/o library which enables developers to painlessly read/write artbitrary binary formats.
-
-\subsection overview-what-isnt What isn't binary_io?
-`%binary_io` is a _not_ a serialization library, such as [cereal](https://github.com/USCiLab/cereal) or [Boost.Serialization](https://www.boost.org/doc/libs/1_76_0/libs/serialization/doc/index.html). It does not define its own binary formats to seralize data to/from.
+\subsection overview-synopsis Synopsis
+`%binary_io` is a cross-platform i/o library which enables developers to painlessly read/write artbitrary binary formats. `%binary_io` is a _not_ a serialization library, such as [cereal](https://github.com/USCiLab/cereal) or [Boost.Serialization](https://www.boost.org/doc/libs/1_76_0/libs/serialization/doc/index.html). It does not define its own binary formats to seralize data to/from.
 
 \subsection overview-inspiration Inspiration
 Loosely based on [Modern std::byte stream IO for C++](https://wg21.link/p2146r2).
