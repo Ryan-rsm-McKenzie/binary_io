@@ -78,7 +78,7 @@
     },
     {
       "cacheVariables": {
-        "CMAKE_CXX_FLAGS": "/EHsc /MP /W4 /WX /external:anglebrackets /external:W0 $penv{CXXFLAGS}"
+        "CMAKE_CXX_FLAGS": "/EHsc /MP /W4 /WX /external:anglebrackets /external:W0"
       },
       "generator": "Visual Studio 16 2019",
       "inherits": [
@@ -90,7 +90,7 @@
     },
     {
       "cacheVariables": {
-        "CMAKE_CXX_FLAGS": "/EHsc /MP /W4 /WX $penv{CXXFLAGS}"
+        "CMAKE_CXX_FLAGS": "/EHsc /MP /W4 /WX"
       },
       "generator": "Visual Studio 17 2022",
       "inherits": [
