@@ -14,7 +14,7 @@ Loosely based on [Modern std::byte stream IO for C++](https://wg21.link/p2146r2)
 
 \section examples Examples
 
-\subsection examples-reading Reading the local file header from a zip file
+\subsection examples-reading Reading a local file header from a zip file
 https://en.wikipedia.org/wiki/ZIP_(file_format)#Local_file_header
 \cpp
 #include <bit>
