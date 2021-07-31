@@ -351,7 +351,7 @@ namespace binary_io
 			binary_io::streamoff _pos{ 0 };
 		};
 
-		/// \brief Implements default formatting behaviours for a stream.
+		/// \brief Implements the default formatting behaviours for every stream.
 		class basic_format_stream
 		{
 		public:

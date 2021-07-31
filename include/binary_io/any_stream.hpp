@@ -261,7 +261,7 @@ namespace binary_io
 		};
 	}
 
-	/// \brief A polymorphic input stream which can be used to abstract any valid input stream.
+	/// \brief A polymorphic stream which can be used to abstract other streams.
 	class any_istream final :
 		public components::any_stream_base<
 			detail::erased_istream_base,
@@ -287,7 +287,7 @@ namespace binary_io
 		/// @}
 	};
 
-	/// \brief A polymorphic output stream which can be used to abstract any valid output stream.
+	/// \copydoc any_istream
 	class any_ostream final :
 		public components::any_stream_base<
 			detail::erased_ostream_base,
