@@ -20,10 +20,10 @@ namespace binary_io
 
 			virtual void flush() noexcept = 0;
 
-			virtual void seek_absolute(streamoff a_pos) = 0;
-			virtual void seek_relative(streamoff a_off) = 0;
+			virtual void seek_absolute(binary_io::streamoff a_pos) = 0;
+			virtual void seek_relative(binary_io::streamoff a_off) = 0;
 
-			[[nodiscard]] virtual auto tell() const -> streamoff = 0;
+			[[nodiscard]] virtual auto tell() const -> binary_io::streamoff = 0;
 		};
 
 		template <class Stream, class Base>
@@ -52,10 +52,12 @@ namespace binary_io
 			[[nodiscard]] auto get() noexcept -> stream_type& { return this->_stream; }
 			[[nodiscard]] auto get() const noexcept -> const stream_type& { return this->_stream; }
 
-			void seek_absolute(streamoff a_pos) override { this->_stream.seek_absolute(a_pos); }
-			void seek_relative(streamoff a_off) override { this->_stream.seek_relative(a_off); }
+			void seek_absolute(
+				binary_io::streamoff a_pos) override { this->_stream.seek_absolute(a_pos); }
+			void seek_relative(
+				binary_io::streamoff a_off) override { this->_stream.seek_relative(a_off); }
 
-			auto tell() const -> streamoff override { return this->_stream.tell(); }
+			auto tell() const -> binary_io::streamoff override { return this->_stream.tell(); }
 
 		protected:
 			stream_type _stream;
