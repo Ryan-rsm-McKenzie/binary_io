@@ -207,9 +207,11 @@ namespace binary_io
 		///
 		/// \param a_value The value to reverse.
 		/// \return The reversed value.
-		template <concepts::integral T>
+		template <class T>
 		[[nodiscard]] T reverse(T a_value) noexcept
 		{
+			static_assert(concepts::integral<T>);
+
 			using integral_t = detail::type_traits::integral_type_t<T>;
 			const auto value = static_cast<integral_t>(a_value);
 			if constexpr (sizeof(T) == 1) {
@@ -230,9 +232,11 @@ namespace binary_io
 		///
 		/// \param a_src The buffer to load from.
 		/// \return The value loaded from the given buffer.
-		template <std::endian E, concepts::integral T>
+		template <std::endian E, class T>
 		[[nodiscard]] T load(std::span<const std::byte, sizeof(T)> a_src) noexcept
 		{
+			static_assert(concepts::integral<T>);
+
 			alignas(T) std::array<std::byte, sizeof(T)> buf{};
 			std::memcpy(buf.data(), a_src.data(), sizeof(T));
 			const auto val = *std::launder(reinterpret_cast<const T*>(buf.data()));
@@ -248,9 +252,10 @@ namespace binary_io
 		///
 		/// \param a_dst The buffer to store into.
 		/// \param a_value The value to be stored.
-		template <std::endian E, concepts::integral T>
+		template <std::endian E, class T>
 		void store(std::span<std::byte, sizeof(T)> a_dst, T a_value) noexcept
 		{
+			static_assert(concepts::integral<T>);
 			if constexpr (std::endian::native != E) {
 				a_value = reverse(a_value);
 			}
@@ -279,11 +284,13 @@ namespace binary_io
 	/// \copydoc endian::load()
 	///
 	/// \param a_endian The endian format the given value is stored in.
-	template <concepts::integral T>
+	template <class T>
 	[[nodiscard]] T read(
 		std::span<const std::byte, sizeof(T)> a_src,
 		std::endian a_endian)
 	{
+		static_assert(concepts::integral<T>);
+
 		switch (a_endian) {
 		case std::endian::little:
 			return endian::load<std::endian::little, T>(a_src);
@@ -297,12 +304,14 @@ namespace binary_io
 	/// \copydoc endian::store()
 	///
 	/// \param a_endian The endian format to store the given value in.
-	template <concepts::integral T>
+	template <class T>
 	void write(
 		std::span<std::byte, sizeof(T)> a_dst,
 		T a_value,
 		std::endian a_endian)
 	{
+		static_assert(concepts::integral<T>);
+
 		switch (a_endian) {
 		case std::endian::little:
 			endian::store<std::endian::little>(a_dst, a_value);
@@ -393,9 +402,10 @@ namespace binary_io
 		///
 		/// \tparam T The type to read.
 		/// \return The value read from the input stream.
-		template <concepts::integral T>
+		template <class T>
 		[[nodiscard]] T read()
 		{
+			static_assert(concepts::integral<T>);
 			return this->read<T>(this->endian());
 		}
 
@@ -404,9 +414,10 @@ namespace binary_io
 		/// \tparam T The type to read.
 		/// \param a_endian The endian format the type is stored in.
 		/// \return The value read from the input stream.
-		template <concepts::integral T>
+		template <class T>
 		[[nodiscard]] T read(std::endian a_endian)
 		{
+			static_assert(concepts::integral<T>);
 			auto value = T();
 			this->read(a_endian, value);
 			return value;
@@ -415,9 +426,10 @@ namespace binary_io
 		/// \brief Batch reads the given values from the input stream.
 		///
 		/// \param a_args The values to be read from the input stream.
-		template <concepts::integral... Args>
+		template <class... Args>
 		void read(Args&... a_args)
 		{
+			static_assert((concepts::integral<Args> && ...));
 			this->read(this->endian(), a_args...);
 		}
 
@@ -425,9 +437,10 @@ namespace binary_io
 		///
 		/// \param a_endian The endian format the type is stored in.
 		/// \param a_args The values to be read from the input stream.
-		template <concepts::integral... Args>
+		template <class... Args>
 		void read(std::endian a_endian, Args&... a_args)
 		{
+			static_assert((concepts::integral<Args> && ...));
 			constexpr auto size = (sizeof(a_args) + ...);
 			if constexpr (concepts::no_copy_input_stream<derived_type>) {
 				const auto bytes = this->read_bytes<size>();
@@ -498,12 +511,13 @@ namespace binary_io
 			return static_cast<derived_type&>(*this);
 		}
 
-		template <concepts::integral... Args>
+		template <class... Args>
 		void do_read(
 			std::span<const std::byte> a_bytes,
 			std::endian a_endian,
 			Args&... a_args)
 		{
+			static_assert((concepts::integral<Args> && ...));
 			std::size_t offset = 0;
 			((a_args = binary_io::read<Args>(
 				  a_bytes.subspan(offset, sizeof(Args)).subspan<0, sizeof(Args)>(),
@@ -530,9 +544,10 @@ namespace binary_io
 		/// \brief Writes the given values into the output stream.
 		///
 		/// \param a_args The values to be written into the output stream.
-		template <concepts::integral... Args>
+		template <class... Args>
 		void write(Args... a_args)
 		{
+			static_assert((concepts::integral<Args> && ...));
 			this->write(this->endian(), a_args...);
 		}
 
@@ -540,9 +555,11 @@ namespace binary_io
 		///
 		/// \param a_endian The endian format the values will be written as.
 		/// \param a_args The values to be written into the output stream.
-		template <concepts::integral... Args>
+		template <class... Args>
 		void write(std::endian a_endian, Args... a_args)
 		{
+			static_assert((concepts::integral<Args> && ...));
+
 			constexpr auto size = (sizeof(Args) + ...);
 			std::array<std::byte, size> buffer{};
 			const auto bytes = std::span{ buffer };
