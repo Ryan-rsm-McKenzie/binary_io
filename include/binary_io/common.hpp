@@ -406,7 +406,6 @@ namespace binary_io
 		template <class... Args>
 		[[nodiscard]] std::tuple<Args...> read()
 		{
-			static_assert((concepts::integral<Args> && ...));
 			return this->read<Args...>(this->endian());
 		}
 
@@ -418,7 +417,6 @@ namespace binary_io
 		template <class... Args>
 		[[nodiscard]] std::tuple<Args...> read(std::endian a_endian)
 		{
-			static_assert((concepts::integral<Args> && ...));
 			return this->do_read<Args...>(a_endian, std::index_sequence_for<Args...>{});
 		}
 
@@ -428,7 +426,6 @@ namespace binary_io
 		template <class... Args>
 		void read(Args&... a_args)
 		{
-			static_assert((concepts::integral<Args> && ...));
 			this->read(this->endian(), a_args...);
 		}
 
@@ -515,7 +512,6 @@ namespace binary_io
 			std::endian a_endian,
 			std::index_sequence<I...>)
 		{
-			static_assert((concepts::integral<Args> && ...));
 			std::tuple<Args...> values;
 			this->read(a_endian, std::get<I>(values)...);
 			return values;
@@ -557,7 +553,6 @@ namespace binary_io
 		template <class... Args>
 		void write(Args... a_args)
 		{
-			static_assert((concepts::integral<Args> && ...));
 			this->write(this->endian(), a_args...);
 		}
 
