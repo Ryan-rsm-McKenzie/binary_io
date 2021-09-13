@@ -650,7 +650,7 @@ namespace binary_io
 	{
 	public:
 		buffer_exhausted() noexcept :
-			binary_io::exception("input buffer has been exhausted")
+			binary_io::exception("buffer has been exhausted")
 		{}
 	};
 }
