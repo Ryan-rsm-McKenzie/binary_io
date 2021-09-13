@@ -5,13 +5,8 @@ on:
     branches: [ main ]
     paths:
       - '.github/workflows/formatting.yml'
-      - 'include/**/*.hpp'
-      - 'src/**/*.cpp'
-      - 'src/**/*.hpp'
-      - 'tests/**/*.cpp'
-      - 'tests/**/*.hpp'
-  pull_request:
-    branches: [ main ]
+      - '**/*.cpp'
+      - '**/*.hpp'
   workflow_dispatch:
 
 jobs:
