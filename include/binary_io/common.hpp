@@ -11,6 +11,7 @@
 #include <exception>
 #include <new>
 #include <span>
+#include <tuple>
 #include <type_traits>
 
 static_assert(CHAR_BIT == 8, "unsupported platform");
@@ -398,29 +399,27 @@ namespace binary_io
 		/// \name Reading
 		/// @{
 
-		/// \brief Reads the given type from the input stream.
+		/// \brief Batch reads the given values from the input stream.
 		///
-		/// \tparam T The type to read.
-		/// \return The value read from the input stream.
-		template <class T>
-		[[nodiscard]] T read()
+		/// \tparam Args The values to be read from the input stream.
+		/// \return The values read from the input stream.
+		template <class... Args>
+		[[nodiscard]] std::tuple<Args...> read()
 		{
-			static_assert(concepts::integral<T>);
-			return this->read<T>(this->endian());
+			static_assert((concepts::integral<Args> && ...));
+			return this->read<Args...>(this->endian());
 		}
 
-		/// \brief Reads the given type with the given endian format from the input stream.
+		/// \brief Batch reads the given values with the given endian format from the input stream.
 		///
-		/// \tparam T The type to read.
-		/// \param a_endian The endian format the type is stored in.
-		/// \return The value read from the input stream.
-		template <class T>
-		[[nodiscard]] T read(std::endian a_endian)
+		/// \tparam Args The values to be read from the input stream.
+		/// \param a_endian The endian format the types are stored in.
+		/// \return The values read from the input stream.
+		template <class... Args>
+		[[nodiscard]] std::tuple<Args...> read(std::endian a_endian)
 		{
-			static_assert(concepts::integral<T>);
-			auto value = T();
-			this->read(a_endian, value);
-			return value;
+			static_assert((concepts::integral<Args> && ...));
+			return this->do_read<Args...>(a_endian, std::index_sequence_for<Args...>{});
 		}
 
 		/// \brief Batch reads the given values from the input stream.
@@ -477,7 +476,7 @@ namespace binary_io
 			derived_type& a_in,
 			T& a_value)
 		{
-			a_value = a_in.template read<T>();
+			std::tie(a_value) = a_in.template read<T>();
 			return a_in.derive();
 		}
 
@@ -509,6 +508,17 @@ namespace binary_io
 				concepts::input_stream<derived_type>,
 				"derived type does not meet the minimum requirements for being an input stream");
 			return static_cast<derived_type&>(*this);
+		}
+
+		template <class... Args, std::size_t... I>
+		[[nodiscard]] std::tuple<Args...> do_read(
+			std::endian a_endian,
+			std::index_sequence<I...>)
+		{
+			static_assert((concepts::integral<Args> && ...));
+			std::tuple<Args...> values;
+			this->read(a_endian, std::get<I>(values)...);
+			return values;
 		}
 
 		template <class... Args>

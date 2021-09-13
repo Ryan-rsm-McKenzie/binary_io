@@ -123,7 +123,12 @@ TEST_CASE("stream read/write")
 			std::uint64_t u64;
 
 			if (a_batch) {
-				a_stream.read(a_endian, u8, u16, u32, u64);
+				std::tie(u8, u16, u32, u64) =
+					a_stream.read<
+						std::uint8_t,
+						std::uint16_t,
+						std::uint32_t,
+						std::uint64_t>(a_endian);
 			} else {
 				a_stream >> a_endian >> u8 >> u16 >> u32 >> u64;
 			}
