@@ -437,7 +437,7 @@ namespace binary_io
 		void read(std::endian a_endian, Args&... a_args)
 		{
 			static_assert((concepts::integral<Args> && ...));
-			constexpr auto size = (sizeof(a_args) + ...);
+			constexpr auto size = (sizeof(Args) + ...);
 			if constexpr (concepts::no_copy_input_stream<derived_type>) {
 				const auto bytes = this->read_bytes<size>();
 				this->do_read(bytes, a_endian, a_args...);
