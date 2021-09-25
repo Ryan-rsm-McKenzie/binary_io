@@ -91,7 +91,7 @@
     },
     {
       "cacheVariables": {
-        "CMAKE_CXX_FLAGS": "/W4 /WX"
+        "CMAKE_CXX_FLAGS": "/EHsc /MP /W4 /WX /external:anglebrackets /external:W0"
       },
       "generator": "Ninja",
       "inherits": [
