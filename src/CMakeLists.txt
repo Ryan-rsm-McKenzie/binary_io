@@ -22,10 +22,6 @@ source_group(
 		${SOURCE_FILES}
 )
 
-if("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang|GNU")
-	set(CMAKE_CXX_EXTENSIONS OFF)
-endif()
-
 add_library(
 	"${PROJECT_NAME}"
 	STATIC
