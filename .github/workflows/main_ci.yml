@@ -27,9 +27,9 @@ jobs:
       matrix:
         compiler: [ gcc, clang ]
         include:
-          - config: gcc
+          - compiler: gcc
             version: '10'
-          - config: clang
+          - compiler: clang
             version: '13'
 
     steps:
