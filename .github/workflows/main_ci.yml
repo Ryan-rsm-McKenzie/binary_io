@@ -25,12 +25,10 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        compiler: [ gcc, clang ]
+        compiler: [ gcc ]
         include:
           - compiler: gcc
             version: '10'
-          - compiler: clang
-            version: '13'
 
     steps:
       - uses: actions/checkout@v2
