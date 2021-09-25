@@ -30,7 +30,7 @@ jobs:
           - config: gcc
             version: '10'
           - config: clang
-            version: '10'
+            version: '13'
 
     steps:
       - uses: actions/checkout@v2
