@@ -26,6 +26,7 @@ jobs:
     strategy:
       matrix:
         compiler: [ gcc ]
+        arch: [ x86, x64 ]
         include:
           - compiler: gcc
             version: '10'
@@ -40,12 +41,14 @@ jobs:
         uses: egor-tensin/setup-gcc@v1
         with:
           version: ${{ matrix.version }}
+          platform: ${{ matrix.arch }}
 
       - name: Set up Clang
         if: ${{ matrix.compiler == 'clang' }}
         uses: egor-tensin/setup-clang@v1
         with:
           version: ${{ matrix.version }}
+          platform: ${{ matrix.arch }}
 
       - name: Setup Environment
         run: |
@@ -88,10 +91,20 @@ jobs:
 
   windows:
     runs-on: windows-latest
+    strategy:
+      matrix:
+        compiler: [ msvc ]
+        arch: [ x86, x64 ]
+
     steps:
       - uses: actions/checkout@v2
         with:
           path: binary_io
+
+      - name: Set up MSVC
+        uses: egor-tensin/vs-shell@v2
+        with:
+          arch: ${{ matrix.arch }}
 
       - name: Setup vcpkg
         run: |
@@ -111,11 +124,11 @@ jobs:
 
       - name: Configure CMake
         working-directory: ${{ github.workspace }}/binary_io
-        run: cmake --preset vs2019-windows-vcpkg
+        run: cmake --preset ninja-windows-vcpkg -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
 
       - name: Build
         working-directory: ${{ github.workspace }}/binary_io
-        run: cmake --build build --config ${{ env.BUILD_TYPE }}
+        run: cmake --build build
 
       - name: Test
         working-directory: ${{ github.workspace }}/binary_io/build
