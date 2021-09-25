@@ -43,7 +43,7 @@ namespace
 
 TEST_CASE("endian store/load")
 {
-	const auto test = []<class T>(std::in_place_type_t<T>, std::size_t a_little, std::size_t a_big) {
+	const auto test = []<class T>(std::in_place_type_t<T>, std::uint64_t a_little, std::uint64_t a_big) {
 		// test against unaligned memory
 		const char payload[] = "\x00\x01\x02\x03\x04\x05\x06\x07\x08";
 		std::array<char, sizeof(payload) - 1> buffer{};

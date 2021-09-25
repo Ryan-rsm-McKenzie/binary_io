@@ -154,7 +154,7 @@ namespace binary_io
 			if (const auto wantsz = where + a_src.size_bytes();
 				wantsz > std::size(buffer)) {
 				if constexpr (concepts::resizable<container_type>) {
-					buffer.resize(wantsz);
+					buffer.resize(static_cast<std::size_t>(wantsz));
 				} else {
 					throw binary_io::buffer_exhausted();
 				}
