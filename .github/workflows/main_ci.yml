@@ -38,13 +38,13 @@ jobs:
           path: binary_io
 
       - name: Set up GCC
-        if: ${{ matrix.compiler }} == gcc
+        if: ${{ matrix.compiler == 'gcc' }}
         uses: egor-tensin/setup-gcc@v1
         with:
           version: ${{ matrix.version }}
 
       - name: Set up Clang
-        if: ${{ matrix.compiler }} == clang
+        if: ${{ matrix.compiler == 'clang' }}
         uses: egor-tensin/setup-clang@v1
         with:
           version: ${{ matrix.version }}
@@ -82,7 +82,7 @@ jobs:
         run: ctest -C ${{ env.BUILD_TYPE }} -V
 
       - name: Collect code coverage
-        if: ${{ matrix.compiler }} == gcc
+        if: ${{ matrix.compiler == 'gcc' }}
         uses: codecov/codecov-action@v1
         with:
           fail_ci_if_error: true
