@@ -78,7 +78,12 @@ namespace binary_io
 
 	namespace concepts
 	{
+#ifdef DOXYGEN
 		/// \brief Constraint for basic integer types or enums.
+		template <class T>
+		struct integral
+		{};
+#else
 		template <class T>
 		concept integral =
 			!std::same_as<T, std::endian> &&
@@ -98,19 +103,27 @@ namespace binary_io
 				std::same_as<T, unsigned int> ||
 				std::same_as<T, unsigned long int> ||
 				std::same_as<T, unsigned long long int>);
+#endif
 
+#ifdef DOXYGEN
 		/// \brief A constraint for container types which can be resized.
 		///
 		/// \remark
 		/// * `T` must provide the following methods:
 		///		* `void resize(T::size_type)`
 		template <class T>
+		struct resizable
+		{};
+#else
+		template <class T>
 		concept resizable =
 			requires(T a_container, typename T::size_type a_count)
 		{
 			{ a_container.resize(a_count) };
 		};
+#endif
 
+#ifdef DOXYGEN
 		/// \brief A constraint for streams which meet the seekable stream interface.
 		///
 		/// \remark
@@ -118,6 +131,10 @@ namespace binary_io
 		///		* `void seek_absolute(binary_io::streamoff) noexcept`
 		///		* `void seek_relative(binary_io::streamoff) noexcept`
 		///		* `binary_io::streamoff tell() const noexcept`
+		template <class T>
+		struct seekable_stream
+		{};
+#else
 		template <class T>
 		concept seekable_stream =
 			requires(T& a_ref, const T& a_cref, binary_io::streamoff a_off)
@@ -128,7 +145,9 @@ namespace binary_io
 			{ a_cref.tell() } -> std::same_as<binary_io::streamoff>;
 			// clang-format on
 		};
+#endif
 
+#ifdef DOXYGEN
 		/// \brief A constraint for streams which implement buffering, and require an explicit call
 		///		to `flush` to synchronize that buffer.
 		///
@@ -136,19 +155,29 @@ namespace binary_io
 		/// * `T` must provide the following methods:
 		///		* `void flush() noexcept`
 		template <class T>
+		struct buffered_stream
+		{};
+#else
+		template <class T>
 		concept buffered_stream =
 			seekable_stream<T> &&
 			requires(T& a_ref)
 		{
 			{ a_ref.flush() };
 		};
+#endif
 
+#ifdef DOXYGEN
 		/// \brief A constraint for streams which meet the input stream interface.
 		///
 		/// \remark
-		/// * `T` must meet the requirements of \ref seekable_stream.
+		/// * `T` must meet the requirements of \ref binary_io::concepts::seekable_stream.
 		/// * Additionally, `T` must provide the following methods:
 		///		* `void read_bytes(std::span<std::byte>)`
+		template <class T>
+		struct input_stream
+		{};
+#else
 		template <class T>
 		concept input_stream =
 			seekable_stream<T> &&
@@ -156,13 +185,19 @@ namespace binary_io
 		{
 			{ a_ref.read_bytes(a_bytes) };
 		};
+#endif
 
+#ifdef DOXYGEN
 		/// \brief A constraint for streams which meet the output stream interface.
 		///
 		/// \remark
-		/// * `T` must meet the requirements of \ref seekable_stream.
+		/// * `T` must meet the requirements of \ref binary_io::concepts::seekable_stream.
 		/// * Additionally, `T` must provide the following methods:
 		///		* `void write_bytes(std::span<const std::byte>)`
+		template <class T>
+		struct output_stream
+		{};
+#else
 		template <class T>
 		concept output_stream =
 			seekable_stream<T> &&
@@ -170,13 +205,19 @@ namespace binary_io
 		{
 			{ a_ref.write_bytes(a_bytes) };
 		};
+#endif
 
+#ifdef DOXYGEN
 		/// \brief A constraint for streams which provide a `read_bytes` overload which doesn't
 		///		require an intermediate copy.
 		///
 		/// \remark
 		/// * `T` must provide the following methods:
 		///		* `std::span<const std::byte> read_bytes(std::size_t a_count)`
+		template <class T>
+		struct no_copy_input_stream
+		{};
+#else
 		template <class T>
 		concept no_copy_input_stream =
 			input_stream<T> &&
@@ -186,6 +227,7 @@ namespace binary_io
 			{ a_ref.read_bytes(a_count) } -> std::same_as<std::span<const std::byte>>;
 			// clang-format on
 		};
+#endif
 	}
 
 #ifndef DOXYGEN
@@ -387,7 +429,7 @@ namespace binary_io
 
 	/// \brief A CRTP utility which can be used to flesh out the interface of a given stream.
 	///
-	/// \tparam Derived A stream type which meets the requirements of \ref concepts::input_stream.
+	/// \tparam Derived A stream type which meets the requirements of \ref binary_io::concepts::input_stream.
 	template <class Derived>
 	class istream_interface :
 		public components::basic_format_stream
@@ -535,7 +577,7 @@ namespace binary_io
 
 	/// \copybrief istream_interface
 	///
-	/// \tparam Derived A stream type which meets the requirements of \ref concepts::output_stream.
+	/// \tparam Derived A stream type which meets the requirements of \ref binary_io::concepts::output_stream.
 	template <class Derived>
 	class ostream_interface :
 		public components::basic_format_stream
