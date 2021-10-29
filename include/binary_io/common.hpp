@@ -280,9 +280,9 @@ namespace binary_io
 		{
 			static_assert(concepts::integral<T>);
 
-			alignas(T) std::array<std::byte, sizeof(T)> buf{};
-			std::memcpy(buf.data(), a_src.data(), sizeof(T));
-			const auto val = *std::launder(reinterpret_cast<const T*>(buf.data()));
+			alignas(T) std::byte buf[sizeof(T)] = {};
+			std::memcpy(buf, a_src.data(), sizeof(T));
+			const auto val = *std::launder(reinterpret_cast<const T*>(buf));
 			if constexpr (std::endian::native != E) {
 				return reverse(val);
 			} else {
