@@ -4,6 +4,7 @@
 #include <cstdio>
 #include <filesystem>
 #include <span>
+#include <utility>
 
 #include "binary_io/common.hpp"
 
@@ -22,7 +23,24 @@ namespace binary_io
 		class file_stream_base
 		{
 		public:
+			file_stream_base() noexcept = default;
 			~file_stream_base() noexcept { this->close(); }
+
+			file_stream_base(const file_stream_base&) = delete;
+			file_stream_base& operator=(const file_stream_base&) = delete;
+
+			file_stream_base(file_stream_base&& a_rhs) noexcept :
+				_buffer(std::exchange(a_rhs._buffer, nullptr))
+			{}
+
+			file_stream_base& operator=(file_stream_base&& a_rhs) noexcept
+			{
+				if (this != &a_rhs) {
+					this->_buffer = std::exchange(a_rhs._buffer, nullptr);
+				}
+
+				return *this;
+			}
 
 			/// \name Buffering
 			/// @{

@@ -338,3 +338,25 @@ TEST_CASE("stream read/write")
 		}
 	}
 }
+
+TEST_CASE("file_stream is a move-only type")
+{
+	const std::filesystem::path filename{ "file_stream_test.txt"sv };
+	std::filesystem::remove(filename);
+
+	const auto test = [&]<class T>(std::in_place_type_t<T>) {
+		T s1{ filename };
+		REQUIRE(s1.is_open());
+
+		T s2{ std::move(s1) };
+		REQUIRE(!s1.is_open());
+		REQUIRE(s2.is_open());
+
+		s1 = std::move(s2);
+		REQUIRE(s1.is_open());
+		REQUIRE(!s2.is_open());
+	};
+
+	test(std::in_place_type<binary_io::file_ostream>);
+	test(std::in_place_type<binary_io::file_istream>);
+}
