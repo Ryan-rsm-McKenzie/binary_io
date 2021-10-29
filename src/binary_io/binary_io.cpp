@@ -232,7 +232,6 @@ namespace binary_io
 				};
 			}
 		}
-
 	}
 
 	void file_istream::read_bytes(std::span<std::byte> a_dst)
