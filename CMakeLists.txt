@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.21)
 
 project(
 	binary_io
-	VERSION 2.0.3
+	VERSION 2.0.4
 	LANGUAGES CXX
 )
 
