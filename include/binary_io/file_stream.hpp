@@ -36,6 +36,7 @@ namespace binary_io
 			file_stream_base& operator=(file_stream_base&& a_rhs) noexcept
 			{
 				if (this != &a_rhs) {
+					this->close();
 					this->_buffer = std::exchange(a_rhs._buffer, nullptr);
 				}
 
