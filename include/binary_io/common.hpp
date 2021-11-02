@@ -110,7 +110,7 @@ namespace binary_io
 		///
 		/// \remark
 		/// * `T` must provide the following methods:
-		///		* `void resize(T::size_type)`
+		///		* `void resize(T::size_type a_count)`
 		template <class T>
 		struct resizable
 		{};
@@ -128,8 +128,8 @@ namespace binary_io
 		///
 		/// \remark
 		/// * `T` must provide the following methods:
-		///		* `void seek_absolute(binary_io::streamoff) noexcept`
-		///		* `void seek_relative(binary_io::streamoff) noexcept`
+		///		* `void seek_absolute(binary_io::streamoff a_pos) noexcept`
+		///		* `void seek_relative(binary_io::streamoff a_off) noexcept`
 		///		* `binary_io::streamoff tell() const noexcept`
 		template <class T>
 		struct seekable_stream
@@ -173,7 +173,7 @@ namespace binary_io
 		/// \remark
 		/// * `T` must meet the requirements of \ref binary_io::concepts::seekable_stream.
 		/// * Additionally, `T` must provide the following methods:
-		///		* `void read_bytes(std::span<std::byte>)`
+		///		* `void read_bytes(std::span<std::byte> a_dst)`
 		template <class T>
 		struct input_stream
 		{};
@@ -193,7 +193,7 @@ namespace binary_io
 		/// \remark
 		/// * `T` must meet the requirements of \ref binary_io::concepts::seekable_stream.
 		/// * Additionally, `T` must provide the following methods:
-		///		* `void write_bytes(std::span<const std::byte>)`
+		///		* `void write_bytes(std::span<const std::byte> a_src)`
 		template <class T>
 		struct output_stream
 		{};
