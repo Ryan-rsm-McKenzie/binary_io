@@ -146,6 +146,10 @@ int main()
 
 \section integration Integration
 
+| Package Manager | Package Name |
+| --- | --- |
+| [vcpkg](https://github.com/microsoft/vcpkg) | `rsm-binary-io` |
+
 `%binary_io` uses [CMake](https://cmake.org/) as its primary build system. Assuming that `%binary_io` has been installed to a place where CMake can find it, then using it in your project is as simple as:
 
 	find_package(binary_io REQUIRED CONFIG)
