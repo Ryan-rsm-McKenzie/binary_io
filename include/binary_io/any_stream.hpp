@@ -80,9 +80,11 @@ namespace binary_io
 		public:
 			using super::super;
 
+#	if !BINARY_IO_COMP_CLANG  // WORKAROUND: LLVM-44833
 			static_assert(
 				concepts::input_stream<Stream>,
 				"stream type does not meet the minimum requirements for being an input stream");
+#	endif
 
 			void read_bytes(std::span<std::byte> a_dst) override
 			{

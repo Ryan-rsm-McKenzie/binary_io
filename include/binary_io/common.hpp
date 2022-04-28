@@ -543,9 +543,11 @@ namespace binary_io
 		[[nodiscard]] auto derive() noexcept
 			-> derived_type&
 		{
+#if !BINARY_IO_COMP_CLANG  // WORKAROUND: LLVM-44833
 			static_assert(
 				concepts::input_stream<derived_type>,
 				"derived type does not meet the minimum requirements for being an input stream");
+#endif
 			return static_cast<derived_type&>(*this);
 		}
 
@@ -660,9 +662,11 @@ namespace binary_io
 		[[nodiscard]] auto derive() noexcept
 			-> derived_type&
 		{
+#if !BINARY_IO_COMP_CLANG  // WORKAROUND: LLVM-44833
 			static_assert(
 				concepts::output_stream<derived_type>,
 				"derived type does not meet the minimum requirements for being an output stream");
+#endif
 			return static_cast<derived_type&>(*this);
 		}
 	};
