@@ -136,6 +136,14 @@ int main()
 }
 \ecpp
 
+\section cmake-options CMake Options
+
+| Option | Default Value | Description |
+| --- | --- | --- |
+| `BINARY_IO_BUILD_DOCS` | `OFF` ❌ | Set to `ON` to build the documentation. |
+| `BINARY_IO_BUILD_SRC` | `ON` ✔️ | Set to `ON` to build the main library. |
+| `BUILD_TESTING` | `ON` ✔️ | Set to `ON` to build the tests. See also the CMake [documentation](https://cmake.org/cmake/help/latest/module/CTest.html) for this option. |
+
 \section integration Integration
 
 `%binary_io` uses [CMake](https://cmake.org/) as its primary build system. Assuming that `%binary_io` has been installed to a place where CMake can find it, then using it in your project is as simple as:
