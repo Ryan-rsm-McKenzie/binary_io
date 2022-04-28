@@ -25,10 +25,13 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        compiler: [ gcc ]
+        compiler: [ gcc, clang ]
         arch: [ x86, x64 ]
         include:
           - compiler: gcc
+            version: '10'
+        include:
+          - compiler: clang
             version: '10'
 
     steps:
