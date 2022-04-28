@@ -30,7 +30,6 @@ jobs:
         include:
           - compiler: gcc
             version: '10'
-        include:
           - compiler: clang
             version: '10'
 
