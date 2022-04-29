@@ -175,35 +175,27 @@ namespace binary_io
 		void file_stream_base::flush() noexcept
 		{
 			if (this->is_open()) {
-				std::fflush(this->_buffer);
-			}
-		}
-
-		void file_stream_base::close() noexcept
-		{
-			if (this->is_open()) {
-				std::fclose(this->_buffer);
-				this->_buffer = nullptr;
+				std::fflush(this->_buffer.get());
 			}
 		}
 
 		void file_stream_base::seek_absolute(binary_io::streamoff a_pos) noexcept
 		{
 			assert(this->is_open());
-			os::fseek(this->_buffer, a_pos, SEEK_SET);
+			os::fseek(this->_buffer.get(), a_pos, SEEK_SET);
 		}
 
 		void file_stream_base::seek_relative(binary_io::streamoff a_off) noexcept
 		{
 			assert(this->is_open());
-			os::fseek(this->_buffer, a_off, SEEK_CUR);
+			os::fseek(this->_buffer.get(), a_off, SEEK_CUR);
 		}
 
 		auto file_stream_base::tell() const noexcept
 			-> binary_io::streamoff
 		{
 			assert(this->is_open());
-			return os::ftell(this->_buffer);
+			return os::ftell(this->_buffer.get());
 		}
 
 		void file_stream_base::open(
@@ -224,7 +216,7 @@ namespace binary_io
 				};
 			}
 
-			this->_buffer = os::fopen(a_path.c_str(), a_mode);
+			this->_buffer.reset(os::fopen(a_path.c_str(), a_mode));
 			if (this->_buffer == nullptr) {
 				throw std::system_error{
 					std::error_code{ errno, std::generic_category() },
@@ -236,7 +228,7 @@ namespace binary_io
 
 	void file_istream::read_bytes(std::span<std::byte> a_dst)
 	{
-		if (!os::fread(a_dst, this->_buffer)) {
+		if (!os::fread(a_dst, this->_buffer.get())) {
 			throw binary_io::buffer_exhausted();
 		}
 	}
@@ -247,7 +239,7 @@ namespace binary_io
 				a_src.data(),
 				1,
 				a_src.size_bytes(),
-				this->_buffer) != a_src.size_bytes()) {
+				this->_buffer.get()) != a_src.size_bytes()) {
 			throw binary_io::buffer_exhausted();
 		}
 	}

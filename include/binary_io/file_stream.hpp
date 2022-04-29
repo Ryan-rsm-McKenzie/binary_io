@@ -3,6 +3,7 @@
 #include <cstddef>
 #include <cstdio>
 #include <filesystem>
+#include <memory>
 #include <span>
 #include <utility>
 
@@ -24,24 +25,11 @@ namespace binary_io
 		{
 		public:
 			file_stream_base() noexcept = default;
-			~file_stream_base() noexcept { this->close(); }
-
-			file_stream_base(const file_stream_base&) = delete;
-			file_stream_base& operator=(const file_stream_base&) = delete;
-
-			file_stream_base(file_stream_base&& a_rhs) noexcept :
-				_buffer(std::exchange(a_rhs._buffer, nullptr))
-			{}
-
-			file_stream_base& operator=(file_stream_base&& a_rhs) noexcept
-			{
-				if (this != &a_rhs) {
-					this->close();
-					this->_buffer = std::exchange(a_rhs._buffer, nullptr);
-				}
-
-				return *this;
-			}
+			file_stream_base(const file_stream_base&) noexcept = default;
+			file_stream_base(file_stream_base&&) noexcept = default;
+			~file_stream_base() noexcept = default;
+			file_stream_base& operator=(const file_stream_base&) noexcept = default;
+			file_stream_base& operator=(file_stream_base&&) noexcept = default;
 
 			/// \name Buffering
 			/// @{
@@ -55,10 +43,10 @@ namespace binary_io
 			/// @{
 
 			/// \copydoc binary_io::components::span_stream_base::rdbuf()
-			[[nodiscard]] std::FILE* rdbuf() noexcept { return this->_buffer; }
+			[[nodiscard]] std::FILE* rdbuf() noexcept { return this->_buffer.get(); }
 
 			/// \copydoc binary_io::components::span_stream_base::rdbuf() const
-			[[nodiscard]] const std::FILE* rdbuf() const noexcept { return this->_buffer; }
+			[[nodiscard]] const std::FILE* rdbuf() const noexcept { return this->_buffer.get(); }
 
 			/// @}
 
@@ -73,7 +61,7 @@ namespace binary_io
 			/// \brief Closes the stream's file handle, if applicable.
 			///
 			/// \post \ref is_open() is `false`.
-			void close() noexcept;
+			void close() noexcept { this->_buffer.reset(); }
 
 			/// @}
 
@@ -98,9 +86,11 @@ namespace binary_io
 			/// @}
 
 		protected:
+			static void fclose(std::FILE* a_file) noexcept { std::fclose(a_file); }
+
 			void open(const std::filesystem::path& a_path, const char* a_mode);
 
-			std::FILE* _buffer{ nullptr };
+			std::unique_ptr<std::FILE, decltype(&file_stream_base::fclose)> _buffer{ nullptr, file_stream_base::fclose };
 		};
 	}
 
