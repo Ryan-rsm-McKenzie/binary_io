@@ -206,6 +206,20 @@ namespace binary_io
 			const std::filesystem::path& a_path,
 			const char* a_mode)
 		{
+			switch (std::filesystem::status(a_path).type()) {
+			case std::filesystem::file_type::not_found:
+			case std::filesystem::file_type::regular:
+				break;
+			case std::filesystem::file_type::none:
+				throw std::system_error{ errno, std::generic_category() };
+			default:
+				throw std::system_error{
+					ENOENT,
+					std::generic_category(),
+					"file is not a regular file"
+				};
+			}
+
 			this->_buffer.reset(os::fopen(a_path.c_str(), a_mode));
 			if (this->_buffer == nullptr) {
 				std::string reason = "failed to open file"s;
