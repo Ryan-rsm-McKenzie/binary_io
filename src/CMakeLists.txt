@@ -49,10 +49,10 @@ target_compile_features(
 )
 
 if("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang|GNU")
-	target_compile_options(
+	set_target_properties(
 		"${PROJECT_NAME}"
-		PRIVATE
-			"-fvisibility=hidden"
+		PROPERTIES
+			CXX_VISIBILITY_PRESET "hidden"
 	)
 endif()
 
