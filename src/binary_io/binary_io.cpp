@@ -6,6 +6,7 @@
 #include <cstdio>
 #include <cstring>
 #include <filesystem>
+#include <memory>
 #include <span>
 #include <string>
 #include <system_error>
@@ -58,6 +59,8 @@
 
 namespace binary_io
 {
+	using namespace std::literals;
+
 	namespace
 	{
 		namespace os
@@ -75,6 +78,7 @@ namespace binary_io
 				mode.resize(std::strlen(a_mode));
 				std::copy(a_mode, a_mode + mode.size(), mode.begin());
 
+				::SetLastError(ERROR_SUCCESS);
 				(void)::_wfopen_s(&result, a_path, mode.c_str());
 				return result;
 #else
@@ -202,25 +206,35 @@ namespace binary_io
 			const std::filesystem::path& a_path,
 			const char* a_mode)
 		{
-			switch (std::filesystem::status(a_path).type()) {
-			case std::filesystem::file_type::not_found:
-			case std::filesystem::file_type::regular:
-				break;
-			case std::filesystem::file_type::none:
-				throw std::system_error{ errno, std::generic_category() };
-			default:
-				throw std::system_error{
-					ENOENT,
-					std::generic_category(),
-					"file is not a regular file"
-				};
-			}
-
 			this->_buffer.reset(os::fopen(a_path.c_str(), a_mode));
 			if (this->_buffer == nullptr) {
+				std::string reason = "failed to open file"s;
+
+#if BINARY_IO_OS_WINDOWS
+				if (const auto error = ::GetLastError(); error != ERROR_SUCCESS) {
+					std::unique_ptr<char, decltype(&LocalFree)> dtor{ nullptr, LocalFree };
+					char* buffer = nullptr;
+					if (const auto len = ::FormatMessageA(
+							FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+							nullptr,
+							error,
+							0,
+							reinterpret_cast<::LPSTR>(&buffer),
+							0,
+							nullptr);
+						len != 0 && buffer != nullptr) {
+						dtor.reset(buffer);
+						reason.assign(dtor.get(), len);
+						while (!reason.empty() && (reason.ends_with('\r') || reason.ends_with('\n'))) {
+							reason.pop_back();
+						}
+					}
+				}
+#endif
+
 				throw std::system_error{
 					std::error_code{ errno, std::generic_category() },
-					"failed to open file"
+					reason
 				};
 			}
 		}
