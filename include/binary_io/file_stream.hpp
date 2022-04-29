@@ -25,10 +25,10 @@ namespace binary_io
 		{
 		public:
 			file_stream_base() noexcept = default;
-			file_stream_base(const file_stream_base&) noexcept = default;
+			file_stream_base(const file_stream_base&) = delete;
 			file_stream_base(file_stream_base&&) noexcept = default;
 			~file_stream_base() noexcept = default;
-			file_stream_base& operator=(const file_stream_base&) noexcept = default;
+			file_stream_base& operator=(const file_stream_base&) = delete;
 			file_stream_base& operator=(file_stream_base&&) noexcept = default;
 
 			/// \name Buffering
