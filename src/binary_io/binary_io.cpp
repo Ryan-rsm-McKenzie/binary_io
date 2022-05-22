@@ -92,7 +92,13 @@ namespace binary_io
 			{
 				std::size_t read = 0;
 #if BINARY_IO_OS_WINDOWS
-#ifndef __MINGW32__
+#if __MINGW32__
+				read = std::fread(
+					a_dst.data(),
+					1,
+					a_dst.size_bytes(),
+					a_stream);
+#else
 				read = ::fread_s(
 					a_dst.data(),
 					a_dst.size_bytes(),
