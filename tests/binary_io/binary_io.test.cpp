@@ -360,3 +360,20 @@ TEST_CASE("file_stream is a move-only type")
 	test(std::in_place_type<binary_io::file_ostream>);
 	test(std::in_place_type<binary_io::file_istream>);
 }
+
+TEST_CASE("writing 0 bytes to a stream is a no-op")
+{
+	const std::filesystem::path filename{ "zero_byte_test.txt"sv };
+	std::filesystem::remove(filename);
+
+	const auto f = []<class T>(T a_stream) {
+		const std::span<const std::byte> empty;
+		a_stream.write_bytes(empty);
+		auto any = binary_io::any_ostream(std::move(a_stream));
+		any.write_bytes(empty);
+	};
+
+	f(binary_io::file_ostream(filename));
+	f(binary_io::memory_ostream());
+	f(binary_io::span_ostream());
+}
