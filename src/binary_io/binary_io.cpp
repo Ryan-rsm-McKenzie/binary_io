@@ -134,6 +134,10 @@ namespace binary_io
 
 	void span_istream::read_bytes(std::span<std::byte> a_dst)
 	{
+		if (a_dst.empty()) {
+			return;
+		}
+
 		const auto count = a_dst.size_bytes();
 		const auto bytes = this->read_bytes(count);
 		std::memcpy(a_dst.data(), bytes.data(), count);
@@ -142,6 +146,10 @@ namespace binary_io
 	auto span_istream::read_bytes(std::size_t a_count)
 		-> std::span<const std::byte>
 	{
+		if (a_count == 0) {
+			return {};
+		}
+
 		const auto where = this->tell();
 		assert(where >= 0);
 
@@ -159,6 +167,10 @@ namespace binary_io
 
 	void span_ostream::write_bytes(std::span<const std::byte> a_src)
 	{
+		if (a_src.empty()) {
+			return;
+		}
+
 		const auto where = this->tell();
 		assert(where >= 0);
 
@@ -256,6 +268,10 @@ namespace binary_io
 
 	void file_istream::read_bytes(std::span<std::byte> a_dst)
 	{
+		if (a_dst.empty()) {
+			return;
+		}
+
 		if (!os::fread(a_dst, this->_buffer.get())) {
 			throw binary_io::buffer_exhausted();
 		}
@@ -263,6 +279,10 @@ namespace binary_io
 
 	void file_ostream::write_bytes(std::span<const std::byte> a_src)
 	{
+		if (a_src.empty()) {
+			return;
+		}
+
 		if (std::fwrite(
 				a_src.data(),
 				1,

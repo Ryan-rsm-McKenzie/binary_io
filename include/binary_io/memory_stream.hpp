@@ -101,6 +101,10 @@ namespace binary_io
 		/// \copydoc span_istream::read_bytes
 		void read_bytes(std::span<std::byte> a_dst)
 		{
+			if (a_dst.empty()) {
+				return;
+			}
+
 			const auto count = a_dst.size_bytes();
 			const auto bytes = this->read_bytes(count);
 			std::memcpy(a_dst.data(), bytes.data(), count);
@@ -110,6 +114,10 @@ namespace binary_io
 		[[nodiscard]] auto read_bytes(std::size_t a_count)
 			-> std::span<const std::byte>
 		{
+			if (a_count == 0) {
+				return {};
+			}
+
 			const auto where = this->tell();
 			assert(where >= 0);
 
@@ -147,6 +155,10 @@ namespace binary_io
 		/// \copydoc span_ostream::write_bytes
 		void write_bytes(std::span<const std::byte> a_src)
 		{
+			if (a_src.empty()) {
+				return;
+			}
+
 			const auto where = this->tell();
 			assert(where >= 0);
 
