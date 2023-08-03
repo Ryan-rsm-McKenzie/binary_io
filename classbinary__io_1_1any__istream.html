@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8"/>
+  <title>binary_io::any_istream class | binary_io</title>
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" rel="stylesheet"/>
+  <link href="m-dark+documentation.compiled.css" rel="stylesheet"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="#22272e" name="theme-color"/>
+  <meta content="binary_io" name="twitter:title"/>
+  <meta content="binary_io" property="og:title"/>
+  <meta content="binary_io" itemprop="name"/>
+  <meta content="Ryan McKenzie" name="author"/>
+  <meta content="Ryan McKenzie" property="article:author"/>
+  <meta content="telephone=no" name="format-detection"/>
+  <meta content="Poxy v0.5.5" name="generator"/>
+  <meta content="no-referrer-when-downgrade" name="referrer"/>
+  <link href="poxy-0.5.5.css" rel="stylesheet"/>
+  <link href="poxy-0.5.5-dark.css" rel="stylesheet"/>
+  <script src="poxy-0.5.5.js"></script>
+</head>
+<body>
+<header><nav id="navigation">
+  <div class="m-container">
+    <div class="m-row">
+      <a class="m-col-t-8 m-col-m-none m-left-m" href="index.html" id="m-navbar-brand">binary_io</a>
+      <div class="m-col-t-4 m-hide-m m-text-right m-nopadr">
+        <a class="m-doc-search-icon" href="#search" onclick="return showSearch()" title="Search"><svg style="height: 0.9rem;" viewBox="0 0 16 16">
+          <path d="m6 0c-3.31 0-6 2.69-6 6 0 3.31 2.69 6 6 6 1.49 0 2.85-0.541 3.89-1.44-0.0164 0.338 0.147 0.759 0.5 1.15l3.22 3.79c0.552 0.614 1.45 0.665 2 0.115 0.55-0.55 0.499-1.45-0.115-2l-3.79-3.22c-0.392-0.353-0.812-0.515-1.15-0.5 0.895-1.05 1.44-2.41 1.44-3.89 0-3.31-2.69-6-6-6zm0 1.56a4.44 4.44 0 0 1 4.44 4.44 4.44 4.44 0 0 1-4.44 4.44 4.44 4.44 0 0 1-4.44-4.44 4.44 4.44 0 0 1 4.44-4.44z" id="m-doc-search-icon-path"></path>
+        </svg></a>
+        <a href="#navigation" id="m-navbar-show" title="Show navigation"></a>
+        <a href="#" id="m-navbar-hide" title="Hide navigation"></a>
+      </div>
+      <div class="m-col-t-12 m-show-m m-col-m-none m-right-m" id="m-navbar-collapse">
+        <div class="m-row">
+          <ol class="m-col-t-6 m-col-m-none">
+            <li><a href="annotated.html">Classes</a></li>
+            <li><a href="namespaces.html">Namespaces</a></li>
+          </ol>
+          <ol class="m-col-t-6 m-col-m-none" start="3">
+            <li><a class="github poxy-external" href="https://github.com/Ryan-rsm-McKenzie/binary_io/" target="_blank">Github</a></li>
+            <li class="m-show-m"><a class="m-doc-search-icon" href="#search" onclick="return showSearch()" title="Search"><svg style="height: 0.9rem;" viewBox="0 0 16 16">
+              <use href="#m-doc-search-icon-path"></use>
+            </svg></a></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav></header>
+<main><article>
+  <div class="m-container m-container-inflatable">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <h1>
+          <span class="m-breadcrumb"><a href="namespacebinary__io.html">binary_io</a>::<wbr/></span>any_istream <span class="m-thin">class</span> <span class="m-label m-flat m-warning">final</span>
+        </h1>
+        <p>A polymorphic stream which can be used to abstract other streams.</p>
+        <nav class="m-block m-default poxy-toc">
+          <h3>Contents</h3>
+          <ul>
+            <li>
+              Reference
+              <ul>
+                <li><a href="#base-classes">Base classes</a></li>
+                <li><a href="#buffering">Buffering</a></li>
+                <li><a href="#formatting">Formatting</a></li>
+                <li><a href="#modifiers">Modifiers</a></li>
+                <li><a href="#observers">Observers</a></li>
+                <li><a href="#position">Position</a></li>
+                <li><a href="#reading">Reading</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+        <section id="base-classes">
+          <h2><a href="#base-classes">Base classes</a></h2>
+          <dl class="m-doc">
+            <dt>
+              <div class="m-doc-template">template&lt;class StreamBase, template&lt;class&gt; class StreamErased&gt;</div>
+              class <a class="m-doc" href="classbinary__io_1_1components_1_1any__stream__base.html">any_stream_base&lt;detail::erased_istream_base, detail::erased_istream&gt;</a>
+            </dt>
+            <dd>Implements the common interface of every <code>any_stream</code>.</dd>
+            <dt>
+              <div class="m-doc-template">template&lt;class Derived&gt;</div>
+              class <a class="m-doc" href="classbinary__io_1_1istream__interface.html">istream_interface&lt;binary_io::any_istream&gt;</a>
+            </dt>
+            <dd>A CRTP utility which can be used to flesh out the interface of a given stream.</dd>
+          </dl>
+        </section>
+        <section id="buffering">
+          <h2><a href="#buffering">Buffering</a></h2>
+          <dl class="m-doc">
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a class="m-doc" href="classbinary__io_1_1components_1_1any__stream__base.html#a5be8d43fc7b3d108312892e401affbe7">flush</a>(</span><span class="m-doc-wrap">) <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>Flushes the underlying stream's buffers, if applicable.</dd>
+          </dl>
+        </section>
+        <section id="formatting">
+          <h2><a href="#formatting">Formatting</a></h2>
+          <dl class="m-doc">
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a class="m-doc" href="classbinary__io_1_1components_1_1basic__format__stream.html#a11ee75ddde73abac06ef38cb1f08cce7">endian</a>(</span><span class="m-doc-wrap">) const -&gt; <a class="m-doc poxy-injected poxy-external" href="https://en.cppreference.com/w/cpp/types/endian" target="_blank">std::endian</a> <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>Gets the current default endian format.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a class="m-doc" href="classbinary__io_1_1components_1_1basic__format__stream.html#a6e21cdc592189d71fded71d74a64977e">endian</a>(</span><span class="m-doc-wrap"><a class="m-doc poxy-injected poxy-external" href="https://en.cppreference.com/w/cpp/types/endian" target="_blank">std::endian</a> a_endian) <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>Sets the default endian format.</dd>
+          </dl>
+        </section>
+        <section id="modifiers">
+          <h2><a href="#modifiers">Modifiers</a></h2>
+          <dl class="m-doc">
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a class="m-doc" href="classbinary__io_1_1components_1_1any__stream__base.html#ae43df576fac736ae07b2716340641eea">emplace</a>(</span><span class="m-doc-wrap">Args &amp;&amp; ... a_args)</span>
+            </dt>
+            <dd>Constructs the given underlying stream in-place, using the given arguments.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a class="m-doc" href="classbinary__io_1_1components_1_1any__stream__base.html#a8d09a818efd8a26cc24508b080f9839e">reset</a>(</span><span class="m-doc-wrap">) <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>Destroys the underlying buffer, if there is any.</dd>
+          </dl>
+        </section>
+        <section id="observers">
+          <h2><a href="#observers">Observers</a></h2>
+          <dl class="m-doc">
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a class="m-doc" href="classbinary__io_1_1components_1_1any__stream__base.html#afad00c9393aa8065794eb2599540771e">get</a>(</span><span class="m-doc-wrap">) -&gt; S&amp;</span>
+            </dt>
+            <dd>Attempts to get the underlying stream as the given type.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a class="m-doc" href="classbinary__io_1_1components_1_1any__stream__base.html#af90f01c6049939fc7dae0a4c8eb0556b">get</a>(</span><span class="m-doc-wrap">) const -&gt; const S&amp;</span>
+            </dt>
+            <dd>Attempts to get the underlying stream as the given type.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a class="m-doc" href="classbinary__io_1_1components_1_1any__stream__base.html#ae4e0135ff50d63c865c540dd221607d7">get_if</a>(</span><span class="m-doc-wrap">) -&gt; S* <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>Attempts to get the underlying stream as the given type.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a class="m-doc" href="classbinary__io_1_1components_1_1any__stream__base.html#a9f13b33f0f187ff25c7e89569c31475b">get_if</a>(</span><span class="m-doc-wrap">) const -&gt; const S* <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>Attempts to get the underlying stream as the given type.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a class="m-doc" href="classbinary__io_1_1components_1_1any__stream__base.html#a27181e86d0c57917d767700788681e8e">has_value</a>(</span><span class="m-doc-wrap">) const -&gt; bool <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>Checks if there is an active underlying buffer.</dd>
+          </dl>
+        </section>
+        <section id="position">
+          <h2><a href="#position">Position</a></h2>
+          <dl class="m-doc">
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a class="m-doc" href="classbinary__io_1_1components_1_1any__stream__base.html#ac921abe0c7f2fcc088ab79bcd629fefb">seek_absolute</a>(</span><span class="m-doc-wrap"><a class="m-doc poxy-injected" href="namespacebinary__io.html#aef6f65ec52818493995621626af0f1c3">binary_io::<wbr/>streamoff</a> a_pos) <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>Seek to an absolute position in the stream (i.e. from the beginning).</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a class="m-doc" href="classbinary__io_1_1components_1_1any__stream__base.html#a7abbee55390594a6062443c264acc197">seek_relative</a>(</span><span class="m-doc-wrap"><a class="m-doc poxy-injected" href="namespacebinary__io.html#aef6f65ec52818493995621626af0f1c3">binary_io::<wbr/>streamoff</a> a_off) <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>Seek to a position in the stream relative to the current position.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a class="m-doc" href="classbinary__io_1_1components_1_1any__stream__base.html#a4b4fdc08da086384f5ade05d94946bcc">tell</a>(</span><span class="m-doc-wrap">) const -&gt; <a class="m-doc poxy-injected" href="namespacebinary__io.html#aef6f65ec52818493995621626af0f1c3">binary_io::<wbr/>streamoff</a> <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>Gets the current stream position.</dd>
+          </dl>
+        </section>
+        <section id="reading">
+          <h2><a href="#reading">Reading</a></h2>
+          <dl class="m-doc">
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a class="m-doc" href="classbinary__io_1_1istream__interface.html#a208a3c9f9bb09e78b0634c3600089c14">read</a>(</span><span class="m-doc-wrap">) -&gt; <a class="m-doc-external poxy-external" href="http://en.cppreference.com/w/cpp/utility/tuple.html" target="_blank">std::<wbr/>tuple</a>&lt;Args...&gt;</span>
+            </dt>
+            <dd>Batch reads the given values from the input stream.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a class="m-doc" href="classbinary__io_1_1istream__interface.html#a80f992beda72a305e6b1bf22c2fb01a8">read</a>(</span><span class="m-doc-wrap"><a class="m-doc poxy-injected poxy-external" href="https://en.cppreference.com/w/cpp/types/endian" target="_blank">std::endian</a> a_endian) -&gt; <a class="m-doc-external poxy-external" href="http://en.cppreference.com/w/cpp/utility/tuple.html" target="_blank">std::<wbr/>tuple</a>&lt;Args...&gt;</span>
+            </dt>
+            <dd>Batch reads the given values with the given endian format from the input stream.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a class="m-doc" href="classbinary__io_1_1istream__interface.html#a83b23de76d802127774314ad121b83ee">read</a>(</span><span class="m-doc-wrap">Args&amp;... a_args)</span>
+            </dt>
+            <dd>Batch reads the given values from the input stream.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a class="m-doc" href="classbinary__io_1_1istream__interface.html#af38e4e965d07057051425a070e6f8749">read</a>(</span><span class="m-doc-wrap"><a class="m-doc poxy-injected poxy-external" href="https://en.cppreference.com/w/cpp/types/endian" target="_blank">std::endian</a> a_endian,
+              Args&amp;... a_args)</span>
+            </dt>
+            <dd>Batch reads the given values with the given endian format from the input stream.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a class="m-doc" href="#a508f857a18a884d1cf47963fb7f0192b">read_bytes</a>(</span><span class="m-doc-wrap"><a class="m-doc-external poxy-external" href="http://en.cppreference.com/w/cpp/container/span.html" target="_blank">std::<wbr/>span</a>&lt;<a class="m-doc-external poxy-external" href="http://en.cppreference.com/w/cpp/types/byte.html" target="_blank">std::<wbr/>byte</a>&gt; a_dst)</span>
+            </dt>
+            <dd>Reads bytes into the given buffer.</dd>
+          </dl>
+        </section>
+        <section>
+          <h2>Function documentation</h2>
+          <section class="m-doc-details" id="a508f857a18a884d1cf47963fb7f0192b"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void binary_io::<wbr/>any_istream::<wbr/></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a class="m-doc-self" href="#a508f857a18a884d1cf47963fb7f0192b">read_bytes</a>(</span><span class="m-doc-wrap"><a class="m-doc-external poxy-external" href="http://en.cppreference.com/w/cpp/container/span.html" target="_blank">std::<wbr/>span</a>&lt;<a class="m-doc-external poxy-external" href="http://en.cppreference.com/w/cpp/types/byte.html" target="_blank">std::<wbr/>byte</a>&gt; a_dst)</span></span>
+            </h3>
+            <p>Reads bytes into the given buffer.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">a_dst</td>
+                  <td>The buffer to read bytes into.</td>
+                </tr>
+              </tbody>
+              <thead>
+                <tr><th colspan="2">Exceptions</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><a class="m-doc" href="classbinary__io_1_1buffer__exhausted.html">binary_io::<wbr/>buffer_exhausted</a></td>
+                  <td>Thrown when the buffer has less than the requested number of bytes.</td>
+                </tr>
+              </tbody>
+            </table>
+<aside class="m-note m-success"><h4>Precondition</h4><p><a class="m-doc" href="classbinary__io_1_1components_1_1any__stream__base.html#a27181e86d0c57917d767700788681e8e">has_<wbr/>value()</a> <em>must</em> be <code>true</code>.</p></aside>
+          </div></section>
+        </section>
+      </div>
+    </div>
+  </div>
+</article></main>
+<div class="m-doc-search" id="search">
+  <a href="#!" onclick="return hideSearch()"></a>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-m-8 m-push-m-2">
+        <div class="m-doc-search-header m-text m-small">
+          <div><span class="m-label m-default">Tab</span> / <span class="m-label m-default">T</span> to search, <span class="m-label m-default">Esc</span> to close</div>
+          <div id="search-symbolcount">…</div>
+        </div>
+        <div class="m-doc-search-content">
+          <form>
+            <input autocomplete="off" autofocus="autofocus" disabled="disabled" id="search-input" name="q" placeholder="Loading …" spellcheck="false" type="search"/>
+          </form>
+          <noscript class="m-text m-danger m-text-center">Unlike everything else in the docs, the search functionality <em>requires</em> JavaScript.</noscript>
+          <div class="m-text m-dim m-text-center" id="search-help">
+            <p class="m-noindent">Search for symbols, directories, files, pages or
+            modules. You can omit any prefix from the symbol or file path; adding a
+            <code>:</code> or <code>/</code> suffix lists all members of given symbol or
+            directory.</p>
+            <p class="m-noindent">Use <span class="m-label m-dim">↓</span>
+            / <span class="m-label m-dim">↑</span> to navigate through the list,
+            <span class="m-label m-dim">Enter</span> to go.
+            <span class="m-label m-dim">Tab</span> autocompletes common prefix, you can
+            copy a link to the result using <span class="m-label m-dim">⌘</span>
+            <span class="m-label m-dim">L</span> while <span class="m-label m-dim">⌘</span>
+            <span class="m-label m-dim">M</span> produces a Markdown link.</p>
+          </div>
+          <div class="m-text m-warning m-text-center" id="search-notfound">Sorry, nothing was found.</div>
+          <ul id="search-results"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="search-v2.js"></script>
+<script async="async" src="searchdata-v2.js"></script>
+<footer><nav>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        
+    <a class="poxy-external" href="https://github.com/Ryan-rsm-McKenzie/binary_io/" target="_blank">Github</a>
+     • <a class="poxy-external" href="https://github.com/Ryan-rsm-McKenzie/binary_io/issues" target="_blank">Report an issue</a>
+     • <a class="poxy-external" href="https://github.com/Ryan-rsm-McKenzie/binary_io/blob/main/LICENSE" target="_blank">License</a>
+     • <a download="" href="binary_io.tagfile.xml" target="_blank" type="text/xml">Doxygen tagfile</a>
+    <br/><br/>
+    Site generated using <a class="poxy-external" href="https://github.com/marzer/poxy/" target="_blank">Poxy</a>
+
+      </div>
+    </div>
+  </div>
+</nav></footer>
+
+
+</body></html>

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8"/>
+  <title>binary_io</title>
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" rel="stylesheet"/>
+  <link href="m-dark+documentation.compiled.css" rel="stylesheet"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="#22272e" name="theme-color"/>
+  <meta content="binary_io" name="twitter:title"/>
+  <meta content="binary_io" property="og:title"/>
+  <meta content="binary_io" itemprop="name"/>
+  <meta content="Ryan McKenzie" name="author"/>
+  <meta content="Ryan McKenzie" property="article:author"/>
+  <meta content="telephone=no" name="format-detection"/>
+  <meta content="Poxy v0.5.5" name="generator"/>
+  <meta content="no-referrer-when-downgrade" name="referrer"/>
+  <script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "dateModified": "2023-08-03T23:35:02+00:00",
+    "headline": "binary_io"
+}</script>
+  <link href="poxy-0.5.5.css" rel="stylesheet"/>
+  <link href="poxy-0.5.5-dark.css" rel="stylesheet"/>
+  <script src="poxy-0.5.5.js"></script>
+</head>
+<body>
+<header><nav id="navigation">
+  <div class="m-container">
+    <div class="m-row">
+      <a class="m-col-t-8 m-col-m-none m-left-m" href="index.html" id="m-navbar-brand">binary_io</a>
+      <div class="m-col-t-4 m-hide-m m-text-right m-nopadr">
+        <a class="m-doc-search-icon" href="#search" onclick="return showSearch()" title="Search"><svg style="height: 0.9rem;" viewBox="0 0 16 16">
+          <path d="m6 0c-3.31 0-6 2.69-6 6 0 3.31 2.69 6 6 6 1.49 0 2.85-0.541 3.89-1.44-0.0164 0.338 0.147 0.759 0.5 1.15l3.22 3.79c0.552 0.614 1.45 0.665 2 0.115 0.55-0.55 0.499-1.45-0.115-2l-3.79-3.22c-0.392-0.353-0.812-0.515-1.15-0.5 0.895-1.05 1.44-2.41 1.44-3.89 0-3.31-2.69-6-6-6zm0 1.56a4.44 4.44 0 0 1 4.44 4.44 4.44 4.44 0 0 1-4.44 4.44 4.44 4.44 0 0 1-4.44-4.44 4.44 4.44 0 0 1 4.44-4.44z" id="m-doc-search-icon-path"></path>
+        </svg></a>
+        <a href="#navigation" id="m-navbar-show" title="Show navigation"></a>
+        <a href="#" id="m-navbar-hide" title="Hide navigation"></a>
+      </div>
+      <div class="m-col-t-12 m-show-m m-col-m-none m-right-m" id="m-navbar-collapse">
+        <div class="m-row">
+          <ol class="m-col-t-6 m-col-m-none">
+            <li><a href="annotated.html">Classes</a></li>
+            <li><a href="namespaces.html">Namespaces</a></li>
+          </ol>
+          <ol class="m-col-t-6 m-col-m-none" start="3">
+            <li><a class="github poxy-external" href="https://github.com/Ryan-rsm-McKenzie/binary_io/" target="_blank">Github</a></li>
+            <li class="m-show-m"><a class="m-doc-search-icon" href="#search" onclick="return showSearch()" title="Search"><svg style="height: 0.9rem;" viewBox="0 0 16 16">
+              <use href="#m-doc-search-icon-path"></use>
+            </svg></a></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav></header>
+<main><article>
+  <div class="m-container m-container-inflatable">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <img alt="Image" class="m-image main_page_banner" src="banner_small.png" style="width: 1280px;"/><div class="gh-badges"><a class="poxy-external" href="https://github.com/Ryan-rsm-McKenzie/binary_io/blob/main/LICENSE" target="_blank"><img alt="MIT" src="poxy-badge-license-mit.svg"/></a><a class="poxy-external" href="https://github.com/Ryan-rsm-McKenzie/binary_io/releases" target="_blank"><img alt="Releases" src="https://img.shields.io/github/v/release/Ryan-rsm-McKenzie/binary_io?style=flat-square"/></a><a class="poxy-external" href="https://en.cppreference.com/w/cpp/compiler_support" target="_blank"><img alt="C++20" src="poxy-badge-c++20.svg"/></a><a class="poxy-external" href="https://github.com/Ryan-rsm-McKenzie/binary_io/actions/workflows/main_ci.yml" target="_blank"><img alt="build" src="https://img.shields.io/github/actions/workflow/status/Ryan-rsm-McKenzie/binary_io/main_ci.yml?branch=main&amp;logo=github&amp;style=flat-square"/></a><a class="poxy-external" href="https://app.codecov.io/gh/Ryan-rsm-McKenzie/binary_io" target="_blank"><img alt="codecov" src="https://img.shields.io/codecov/c/github/Ryan-rsm-McKenzie/binary_io?logo=codecov&amp;logoColor=white&amp;style=flat-square"/></a><a href="#" target="_blank"><img alt="platform" src="https://img.shields.io/static/v1?label=platform&amp;message=windows%20|%20linux&amp;color=dimgray&amp;style=flat-square"/></a></div>
+        <nav class="m-block m-default poxy-toc">
+          <h3>Contents</h3>
+          <ul>
+            <li>
+              <a href="#overview">Overview</a>
+              <ul>
+                <li><a href="#overview-synopsis">Synopsis</a></li>
+                <li><a href="#overview-inspiration">Inspiration</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#examples">Examples</a>
+              <ul>
+                <li><a href="#examples-reading">Reading a local file header from a zip file</a></li>
+                <li><a href="#examples-writing">Writing an anonymous compiled papyrus script header</a></li>
+              </ul>
+            </li>
+            <li><a href="#cmake-options">CMake Options</a></li>
+            <li><a href="#integration">Integration</a></li>
+          </ul>
+        </nav>
+<section id="overview"><h2><a href="#overview">Overview</a></h2><section id="overview-synopsis"><h3><a href="#overview-synopsis">Synopsis</a></h3><p><code>binary_io</code> is a cross-platform i/o library which enables developers to painlessly read/write artbitrary binary formats. <code>binary_io</code> is a <em>not</em> a serialization library, such as <a class="poxy-external" href="https://github.com/USCiLab/cereal" target="_blank">cereal</a> or <a class="poxy-external" href="https://www.boost.org/doc/libs/1_76_0/libs/serialization/doc/index.html" target="_blank">Boost.Serialization</a>. It does not define its own binary formats to seralize data to/from.</p></section><section id="overview-inspiration"><h3><a href="#overview-inspiration">Inspiration</a></h3><p>Loosely based on <a class="poxy-external" href="https://wg21.link/p2146r2" target="_blank">Modern std::<wbr/>byte stream IO for C++</a>.</p></section></section><section id="examples"><h2><a href="#examples">Examples</a></h2><section id="examples-reading"><h3><a href="#examples-reading">Reading a local file header from a zip file</a></h3><p><a class="poxy-external" href="https://en.wikipedia.org/wiki/ZIP_(file_format)#Local_file_header" target="_blank">https://en.wikipedia.org/wiki/ZIP_<wbr/>(file_<wbr/>format)#Local_<wbr/>file_<wbr/>header</a></p><pre class="m-code"><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;bit&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cstddef&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cstdint&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;span&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;binary_io/binary_io.hpp&gt;</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">local_file_header</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="ns">std</span><span class="o">::</span><span class="ut"><a class="m-doc poxy-injected poxy-external" href="https://en.cppreference.com/w/cpp/types/integer" target="_blank">uint32_t</a></span><span class="w"> </span><span class="n">local_file_header_signature</span><span class="p">{</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="ns">std</span><span class="o">::</span><span class="ut"><a class="m-doc poxy-injected poxy-external" href="https://en.cppreference.com/w/cpp/types/integer" target="_blank">uint16_t</a></span><span class="w"> </span><span class="n">version_needed_to_extract</span><span class="p">{</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="ns">std</span><span class="o">::</span><span class="ut"><a class="m-doc poxy-injected poxy-external" href="https://en.cppreference.com/w/cpp/types/integer" target="_blank">uint16_t</a></span><span class="w"> </span><span class="n">general_purpose_bit_flag</span><span class="p">{</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="ns">std</span><span class="o">::</span><span class="ut"><a class="m-doc poxy-injected poxy-external" href="https://en.cppreference.com/w/cpp/types/integer" target="_blank">uint16_t</a></span><span class="w"> </span><span class="n">compression_method</span><span class="p">{</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="ns">std</span><span class="o">::</span><span class="ut"><a class="m-doc poxy-injected poxy-external" href="https://en.cppreference.com/w/cpp/types/integer" target="_blank">uint16_t</a></span><span class="w"> </span><span class="n">file_last_modification_time</span><span class="p">{</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="ns">std</span><span class="o">::</span><span class="ut"><a class="m-doc poxy-injected poxy-external" href="https://en.cppreference.com/w/cpp/types/integer" target="_blank">uint16_t</a></span><span class="w"> </span><span class="n">file_last_modification_date</span><span class="p">{</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="ns">std</span><span class="o">::</span><span class="ut"><a class="m-doc poxy-injected poxy-external" href="https://en.cppreference.com/w/cpp/types/integer" target="_blank">uint32_t</a></span><span class="w"> </span><span class="n">crc_32_of_uncompressed_data</span><span class="p">{</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="ns">std</span><span class="o">::</span><span class="ut"><a class="m-doc poxy-injected poxy-external" href="https://en.cppreference.com/w/cpp/types/integer" target="_blank">uint32_t</a></span><span class="w"> </span><span class="n">compressed_size</span><span class="p">{</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="ns">std</span><span class="o">::</span><span class="ut"><a class="m-doc poxy-injected poxy-external" href="https://en.cppreference.com/w/cpp/types/integer" target="_blank">uint32_t</a></span><span class="w"> </span><span class="n">uncompressed_size</span><span class="p">{</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="ns">std</span><span class="o">::</span><span class="ut"><a class="m-doc poxy-injected poxy-external" href="https://en.cppreference.com/w/cpp/types/integer" target="_blank">uint16_t</a></span><span class="w"> </span><span class="n">file_name_length</span><span class="p">{</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="ns">std</span><span class="o">::</span><span class="ut"><a class="m-doc poxy-injected poxy-external" href="https://en.cppreference.com/w/cpp/types/integer" target="_blank">uint16_t</a></span><span class="w"> </span><span class="n">extra_field_length</span><span class="p">{</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="ns">std</span><span class="o">::</span><span class="ut">string</span><span class="w"> </span><span class="n">file_name</span><span class="p">;</span>
+<span class="w">    </span><span class="ns">std</span><span class="o">::</span><span class="ut">string</span><span class="w"> </span><span class="n">extra_field</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="ns">binary_io</span><span class="o">::</span><span class="ut">file_istream</span><span class="w"> </span><span class="n">in</span><span class="p">{</span><span class="w"> </span><span class="s">"example.zip"</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">read_string</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="ns">std</span><span class="o">::</span><span class="ut">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">a_dst</span><span class="p">,</span><span class="w"> </span><span class="ns">std</span><span class="o">::</span><span class="ut"><a class="m-doc poxy-injected poxy-external" href="https://en.cppreference.com/w/cpp/types/size_t" target="_blank">size_t</a></span><span class="w"> </span><span class="n">a_len</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">a_dst</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">a_len</span><span class="p">);</span>
+<span class="w">        </span><span class="n">in</span><span class="p">.</span><span class="n">read_bytes</span><span class="p">(</span><span class="ns">std</span><span class="o">::</span><span class="n">as_writable_bytes</span><span class="p">(</span><span class="ns">std</span><span class="o">::</span><span class="ut">span</span><span class="p">{</span><span class="w"> </span><span class="n">a_dst</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="n">a_dst</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="p">}));</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="n">local_file_header</span><span class="w"> </span><span class="n">h</span><span class="p">;</span>
+<span class="w">    </span><span class="n">in</span><span class="p">.</span><span class="n">read</span><span class="p">(</span>
+<span class="w">        </span><span class="ns">std</span><span class="o">::</span><span class="n">endian</span><span class="o">::</span><span class="n">little</span><span class="p">,</span>
+<span class="w">        </span><span class="n">h</span><span class="p">.</span><span class="n">local_file_header_signature</span><span class="p">,</span>
+<span class="w">        </span><span class="n">h</span><span class="p">.</span><span class="n">version_needed_to_extract</span><span class="p">,</span>
+<span class="w">        </span><span class="n">h</span><span class="p">.</span><span class="n">general_purpose_bit_flag</span><span class="p">,</span>
+<span class="w">        </span><span class="n">h</span><span class="p">.</span><span class="n">compression_method</span><span class="p">,</span>
+<span class="w">        </span><span class="n">h</span><span class="p">.</span><span class="n">file_last_modification_time</span><span class="p">,</span>
+<span class="w">        </span><span class="n">h</span><span class="p">.</span><span class="n">file_last_modification_date</span><span class="p">,</span>
+<span class="w">        </span><span class="n">h</span><span class="p">.</span><span class="n">crc_32_of_uncompressed_data</span><span class="p">,</span>
+<span class="w">        </span><span class="n">h</span><span class="p">.</span><span class="n">compressed_size</span><span class="p">,</span>
+<span class="w">        </span><span class="n">h</span><span class="p">.</span><span class="n">uncompressed_size</span><span class="p">,</span>
+<span class="w">        </span><span class="n">h</span><span class="p">.</span><span class="n">file_name_length</span><span class="p">,</span>
+<span class="w">        </span><span class="n">h</span><span class="p">.</span><span class="n">extra_field_length</span><span class="p">);</span>
+<span class="w">    </span><span class="n">read_string</span><span class="p">(</span><span class="n">h</span><span class="p">.</span><span class="n">file_name</span><span class="p">,</span><span class="w"> </span><span class="n">h</span><span class="p">.</span><span class="n">file_name_length</span><span class="p">);</span>
+<span class="w">    </span><span class="n">read_string</span><span class="p">(</span><span class="n">h</span><span class="p">.</span><span class="n">extra_field</span><span class="p">,</span><span class="w"> </span><span class="n">h</span><span class="p">.</span><span class="n">extra_field_length</span><span class="p">);</span>
+
+<span class="w">    </span><span class="ns">std</span><span class="o">::</span><span class="ut">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="ns">std</span><span class="o">::</span><span class="n">hex</span><span class="p">;</span>
+<span class="cp">#define DUMP(a_var) std::cout &lt;&lt; #a_var &lt;&lt; ": " &lt;&lt; h.a_var &lt;&lt; '\n';</span>
+<span class="w">    </span><span class="n">DUMP</span><span class="p">(</span><span class="n">local_file_header_signature</span><span class="p">);</span>
+<span class="w">    </span><span class="n">DUMP</span><span class="p">(</span><span class="n">version_needed_to_extract</span><span class="p">);</span>
+<span class="w">    </span><span class="n">DUMP</span><span class="p">(</span><span class="n">general_purpose_bit_flag</span><span class="p">);</span>
+<span class="w">    </span><span class="n">DUMP</span><span class="p">(</span><span class="n">compression_method</span><span class="p">);</span>
+<span class="w">    </span><span class="n">DUMP</span><span class="p">(</span><span class="n">file_last_modification_time</span><span class="p">);</span>
+<span class="w">    </span><span class="n">DUMP</span><span class="p">(</span><span class="n">file_last_modification_date</span><span class="p">);</span>
+<span class="w">    </span><span class="n">DUMP</span><span class="p">(</span><span class="n">crc_32_of_uncompressed_data</span><span class="p">);</span>
+<span class="w">    </span><span class="n">DUMP</span><span class="p">(</span><span class="n">compressed_size</span><span class="p">);</span>
+<span class="w">    </span><span class="n">DUMP</span><span class="p">(</span><span class="n">uncompressed_size</span><span class="p">);</span>
+<span class="w">    </span><span class="n">DUMP</span><span class="p">(</span><span class="n">file_name_length</span><span class="p">);</span>
+<span class="w">    </span><span class="n">DUMP</span><span class="p">(</span><span class="n">extra_field_length</span><span class="p">);</span>
+<span class="w">    </span><span class="n">DUMP</span><span class="p">(</span><span class="n">file_name</span><span class="p">);</span>
+<span class="w">    </span><span class="n">DUMP</span><span class="p">(</span><span class="n">extra_field</span><span class="p">);</span>
+<span class="p">}</span></pre></section><section id="examples-writing"><h3><a href="#examples-writing">Writing an anonymous compiled papyrus script header</a></h3><p><a class="poxy-external" href="https://en.uesp.net/wiki/Skyrim_Mod:Compiled_Script_File_Format#Header" target="_blank">https://en.uesp.net/wiki/Skyrim_<wbr/>Mod:Compiled_<wbr/>Script_<wbr/>File_<wbr/>Format#Header</a></p><pre class="m-code"><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;bit&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cstdint&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;span&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string_view&gt;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;binary_io/binary_io.hpp&gt;</span>
+
+<span class="k">struct</span><span class="w"> </span><span class="nc">script_header</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">enum</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">game_id</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="ns">std</span><span class="o">::</span><span class="ut"><a class="m-doc poxy-injected poxy-external" href="https://en.cppreference.com/w/cpp/types/integer" target="_blank">uint16_t</a></span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">skyrim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="ns">std</span><span class="o">::</span><span class="ut"><a class="m-doc poxy-injected poxy-external" href="https://en.cppreference.com/w/cpp/types/integer" target="_blank">uint32_t</a></span><span class="w"> </span><span class="n">magic</span><span class="p">{</span><span class="w"> </span><span class="mh">0xFA57C0DE</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="ns">std</span><span class="o">::</span><span class="ut"><a class="m-doc poxy-injected poxy-external" href="https://en.cppreference.com/w/cpp/types/integer" target="_blank">uint8_t</a></span><span class="w"> </span><span class="n">major</span><span class="p">{</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="ns">std</span><span class="o">::</span><span class="ut"><a class="m-doc poxy-injected poxy-external" href="https://en.cppreference.com/w/cpp/types/integer" target="_blank">uint8_t</a></span><span class="w"> </span><span class="n">minor</span><span class="p">{</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="n">game_id</span><span class="w"> </span><span class="n">id</span><span class="p">{</span><span class="w"> </span><span class="n">game_id</span><span class="o">::</span><span class="n">skyrim</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="ns">std</span><span class="o">::</span><span class="ut"><a class="m-doc poxy-injected poxy-external" href="https://en.cppreference.com/w/cpp/types/integer" target="_blank">uint64_t</a></span><span class="w"> </span><span class="n">timestamp</span><span class="p">{</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="ns">std</span><span class="o">::</span><span class="ut">string</span><span class="w"> </span><span class="n">source_name</span><span class="p">{</span><span class="w"> </span><span class="s">"script.psc"</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="ns">std</span><span class="o">::</span><span class="ut">string</span><span class="w"> </span><span class="n">user_name</span><span class="p">;</span>
+<span class="w">    </span><span class="ns">std</span><span class="o">::</span><span class="ut">string</span><span class="w"> </span><span class="n">machine_name</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="ns">binary_io</span><span class="o">::</span><span class="ut">file_ostream</span><span class="w"> </span><span class="n">out</span><span class="p">{</span><span class="w"> </span><span class="s">"script.pex"</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="n">out</span><span class="p">.</span><span class="n">endian</span><span class="p">(</span><span class="ns">std</span><span class="o">::</span><span class="n">endian</span><span class="o">::</span><span class="n">big</span><span class="p">);</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">write_wstring</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="ns">std</span><span class="o">::</span><span class="ut">string_view</span><span class="w"> </span><span class="n">a_str</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">out</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="k"><a class="m-doc poxy-injected poxy-external" href="https://en.cppreference.com/w/cpp/language/static_cast" target="_blank">static_cast</a></span><span class="o">&lt;</span><span class="ns">std</span><span class="o">::</span><span class="ut"><a class="m-doc poxy-injected poxy-external" href="https://en.cppreference.com/w/cpp/types/integer" target="_blank">uint16_t</a></span><span class="o">&gt;</span><span class="p">(</span><span class="n">a_str</span><span class="p">.</span><span class="n">length</span><span class="p">()));</span>
+<span class="w">        </span><span class="n">out</span><span class="p">.</span><span class="n">write_bytes</span><span class="p">(</span><span class="ns">std</span><span class="o">::</span><span class="n">as_bytes</span><span class="p">(</span><span class="ns">std</span><span class="o">::</span><span class="ut">span</span><span class="p">{</span><span class="w"> </span><span class="n">a_str</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="n">a_str</span><span class="p">.</span><span class="n">length</span><span class="p">()</span><span class="w"> </span><span class="p">}));</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="n">script_header</span><span class="w"> </span><span class="n">h</span><span class="p">;</span>
+<span class="w">    </span><span class="n">out</span><span class="p">.</span><span class="n">write</span><span class="p">(</span>
+<span class="w">        </span><span class="n">h</span><span class="p">.</span><span class="n">magic</span><span class="p">,</span>
+<span class="w">        </span><span class="n">h</span><span class="p">.</span><span class="n">major</span><span class="p">,</span>
+<span class="w">        </span><span class="n">h</span><span class="p">.</span><span class="n">minor</span><span class="p">,</span>
+<span class="w">        </span><span class="n">h</span><span class="p">.</span><span class="n">id</span><span class="p">,</span>
+<span class="w">        </span><span class="n">h</span><span class="p">.</span><span class="n">timestamp</span><span class="p">);</span>
+<span class="w">    </span><span class="n">write_wstring</span><span class="p">(</span><span class="n">h</span><span class="p">.</span><span class="n">source_name</span><span class="p">);</span>
+<span class="w">    </span><span class="n">write_wstring</span><span class="p">(</span><span class="n">h</span><span class="p">.</span><span class="n">user_name</span><span class="p">);</span>
+<span class="w">    </span><span class="n">write_wstring</span><span class="p">(</span><span class="n">h</span><span class="p">.</span><span class="n">machine_name</span><span class="p">);</span>
+<span class="p">}</span></pre></section></section><section id="cmake-options"><h2><a href="#cmake-options">CMake Options</a></h2><table class="m-table"><thead><tr><th>Option</th><th>Default Value</th><th>Description</th></tr></thead><tbody><tr><td><code>BINARY_IO_BUILD_DOCS</code></td><td><code>OFF</code> ❌</td><td>Set to <code>ON</code> to build the documentation.</td></tr><tr><td><code>BINARY_IO_BUILD_SRC</code></td><td><code>ON</code> ✔️</td><td>Set to <code>ON</code> to build the main library.</td></tr><tr><td><code>BUILD_TESTING</code></td><td><code>ON</code> ✔️</td><td>Set to <code>ON</code> to build the tests. See also the CMake <a class="poxy-external" href="https://cmake.org/cmake/help/latest/module/CTest.html" target="_blank">documentation</a> for this option.</td></tr></tbody></table></section><section id="integration"><h2><a href="#integration">Integration</a></h2><table class="m-table"><thead><tr><th>Package Manager</th><th>Package Name</th></tr></thead><tbody><tr><td><a class="poxy-external" href="https://github.com/microsoft/vcpkg" target="_blank">vcpkg</a></td><td><code>rsm-binary-io</code></td></tr></tbody></table><p><code>binary_io</code> uses <a class="poxy-external" href="https://cmake.org/" target="_blank">CMake</a> as its primary build system. Assuming that <code>binary_io</code> has been installed to a place where CMake can find it, then using it in your project is as simple as:</p><pre>find_package(binary_io REQUIRED CONFIG)
+target_link_libraries(${PROJECT_NAME} PUBLIC binary_io::binary_io)
+</pre></section>
+      </div>
+    </div>
+  </div>
+</article></main>
+<div class="m-doc-search" id="search">
+  <a href="#!" onclick="return hideSearch()"></a>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-m-8 m-push-m-2">
+        <div class="m-doc-search-header m-text m-small">
+          <div><span class="m-label m-default">Tab</span> / <span class="m-label m-default">T</span> to search, <span class="m-label m-default">Esc</span> to close</div>
+          <div id="search-symbolcount">…</div>
+        </div>
+        <div class="m-doc-search-content">
+          <form>
+            <input autocomplete="off" autofocus="autofocus" disabled="disabled" id="search-input" name="q" placeholder="Loading …" spellcheck="false" type="search"/>
+          </form>
+          <noscript class="m-text m-danger m-text-center">Unlike everything else in the docs, the search functionality <em>requires</em> JavaScript.</noscript>
+          <div class="m-text m-dim m-text-center" id="search-help">
+            <p class="m-noindent">Search for symbols, directories, files, pages or
+            modules. You can omit any prefix from the symbol or file path; adding a
+            <code>:</code> or <code>/</code> suffix lists all members of given symbol or
+            directory.</p>
+            <p class="m-noindent">Use <span class="m-label m-dim">↓</span>
+            / <span class="m-label m-dim">↑</span> to navigate through the list,
+            <span class="m-label m-dim">Enter</span> to go.
+            <span class="m-label m-dim">Tab</span> autocompletes common prefix, you can
+            copy a link to the result using <span class="m-label m-dim">⌘</span>
+            <span class="m-label m-dim">L</span> while <span class="m-label m-dim">⌘</span>
+            <span class="m-label m-dim">M</span> produces a Markdown link.</p>
+          </div>
+          <div class="m-text m-warning m-text-center" id="search-notfound">Sorry, nothing was found.</div>
+          <ul id="search-results"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="search-v2.js"></script>
+<script async="async" src="searchdata-v2.js"></script>
+<footer><nav>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        
+    <a class="poxy-external" href="https://github.com/Ryan-rsm-McKenzie/binary_io/" target="_blank">Github</a>
+     • <a class="poxy-external" href="https://github.com/Ryan-rsm-McKenzie/binary_io/issues" target="_blank">Report an issue</a>
+     • <a class="poxy-external" href="https://github.com/Ryan-rsm-McKenzie/binary_io/blob/main/LICENSE" target="_blank">License</a>
+     • <a download="" href="binary_io.tagfile.xml" target="_blank" type="text/xml">Doxygen tagfile</a>
+    <br/><br/>
+    Site generated using <a class="poxy-external" href="https://github.com/marzer/poxy/" target="_blank">Poxy</a>
+
+      </div>
+    </div>
+  </div>
+</nav></footer>
+
+
+</body></html>

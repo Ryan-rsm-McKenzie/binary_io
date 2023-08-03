@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8"/>
+  <title>binary_io::components::basic_memory_stream_base class | binary_io</title>
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" rel="stylesheet"/>
+  <link href="m-dark+documentation.compiled.css" rel="stylesheet"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="#22272e" name="theme-color"/>
+  <meta content="binary_io" name="twitter:title"/>
+  <meta content="binary_io" property="og:title"/>
+  <meta content="binary_io" itemprop="name"/>
+  <meta content="Ryan McKenzie" name="author"/>
+  <meta content="Ryan McKenzie" property="article:author"/>
+  <meta content="telephone=no" name="format-detection"/>
+  <meta content="Poxy v0.5.5" name="generator"/>
+  <meta content="no-referrer-when-downgrade" name="referrer"/>
+  <link href="poxy-0.5.5.css" rel="stylesheet"/>
+  <link href="poxy-0.5.5-dark.css" rel="stylesheet"/>
+  <script src="poxy-0.5.5.js"></script>
+</head>
+<body>
+<header><nav id="navigation">
+  <div class="m-container">
+    <div class="m-row">
+      <a class="m-col-t-8 m-col-m-none m-left-m" href="index.html" id="m-navbar-brand">binary_io</a>
+      <div class="m-col-t-4 m-hide-m m-text-right m-nopadr">
+        <a class="m-doc-search-icon" href="#search" onclick="return showSearch()" title="Search"><svg style="height: 0.9rem;" viewBox="0 0 16 16">
+          <path d="m6 0c-3.31 0-6 2.69-6 6 0 3.31 2.69 6 6 6 1.49 0 2.85-0.541 3.89-1.44-0.0164 0.338 0.147 0.759 0.5 1.15l3.22 3.79c0.552 0.614 1.45 0.665 2 0.115 0.55-0.55 0.499-1.45-0.115-2l-3.79-3.22c-0.392-0.353-0.812-0.515-1.15-0.5 0.895-1.05 1.44-2.41 1.44-3.89 0-3.31-2.69-6-6-6zm0 1.56a4.44 4.44 0 0 1 4.44 4.44 4.44 4.44 0 0 1-4.44 4.44 4.44 4.44 0 0 1-4.44-4.44 4.44 4.44 0 0 1 4.44-4.44z" id="m-doc-search-icon-path"></path>
+        </svg></a>
+        <a href="#navigation" id="m-navbar-show" title="Show navigation"></a>
+        <a href="#" id="m-navbar-hide" title="Hide navigation"></a>
+      </div>
+      <div class="m-col-t-12 m-show-m m-col-m-none m-right-m" id="m-navbar-collapse">
+        <div class="m-row">
+          <ol class="m-col-t-6 m-col-m-none">
+            <li><a href="annotated.html">Classes</a></li>
+            <li><a href="namespaces.html">Namespaces</a></li>
+          </ol>
+          <ol class="m-col-t-6 m-col-m-none" start="3">
+            <li><a class="github poxy-external" href="https://github.com/Ryan-rsm-McKenzie/binary_io/" target="_blank">Github</a></li>
+            <li class="m-show-m"><a class="m-doc-search-icon" href="#search" onclick="return showSearch()" title="Search"><svg style="height: 0.9rem;" viewBox="0 0 16 16">
+              <use href="#m-doc-search-icon-path"></use>
+            </svg></a></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav></header>
+<main><article>
+  <div class="m-container m-container-inflatable">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <h1>
+          <div class="m-doc-template">template&lt;class Container&gt;</div>
+          <span class="m-breadcrumb"><a href="namespacebinary__io.html">binary_io</a>::<wbr/></span><span class="m-breadcrumb"><a href="namespacebinary__io_1_1components.html">components</a>::<wbr/></span>basic_memory_stream_base <span class="m-thin">class</span>
+        </h1>
+        <p>Implements the common interface of every <code>memory_stream</code>.</p>
+        <nav class="m-block m-default poxy-toc">
+          <h3>Contents</h3>
+          <ul>
+            <li>
+              Reference
+              <ul>
+                <li><a href="#base-classes">Base classes</a></li>
+                <li><a href="#derived-classes">Derived classes</a></li>
+                <li><a href="#pub-types">Public types</a></li>
+                <li><a href="#typeless-methods">Constructors, destructors, conversion operators</a></li>
+                <li><a href="#buffer-management">Buffer management</a></li>
+                <li><a href="#position">Position</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+        <section id="base-classes">
+          <h2><a href="#base-classes">Base classes</a></h2>
+          <dl class="m-doc">
+            <dt>
+              class <a class="m-doc" href="classbinary__io_1_1components_1_1basic__seek__stream.html">basic_seek_stream</a>
+            </dt>
+            <dd>Implements the basic seeking methods required for every stream.</dd>
+          </dl>
+        </section>
+        <section id="derived-classes">
+          <h2><a href="#derived-classes">Derived classes</a></h2>
+          <dl class="m-doc">
+            <dt>
+              <div class="m-doc-template">template&lt;class Container&gt;</div>
+              class <a class="m-doc" href="classbinary__io_1_1basic__memory__istream.html">binary_io::basic_memory_istream</a> <span class="m-label m-flat m-warning">final</span>
+            </dt>
+            <dd>A stream which composes a dynamically sized container.</dd>
+            <dt>
+              <div class="m-doc-template">template&lt;class Container&gt;</div>
+              class <a class="m-doc" href="classbinary__io_1_1basic__memory__ostream.html">binary_io::basic_memory_ostream</a> <span class="m-label m-flat m-warning">final</span>
+            </dt>
+            <dd>A stream which composes a dynamically sized container.</dd>
+          </dl>
+        </section>
+        <section id="pub-types">
+          <h2><a href="#pub-types">Public types</a></h2>
+          <dl class="m-doc">
+            <dt id="aff958f0c9fed983be15eb50d65632a92">
+              using <a class="m-doc-self" href="#aff958f0c9fed983be15eb50d65632a92">container_type</a> = Container
+            </dt>
+            <dd></dd>
+          </dl>
+        </section>
+        <section id="typeless-methods">
+          <h2><a href="#typeless-methods">Constructors, destructors, conversion operators</a></h2>
+          <dl class="m-doc">
+            <dt id="a0e3f6164ac7d3371ac12274c2a6243d3">
+              <span class="m-doc-wrap-bumper"><a class="m-doc-self" href="#a0e3f6164ac7d3371ac12274c2a6243d3">basic_memory_stream_base</a>(</span><span class="m-doc-wrap">) <span class="m-label m-flat m-info">defaulted</span></span>
+            </dt>
+            <dd>Default constructs the underlying buffer.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper"><a class="m-doc" href="#aa63a428cd07062e1c6e8aa47e4ce705a">basic_memory_stream_base</a>(</span><span class="m-doc-wrap">const <a class="m-doc" href="classbinary__io_1_1components_1_1basic__memory__stream__base.html#aff958f0c9fed983be15eb50d65632a92">container_<wbr/>type</a>&amp; a_container) <span class="m-label m-flat m-success">noexcept(…)</span></span>
+            </dt>
+            <dd>Copy constructs the underlying buffer.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper"><a class="m-doc" href="#af179161747935e4398b53cb02e231710">basic_memory_stream_base</a>(</span><span class="m-doc-wrap"><a class="m-doc" href="classbinary__io_1_1components_1_1basic__memory__stream__base.html#aff958f0c9fed983be15eb50d65632a92">container_<wbr/>type</a>&amp;&amp; a_container) <span class="m-label m-flat m-success">noexcept(…)</span></span>
+            </dt>
+            <dd>Move constructs the underlying buffer.</dd>
+            <dt>
+              <div class="m-doc-template">template&lt;class... Args&gt;</div>
+              <span class="m-doc-wrap-bumper"><a class="m-doc" href="#ac38b73aba305f56962407d0955251c49">basic_memory_stream_base</a>(</span><span class="m-doc-wrap"><a class="m-doc-external poxy-external" href="http://en.cppreference.com/w/cpp/utility/in_place.html" target="_blank">std::<wbr/>in_place_t</a>,
+              Args &amp;&amp; ... a_args) <span class="m-label m-flat m-success">noexcept(…)</span></span>
+            </dt>
+            <dd>Constructs the underlying buffer, in-place, using the given args.</dd>
+          </dl>
+        </section>
+        <section id="buffer-management">
+          <h2><a href="#buffer-management">Buffer management</a></h2>
+          <dl class="m-doc">
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a class="m-doc" href="#abbe42c5c2e1633d948329817eb337ae0">rdbuf</a>(</span><span class="m-doc-wrap">) -&gt; <a class="m-doc" href="classbinary__io_1_1components_1_1basic__memory__stream__base.html#aff958f0c9fed983be15eb50d65632a92">container_<wbr/>type</a>&amp; <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>Provides mutable access to the underlying buffer.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a class="m-doc" href="#a37fd9765a6a608d60dade992e8d404de">rdbuf</a>(</span><span class="m-doc-wrap">) const -&gt; const <a class="m-doc" href="classbinary__io_1_1components_1_1basic__memory__stream__base.html#aff958f0c9fed983be15eb50d65632a92">container_<wbr/>type</a>&amp; <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>Provides immutable access to the underlying buffer.</dd>
+          </dl>
+        </section>
+        <section id="position">
+          <h2><a href="#position">Position</a></h2>
+          <dl class="m-doc">
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a class="m-doc" href="classbinary__io_1_1components_1_1basic__seek__stream.html#af3fef3770045073b971b5841e31f142e">seek_absolute</a>(</span><span class="m-doc-wrap"><a class="m-doc poxy-injected" href="namespacebinary__io.html#aef6f65ec52818493995621626af0f1c3">binary_io::<wbr/>streamoff</a> a_pos) <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>Seek to an absolute position in the stream (i.e. from the beginning).</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a class="m-doc" href="classbinary__io_1_1components_1_1basic__seek__stream.html#a7004db7081dc5b2176faeb9c971540d7">seek_relative</a>(</span><span class="m-doc-wrap"><a class="m-doc poxy-injected" href="namespacebinary__io.html#aef6f65ec52818493995621626af0f1c3">binary_io::<wbr/>streamoff</a> a_off) <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>Seek to a position in the stream relative to the current position.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a class="m-doc" href="classbinary__io_1_1components_1_1basic__seek__stream.html#a4ae1c5c59ec71ca0611d995e76d4b320">tell</a>(</span><span class="m-doc-wrap">) const -&gt; <a class="m-doc poxy-injected" href="namespacebinary__io.html#aef6f65ec52818493995621626af0f1c3">binary_io::<wbr/>streamoff</a> <span class="m-label m-flat m-success">noexcept</span></span>
+            </dt>
+            <dd>Gets the current stream position.</dd>
+          </dl>
+        </section>
+        <section>
+          <h2>Function documentation</h2>
+          <section class="m-doc-details" id="aa63a428cd07062e1c6e8aa47e4ce705a"><div>
+            <h3>
+              <div class="m-doc-template">
+                template&lt;class Container&gt;
+              </div>
+              <span class="m-doc-wrap-bumper"> binary_io::<wbr/>components::<wbr/>basic_memory_stream_base&lt;Container&gt;::<wbr/></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a class="m-doc-self" href="#aa63a428cd07062e1c6e8aa47e4ce705a">basic_memory_stream_base</a>(</span><span class="m-doc-wrap">const <a class="m-doc" href="classbinary__io_1_1components_1_1basic__memory__stream__base.html#aff958f0c9fed983be15eb50d65632a92">container_<wbr/>type</a>&amp; a_container) <span class="m-label m-success">noexcept(…)</span></span></span>
+            </h3>
+            <p>Copy constructs the underlying buffer.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">a_container</td>
+                  <td>The container to copy from.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="af179161747935e4398b53cb02e231710"><div>
+            <h3>
+              <div class="m-doc-template">
+                template&lt;class Container&gt;
+              </div>
+              <span class="m-doc-wrap-bumper"> binary_io::<wbr/>components::<wbr/>basic_memory_stream_base&lt;Container&gt;::<wbr/></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a class="m-doc-self" href="#af179161747935e4398b53cb02e231710">basic_memory_stream_base</a>(</span><span class="m-doc-wrap"><a class="m-doc" href="classbinary__io_1_1components_1_1basic__memory__stream__base.html#aff958f0c9fed983be15eb50d65632a92">container_<wbr/>type</a>&amp;&amp; a_container) <span class="m-label m-success">noexcept(…)</span></span></span>
+            </h3>
+            <p>Move constructs the underlying buffer.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">a_container</td>
+                  <td>The container to move from.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="ac38b73aba305f56962407d0955251c49"><div>
+            <h3>
+              <div class="m-doc-template">
+                template&lt;class Container&gt;<br/>
+template&lt;class... Args&gt;
+              </div>
+              <span class="m-doc-wrap-bumper"> binary_io::<wbr/>components::<wbr/>basic_memory_stream_base&lt;Container&gt;::<wbr/></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a class="m-doc-self" href="#ac38b73aba305f56962407d0955251c49">basic_memory_stream_base</a>(</span><span class="m-doc-wrap"><a class="m-doc-external poxy-external" href="http://en.cppreference.com/w/cpp/utility/in_place.html" target="_blank">std::<wbr/>in_place_t</a>,
+              Args &amp;&amp; ... a_args) <span class="m-label m-success">noexcept(…)</span></span></span>
+            </h3>
+            <p>Constructs the underlying buffer, in-place, using the given args.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">a_args</td>
+                  <td>The args to construct the buffer with.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="abbe42c5c2e1633d948329817eb337ae0"><div>
+            <h3>
+              <div class="m-doc-template">
+                template&lt;class Container&gt;
+              </div>
+              <span class="m-doc-wrap-bumper"><a class="m-doc" href="classbinary__io_1_1components_1_1basic__memory__stream__base.html#aff958f0c9fed983be15eb50d65632a92">container_<wbr/>type</a>&amp; binary_io::<wbr/>components::<wbr/>basic_memory_stream_base&lt;Container&gt;::<wbr/></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a class="m-doc-self" href="#abbe42c5c2e1633d948329817eb337ae0">rdbuf</a>(</span><span class="m-doc-wrap">) <span class="m-label m-success">noexcept</span></span></span>
+            </h3>
+            <p>Provides mutable access to the underlying buffer.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <tfoot>
+                <tr>
+                  <th style="width: 1%">Returns</th>
+                  <td>The underlying buffer.</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a37fd9765a6a608d60dade992e8d404de"><div>
+            <h3>
+              <div class="m-doc-template">
+                template&lt;class Container&gt;
+              </div>
+              <span class="m-doc-wrap-bumper">const <a class="m-doc" href="classbinary__io_1_1components_1_1basic__memory__stream__base.html#aff958f0c9fed983be15eb50d65632a92">container_<wbr/>type</a>&amp; binary_io::<wbr/>components::<wbr/>basic_memory_stream_base&lt;Container&gt;::<wbr/></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a class="m-doc-self" href="#a37fd9765a6a608d60dade992e8d404de">rdbuf</a>(</span><span class="m-doc-wrap">) const <span class="m-label m-success">noexcept</span></span></span>
+            </h3>
+            <p>Provides immutable access to the underlying buffer.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <tfoot>
+                <tr>
+                  <th style="width: 1%">Returns</th>
+                  <td>The underlying buffer.</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+        </section>
+      </div>
+    </div>
+  </div>
+</article></main>
+<div class="m-doc-search" id="search">
+  <a href="#!" onclick="return hideSearch()"></a>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-m-8 m-push-m-2">
+        <div class="m-doc-search-header m-text m-small">
+          <div><span class="m-label m-default">Tab</span> / <span class="m-label m-default">T</span> to search, <span class="m-label m-default">Esc</span> to close</div>
+          <div id="search-symbolcount">…</div>
+        </div>
+        <div class="m-doc-search-content">
+          <form>
+            <input autocomplete="off" autofocus="autofocus" disabled="disabled" id="search-input" name="q" placeholder="Loading …" spellcheck="false" type="search"/>
+          </form>
+          <noscript class="m-text m-danger m-text-center">Unlike everything else in the docs, the search functionality <em>requires</em> JavaScript.</noscript>
+          <div class="m-text m-dim m-text-center" id="search-help">
+            <p class="m-noindent">Search for symbols, directories, files, pages or
+            modules. You can omit any prefix from the symbol or file path; adding a
+            <code>:</code> or <code>/</code> suffix lists all members of given symbol or
+            directory.</p>
+            <p class="m-noindent">Use <span class="m-label m-dim">↓</span>
+            / <span class="m-label m-dim">↑</span> to navigate through the list,
+            <span class="m-label m-dim">Enter</span> to go.
+            <span class="m-label m-dim">Tab</span> autocompletes common prefix, you can
+            copy a link to the result using <span class="m-label m-dim">⌘</span>
+            <span class="m-label m-dim">L</span> while <span class="m-label m-dim">⌘</span>
+            <span class="m-label m-dim">M</span> produces a Markdown link.</p>
+          </div>
+          <div class="m-text m-warning m-text-center" id="search-notfound">Sorry, nothing was found.</div>
+          <ul id="search-results"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="search-v2.js"></script>
+<script async="async" src="searchdata-v2.js"></script>
+<footer><nav>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        
+    <a class="poxy-external" href="https://github.com/Ryan-rsm-McKenzie/binary_io/" target="_blank">Github</a>
+     • <a class="poxy-external" href="https://github.com/Ryan-rsm-McKenzie/binary_io/issues" target="_blank">Report an issue</a>
+     • <a class="poxy-external" href="https://github.com/Ryan-rsm-McKenzie/binary_io/blob/main/LICENSE" target="_blank">License</a>
+     • <a download="" href="binary_io.tagfile.xml" target="_blank" type="text/xml">Doxygen tagfile</a>
+    <br/><br/>
+    Site generated using <a class="poxy-external" href="https://github.com/marzer/poxy/" target="_blank">Poxy</a>
+
+      </div>
+    </div>
+  </div>
+</nav></footer>
+
+
+</body></html>

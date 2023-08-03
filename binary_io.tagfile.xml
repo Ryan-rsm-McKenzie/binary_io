@@ -1,0 +1,2774 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<tagfile doxygen_version="1.9.6" doxygen_gitid="4586b5cfaa3d46d51f6a51882951d15644c49edf">
+  <compound kind="file">
+    <name>index.doxy</name>
+    <filename>index_8doxy.html</filename>
+  </compound>
+  <compound kind="file">
+    <name>any_stream.hpp</name>
+    <filename>any__stream_8hpp.html</filename>
+    <includes id="common_8hpp" name="common.hpp" local="yes" imported="no">binary_io/common.hpp</includes>
+    <class kind="class">binary_io::components::any_stream_base</class>
+    <class kind="class">binary_io::any_istream</class>
+    <class kind="class">binary_io::any_ostream</class>
+    <namespace>binary_io</namespace>
+    <namespace>binary_io::components</namespace>
+  </compound>
+  <compound kind="file">
+    <name>binary_io.hpp</name>
+    <filename>binary__io_8hpp.html</filename>
+    <includes id="any__stream_8hpp" name="any_stream.hpp" local="yes" imported="no">binary_io/any_stream.hpp</includes>
+    <includes id="common_8hpp" name="common.hpp" local="yes" imported="no">binary_io/common.hpp</includes>
+    <includes id="file__stream_8hpp" name="file_stream.hpp" local="yes" imported="no">binary_io/file_stream.hpp</includes>
+    <includes id="memory__stream_8hpp" name="memory_stream.hpp" local="yes" imported="no">binary_io/memory_stream.hpp</includes>
+    <includes id="span__stream_8hpp" name="span_stream.hpp" local="yes" imported="no">binary_io/span_stream.hpp</includes>
+  </compound>
+  <compound kind="file">
+    <name>common.hpp</name>
+    <filename>common_8hpp.html</filename>
+    <class kind="struct">binary_io::concepts::integral</class>
+    <class kind="struct">binary_io::concepts::resizable</class>
+    <class kind="struct">binary_io::concepts::seekable_stream</class>
+    <class kind="struct">binary_io::concepts::buffered_stream</class>
+    <class kind="struct">binary_io::concepts::input_stream</class>
+    <class kind="struct">binary_io::concepts::output_stream</class>
+    <class kind="struct">binary_io::concepts::no_copy_input_stream</class>
+    <class kind="class">binary_io::components::basic_seek_stream</class>
+    <class kind="class">binary_io::components::basic_format_stream</class>
+    <class kind="class">binary_io::istream_interface</class>
+    <class kind="class">binary_io::ostream_interface</class>
+    <class kind="class">binary_io::exception</class>
+    <class kind="class">binary_io::buffer_exhausted</class>
+    <namespace>binary_io</namespace>
+    <namespace>binary_io::concepts</namespace>
+    <namespace>binary_io::endian</namespace>
+    <namespace>binary_io::components</namespace>
+    <member kind="define">
+      <type>#define</type>
+      <name>BINARY_IO_COMP_CLANG</name>
+      <anchorfile>common_8hpp.html</anchorfile>
+      <anchor>af2261bc2165434ab8053d6a45457b254</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>BINARY_IO_COMP_GNUC</name>
+      <anchorfile>common_8hpp.html</anchorfile>
+      <anchor>af9736083bd26b43fe6d87549968d8e9b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>BINARY_IO_COMP_EDG</name>
+      <anchorfile>common_8hpp.html</anchorfile>
+      <anchor>ab6298af0c36347b364039e3a826930e0</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>BINARY_IO_COMP_MSVC</name>
+      <anchorfile>common_8hpp.html</anchorfile>
+      <anchor>afa4404e058d94f21f71b386a87906bdd</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>BINARY_IO_OS_WINDOWS</name>
+      <anchorfile>common_8hpp.html</anchorfile>
+      <anchor>a80e2da5c2121ced6ab1041122c93e288</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="define">
+      <type>#define</type>
+      <name>BINARY_IO_VISIBLE</name>
+      <anchorfile>common_8hpp.html</anchorfile>
+      <anchor>ac1d7327842425ae076860923d778c455</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>long long</type>
+      <name>streamoff</name>
+      <anchorfile>namespacebinary__io.html</anchorfile>
+      <anchor>aef6f65ec52818493995621626af0f1c3</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="function">
+      <type>T</type>
+      <name>reverse</name>
+      <anchorfile>namespacebinary__io_1_1endian.html</anchorfile>
+      <anchor>a590609ff5ff9c5a07db5047cc705a55f</anchor>
+      <arglist>(T a_value) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>T</type>
+      <name>load</name>
+      <anchorfile>namespacebinary__io_1_1endian.html</anchorfile>
+      <anchor>ac21c4643df2704aa8ac76f4062ff4a04</anchor>
+      <arglist>(std::span&lt; const std::byte, sizeof(T)&gt; a_src) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>store</name>
+      <anchorfile>namespacebinary__io_1_1endian.html</anchorfile>
+      <anchor>a83089bfa80fd0e7694b96bc165ec686a</anchor>
+      <arglist>(std::span&lt; std::byte, sizeof(T)&gt; a_dst, T a_value) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>T</type>
+      <name>read</name>
+      <anchorfile>namespacebinary__io.html</anchorfile>
+      <anchor>a0e9905220de53e1607e865bd9afdcc1c</anchor>
+      <arglist>(std::span&lt; const std::byte, sizeof(T)&gt; a_src, std::endian a_endian)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>write</name>
+      <anchorfile>namespacebinary__io.html</anchorfile>
+      <anchor>a05e8b32faa6e6efcebfd5d74612714e7</anchor>
+      <arglist>(std::span&lt; std::byte, sizeof(T)&gt; a_dst, T a_value, std::endian a_endian)</arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>file_stream.hpp</name>
+    <filename>file__stream_8hpp.html</filename>
+    <includes id="common_8hpp" name="common.hpp" local="yes" imported="no">binary_io/common.hpp</includes>
+    <class kind="class">binary_io::components::file_stream_base</class>
+    <class kind="class">binary_io::file_istream</class>
+    <class kind="class">binary_io::file_ostream</class>
+    <namespace>binary_io</namespace>
+    <namespace>binary_io::components</namespace>
+    <member kind="enumeration">
+      <type></type>
+      <name>write_mode</name>
+      <anchorfile>namespacebinary__io.html</anchorfile>
+      <anchor>aedb17e4d257428541f62de6cebfe5076</anchor>
+      <arglist></arglist>
+      <enumvalue file="namespacebinary__io.html" anchor="aedb17e4d257428541f62de6cebfe5076a244f58cf07c35fd48d7524b289551e5c">truncate</enumvalue>
+      <enumvalue file="namespacebinary__io.html" anchor="aedb17e4d257428541f62de6cebfe5076a9516dfb15f51c7ee19a4d46b8c0dbe1d">append</enumvalue>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>memory_stream.hpp</name>
+    <filename>memory__stream_8hpp.html</filename>
+    <includes id="common_8hpp" name="common.hpp" local="yes" imported="no">binary_io/common.hpp</includes>
+    <class kind="class">binary_io::components::basic_memory_stream_base</class>
+    <class kind="class">binary_io::basic_memory_istream</class>
+    <class kind="class">binary_io::basic_memory_ostream</class>
+    <namespace>binary_io</namespace>
+    <namespace>binary_io::components</namespace>
+    <member kind="typedef">
+      <type>binary_io::basic_memory_istream&lt; std::vector&lt; std::byte &gt; &gt;</type>
+      <name>memory_istream</name>
+      <anchorfile>namespacebinary__io.html</anchorfile>
+      <anchor>a094035bb639de5577d7aca0c84d254f2</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>binary_io::basic_memory_ostream&lt; std::vector&lt; std::byte &gt; &gt;</type>
+      <name>memory_ostream</name>
+      <anchorfile>namespacebinary__io.html</anchorfile>
+      <anchor>a3157c4b0793a1d89c5f86ac2dc1f49d4</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>span_stream.hpp</name>
+    <filename>span__stream_8hpp.html</filename>
+    <includes id="common_8hpp" name="common.hpp" local="yes" imported="no">binary_io/common.hpp</includes>
+    <class kind="class">binary_io::components::span_stream_base</class>
+    <class kind="class">binary_io::span_istream</class>
+    <class kind="class">binary_io::span_ostream</class>
+    <namespace>binary_io</namespace>
+    <namespace>binary_io::components</namespace>
+  </compound>
+  <compound kind="class">
+    <name>binary_io::any_istream</name>
+    <filename>classbinary__io_1_1any__istream.html</filename>
+    <base>any_stream_base&lt; detail::erased_istream_base, detail::erased_istream &gt;</base>
+    <base>istream_interface&lt; binary_io::any_istream &gt;</base>
+    <member kind="function">
+      <type>void</type>
+      <name>read_bytes</name>
+      <anchorfile>classbinary__io_1_1any__istream.html</anchorfile>
+      <anchor>a508f857a18a884d1cf47963fb7f0192b</anchor>
+      <arglist>(std::span&lt; std::byte &gt; a_dst)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>flush</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>a5be8d43fc7b3d108312892e401affbe7</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>emplace</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>ae43df576fac736ae07b2716340641eea</anchor>
+      <arglist>(Args &amp;&amp;... a_args)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>reset</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>a8d09a818efd8a26cc24508b080f9839e</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>S &amp;</type>
+      <name>get</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>afad00c9393aa8065794eb2599540771e</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>const S &amp;</type>
+      <name>get</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>af90f01c6049939fc7dae0a4c8eb0556b</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>S *</type>
+      <name>get_if</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>ae4e0135ff50d63c865c540dd221607d7</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>const S *</type>
+      <name>get_if</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>a9f13b33f0f187ff25c7e89569c31475b</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>has_value</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>a27181e86d0c57917d767700788681e8e</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>seek_absolute</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>ac921abe0c7f2fcc088ab79bcd629fefb</anchor>
+      <arglist>(binary_io::streamoff a_pos) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>seek_relative</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>a7abbee55390594a6062443c264acc197</anchor>
+      <arglist>(binary_io::streamoff a_off) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>binary_io::streamoff</type>
+      <name>tell</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>a4b4fdc08da086384f5ade05d94946bcc</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>std::tuple&lt; Args... &gt;</type>
+      <name>read</name>
+      <anchorfile>classbinary__io_1_1istream__interface.html</anchorfile>
+      <anchor>a208a3c9f9bb09e78b0634c3600089c14</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>std::tuple&lt; Args... &gt;</type>
+      <name>read</name>
+      <anchorfile>classbinary__io_1_1istream__interface.html</anchorfile>
+      <anchor>a80f992beda72a305e6b1bf22c2fb01a8</anchor>
+      <arglist>(std::endian a_endian)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>read</name>
+      <anchorfile>classbinary__io_1_1istream__interface.html</anchorfile>
+      <anchor>a83b23de76d802127774314ad121b83ee</anchor>
+      <arglist>(Args &amp;... a_args)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>read</name>
+      <anchorfile>classbinary__io_1_1istream__interface.html</anchorfile>
+      <anchor>af38e4e965d07057051425a070e6f8749</anchor>
+      <arglist>(std::endian a_endian, Args &amp;... a_args)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::endian</type>
+      <name>endian</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__format__stream.html</anchorfile>
+      <anchor>a11ee75ddde73abac06ef38cb1f08cce7</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>endian</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__format__stream.html</anchorfile>
+      <anchor>a6e21cdc592189d71fded71d74a64977e</anchor>
+      <arglist>(std::endian a_endian) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>read_bytes</name>
+      <anchorfile>classbinary__io_1_1any__istream.html</anchorfile>
+      <anchor>a508f857a18a884d1cf47963fb7f0192b</anchor>
+      <arglist>(std::span&lt; std::byte &gt; a_dst)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>flush</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>a5be8d43fc7b3d108312892e401affbe7</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>emplace</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>ae43df576fac736ae07b2716340641eea</anchor>
+      <arglist>(Args &amp;&amp;... a_args)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>reset</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>a8d09a818efd8a26cc24508b080f9839e</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>S &amp;</type>
+      <name>get</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>afad00c9393aa8065794eb2599540771e</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>const S &amp;</type>
+      <name>get</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>af90f01c6049939fc7dae0a4c8eb0556b</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>S *</type>
+      <name>get_if</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>ae4e0135ff50d63c865c540dd221607d7</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>const S *</type>
+      <name>get_if</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>a9f13b33f0f187ff25c7e89569c31475b</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>has_value</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>a27181e86d0c57917d767700788681e8e</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>seek_absolute</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>ac921abe0c7f2fcc088ab79bcd629fefb</anchor>
+      <arglist>(binary_io::streamoff a_pos) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>seek_relative</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>a7abbee55390594a6062443c264acc197</anchor>
+      <arglist>(binary_io::streamoff a_off) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>binary_io::streamoff</type>
+      <name>tell</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>a4b4fdc08da086384f5ade05d94946bcc</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>std::tuple&lt; Args... &gt;</type>
+      <name>read</name>
+      <anchorfile>classbinary__io_1_1istream__interface.html</anchorfile>
+      <anchor>a208a3c9f9bb09e78b0634c3600089c14</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>std::tuple&lt; Args... &gt;</type>
+      <name>read</name>
+      <anchorfile>classbinary__io_1_1istream__interface.html</anchorfile>
+      <anchor>a80f992beda72a305e6b1bf22c2fb01a8</anchor>
+      <arglist>(std::endian a_endian)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>read</name>
+      <anchorfile>classbinary__io_1_1istream__interface.html</anchorfile>
+      <anchor>a83b23de76d802127774314ad121b83ee</anchor>
+      <arglist>(Args &amp;... a_args)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>read</name>
+      <anchorfile>classbinary__io_1_1istream__interface.html</anchorfile>
+      <anchor>af38e4e965d07057051425a070e6f8749</anchor>
+      <arglist>(std::endian a_endian, Args &amp;... a_args)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::endian</type>
+      <name>endian</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__format__stream.html</anchorfile>
+      <anchor>a11ee75ddde73abac06ef38cb1f08cce7</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>endian</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__format__stream.html</anchorfile>
+      <anchor>a6e21cdc592189d71fded71d74a64977e</anchor>
+      <arglist>(std::endian a_endian) noexcept</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>binary_io::any_ostream</name>
+    <filename>classbinary__io_1_1any__ostream.html</filename>
+    <base>any_stream_base&lt; detail::erased_ostream_base, detail::erased_ostream &gt;</base>
+    <base>ostream_interface&lt; any_ostream &gt;</base>
+    <member kind="function">
+      <type>void</type>
+      <name>write_bytes</name>
+      <anchorfile>classbinary__io_1_1any__ostream.html</anchorfile>
+      <anchor>a741417fba0104dfcc548b3f50caf07f2</anchor>
+      <arglist>(std::span&lt; const std::byte &gt; a_src)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>flush</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>a5be8d43fc7b3d108312892e401affbe7</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>emplace</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>ae43df576fac736ae07b2716340641eea</anchor>
+      <arglist>(Args &amp;&amp;... a_args)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>reset</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>a8d09a818efd8a26cc24508b080f9839e</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>S &amp;</type>
+      <name>get</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>afad00c9393aa8065794eb2599540771e</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>const S &amp;</type>
+      <name>get</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>af90f01c6049939fc7dae0a4c8eb0556b</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>S *</type>
+      <name>get_if</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>ae4e0135ff50d63c865c540dd221607d7</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>const S *</type>
+      <name>get_if</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>a9f13b33f0f187ff25c7e89569c31475b</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>has_value</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>a27181e86d0c57917d767700788681e8e</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>seek_absolute</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>ac921abe0c7f2fcc088ab79bcd629fefb</anchor>
+      <arglist>(binary_io::streamoff a_pos) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>seek_relative</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>a7abbee55390594a6062443c264acc197</anchor>
+      <arglist>(binary_io::streamoff a_off) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>binary_io::streamoff</type>
+      <name>tell</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>a4b4fdc08da086384f5ade05d94946bcc</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>write</name>
+      <anchorfile>classbinary__io_1_1ostream__interface.html</anchorfile>
+      <anchor>a0c7d9c1e6e39691a84bd40f58f9c863f</anchor>
+      <arglist>(Args... a_args)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>write</name>
+      <anchorfile>classbinary__io_1_1ostream__interface.html</anchorfile>
+      <anchor>a3a42170bd3e0efcad71ca53ce8154a4f</anchor>
+      <arglist>(std::endian a_endian, Args... a_args)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::endian</type>
+      <name>endian</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__format__stream.html</anchorfile>
+      <anchor>a11ee75ddde73abac06ef38cb1f08cce7</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>endian</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__format__stream.html</anchorfile>
+      <anchor>a6e21cdc592189d71fded71d74a64977e</anchor>
+      <arglist>(std::endian a_endian) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>write_bytes</name>
+      <anchorfile>classbinary__io_1_1any__ostream.html</anchorfile>
+      <anchor>a741417fba0104dfcc548b3f50caf07f2</anchor>
+      <arglist>(std::span&lt; const std::byte &gt; a_src)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>flush</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>a5be8d43fc7b3d108312892e401affbe7</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>emplace</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>ae43df576fac736ae07b2716340641eea</anchor>
+      <arglist>(Args &amp;&amp;... a_args)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>reset</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>a8d09a818efd8a26cc24508b080f9839e</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>S &amp;</type>
+      <name>get</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>afad00c9393aa8065794eb2599540771e</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>const S &amp;</type>
+      <name>get</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>af90f01c6049939fc7dae0a4c8eb0556b</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>S *</type>
+      <name>get_if</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>ae4e0135ff50d63c865c540dd221607d7</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>const S *</type>
+      <name>get_if</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>a9f13b33f0f187ff25c7e89569c31475b</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>has_value</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>a27181e86d0c57917d767700788681e8e</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>seek_absolute</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>ac921abe0c7f2fcc088ab79bcd629fefb</anchor>
+      <arglist>(binary_io::streamoff a_pos) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>seek_relative</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>a7abbee55390594a6062443c264acc197</anchor>
+      <arglist>(binary_io::streamoff a_off) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>binary_io::streamoff</type>
+      <name>tell</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>a4b4fdc08da086384f5ade05d94946bcc</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>write</name>
+      <anchorfile>classbinary__io_1_1ostream__interface.html</anchorfile>
+      <anchor>a0c7d9c1e6e39691a84bd40f58f9c863f</anchor>
+      <arglist>(Args... a_args)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>write</name>
+      <anchorfile>classbinary__io_1_1ostream__interface.html</anchorfile>
+      <anchor>a3a42170bd3e0efcad71ca53ce8154a4f</anchor>
+      <arglist>(std::endian a_endian, Args... a_args)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::endian</type>
+      <name>endian</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__format__stream.html</anchorfile>
+      <anchor>a11ee75ddde73abac06ef38cb1f08cce7</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>endian</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__format__stream.html</anchorfile>
+      <anchor>a6e21cdc592189d71fded71d74a64977e</anchor>
+      <arglist>(std::endian a_endian) noexcept</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>binary_io::components::any_stream_base</name>
+    <filename>classbinary__io_1_1components_1_1any__stream__base.html</filename>
+    <templarg>class StreamBase</templarg>
+    <templarg>template&lt; class &gt; class StreamErased</templarg>
+    <member kind="function">
+      <type></type>
+      <name>any_stream_base</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>af97431f7fccc441e0ca05992d9982f80</anchor>
+      <arglist>()=default</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>any_stream_base</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>a771ff6b9e863d5d097816fdf17177363</anchor>
+      <arglist>(const S &amp;a_stream)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>any_stream_base</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>a21162215d7972c358d847a6923e8a291</anchor>
+      <arglist>(S &amp;&amp;a_stream)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>flush</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>a5be8d43fc7b3d108312892e401affbe7</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>any_stream_base</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>a037f05ea56c88169012be33d2444b85c</anchor>
+      <arglist>(std::in_place_type_t&lt; S &gt;, Args &amp;&amp;... a_args)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>emplace</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>ae43df576fac736ae07b2716340641eea</anchor>
+      <arglist>(Args &amp;&amp;... a_args)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>reset</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>a8d09a818efd8a26cc24508b080f9839e</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>S &amp;</type>
+      <name>get</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>afad00c9393aa8065794eb2599540771e</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>const S &amp;</type>
+      <name>get</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>af90f01c6049939fc7dae0a4c8eb0556b</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>S *</type>
+      <name>get_if</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>ae4e0135ff50d63c865c540dd221607d7</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>const S *</type>
+      <name>get_if</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>a9f13b33f0f187ff25c7e89569c31475b</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>has_value</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>a27181e86d0c57917d767700788681e8e</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>seek_absolute</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>ac921abe0c7f2fcc088ab79bcd629fefb</anchor>
+      <arglist>(binary_io::streamoff a_pos) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>seek_relative</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>a7abbee55390594a6062443c264acc197</anchor>
+      <arglist>(binary_io::streamoff a_off) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>binary_io::streamoff</type>
+      <name>tell</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>a4b4fdc08da086384f5ade05d94946bcc</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>flush</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>a5be8d43fc7b3d108312892e401affbe7</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>any_stream_base</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>a037f05ea56c88169012be33d2444b85c</anchor>
+      <arglist>(std::in_place_type_t&lt; S &gt;, Args &amp;&amp;... a_args)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>emplace</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>ae43df576fac736ae07b2716340641eea</anchor>
+      <arglist>(Args &amp;&amp;... a_args)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>reset</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>a8d09a818efd8a26cc24508b080f9839e</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>S &amp;</type>
+      <name>get</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>afad00c9393aa8065794eb2599540771e</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>const S &amp;</type>
+      <name>get</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>af90f01c6049939fc7dae0a4c8eb0556b</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>S *</type>
+      <name>get_if</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>ae4e0135ff50d63c865c540dd221607d7</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>const S *</type>
+      <name>get_if</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>a9f13b33f0f187ff25c7e89569c31475b</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>has_value</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>a27181e86d0c57917d767700788681e8e</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>seek_absolute</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>ac921abe0c7f2fcc088ab79bcd629fefb</anchor>
+      <arglist>(binary_io::streamoff a_pos) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>seek_relative</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>a7abbee55390594a6062443c264acc197</anchor>
+      <arglist>(binary_io::streamoff a_off) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>binary_io::streamoff</type>
+      <name>tell</name>
+      <anchorfile>classbinary__io_1_1components_1_1any__stream__base.html</anchorfile>
+      <anchor>a4b4fdc08da086384f5ade05d94946bcc</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>binary_io::components::basic_format_stream</name>
+    <filename>classbinary__io_1_1components_1_1basic__format__stream.html</filename>
+    <member kind="function">
+      <type>std::endian</type>
+      <name>endian</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__format__stream.html</anchorfile>
+      <anchor>a11ee75ddde73abac06ef38cb1f08cce7</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>endian</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__format__stream.html</anchorfile>
+      <anchor>a6e21cdc592189d71fded71d74a64977e</anchor>
+      <arglist>(std::endian a_endian) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>std::endian</type>
+      <name>endian</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__format__stream.html</anchorfile>
+      <anchor>a11ee75ddde73abac06ef38cb1f08cce7</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>endian</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__format__stream.html</anchorfile>
+      <anchor>a6e21cdc592189d71fded71d74a64977e</anchor>
+      <arglist>(std::endian a_endian) noexcept</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>binary_io::basic_memory_istream</name>
+    <filename>classbinary__io_1_1basic__memory__istream.html</filename>
+    <templarg>class Container</templarg>
+    <base>binary_io::components::basic_memory_stream_base</base>
+    <base>istream_interface&lt; basic_memory_istream&lt; Container &gt; &gt;</base>
+    <member kind="typedef">
+      <type>Container</type>
+      <name>container_type</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__memory__stream__base.html</anchorfile>
+      <anchor>aff958f0c9fed983be15eb50d65632a92</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>read_bytes</name>
+      <anchorfile>classbinary__io_1_1basic__memory__istream.html</anchorfile>
+      <anchor>aa393a3b67a0a67fcea27a8b0cd19d086</anchor>
+      <arglist>(std::span&lt; std::byte &gt; a_dst)</arglist>
+    </member>
+    <member kind="function">
+      <type>auto</type>
+      <name>read_bytes</name>
+      <anchorfile>classbinary__io_1_1basic__memory__istream.html</anchorfile>
+      <anchor>af706e368da6fa5a595182bbca90680d3</anchor>
+      <arglist>(std::size_t a_count) -&gt; std::span&lt; const std::byte &gt;</arglist>
+    </member>
+    <member kind="function">
+      <type>container_type &amp;</type>
+      <name>rdbuf</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__memory__stream__base.html</anchorfile>
+      <anchor>abbe42c5c2e1633d948329817eb337ae0</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>const container_type &amp;</type>
+      <name>rdbuf</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__memory__stream__base.html</anchorfile>
+      <anchor>a37fd9765a6a608d60dade992e8d404de</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>seek_absolute</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__seek__stream.html</anchorfile>
+      <anchor>af3fef3770045073b971b5841e31f142e</anchor>
+      <arglist>(binary_io::streamoff a_pos) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>seek_relative</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__seek__stream.html</anchorfile>
+      <anchor>a7004db7081dc5b2176faeb9c971540d7</anchor>
+      <arglist>(binary_io::streamoff a_off) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>binary_io::streamoff</type>
+      <name>tell</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__seek__stream.html</anchorfile>
+      <anchor>a4ae1c5c59ec71ca0611d995e76d4b320</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>std::tuple&lt; Args... &gt;</type>
+      <name>read</name>
+      <anchorfile>classbinary__io_1_1istream__interface.html</anchorfile>
+      <anchor>a208a3c9f9bb09e78b0634c3600089c14</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>std::tuple&lt; Args... &gt;</type>
+      <name>read</name>
+      <anchorfile>classbinary__io_1_1istream__interface.html</anchorfile>
+      <anchor>a80f992beda72a305e6b1bf22c2fb01a8</anchor>
+      <arglist>(std::endian a_endian)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>read</name>
+      <anchorfile>classbinary__io_1_1istream__interface.html</anchorfile>
+      <anchor>a83b23de76d802127774314ad121b83ee</anchor>
+      <arglist>(Args &amp;... a_args)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>read</name>
+      <anchorfile>classbinary__io_1_1istream__interface.html</anchorfile>
+      <anchor>af38e4e965d07057051425a070e6f8749</anchor>
+      <arglist>(std::endian a_endian, Args &amp;... a_args)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::endian</type>
+      <name>endian</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__format__stream.html</anchorfile>
+      <anchor>a11ee75ddde73abac06ef38cb1f08cce7</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>endian</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__format__stream.html</anchorfile>
+      <anchor>a6e21cdc592189d71fded71d74a64977e</anchor>
+      <arglist>(std::endian a_endian) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>read_bytes</name>
+      <anchorfile>classbinary__io_1_1basic__memory__istream.html</anchorfile>
+      <anchor>aa393a3b67a0a67fcea27a8b0cd19d086</anchor>
+      <arglist>(std::span&lt; std::byte &gt; a_dst)</arglist>
+    </member>
+    <member kind="function">
+      <type>auto</type>
+      <name>read_bytes</name>
+      <anchorfile>classbinary__io_1_1basic__memory__istream.html</anchorfile>
+      <anchor>af706e368da6fa5a595182bbca90680d3</anchor>
+      <arglist>(std::size_t a_count) -&gt; std::span&lt; const std::byte &gt;</arglist>
+    </member>
+    <member kind="function">
+      <type>container_type &amp;</type>
+      <name>rdbuf</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__memory__stream__base.html</anchorfile>
+      <anchor>abbe42c5c2e1633d948329817eb337ae0</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>const container_type &amp;</type>
+      <name>rdbuf</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__memory__stream__base.html</anchorfile>
+      <anchor>a37fd9765a6a608d60dade992e8d404de</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>seek_absolute</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__seek__stream.html</anchorfile>
+      <anchor>af3fef3770045073b971b5841e31f142e</anchor>
+      <arglist>(binary_io::streamoff a_pos) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>seek_relative</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__seek__stream.html</anchorfile>
+      <anchor>a7004db7081dc5b2176faeb9c971540d7</anchor>
+      <arglist>(binary_io::streamoff a_off) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>binary_io::streamoff</type>
+      <name>tell</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__seek__stream.html</anchorfile>
+      <anchor>a4ae1c5c59ec71ca0611d995e76d4b320</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>std::tuple&lt; Args... &gt;</type>
+      <name>read</name>
+      <anchorfile>classbinary__io_1_1istream__interface.html</anchorfile>
+      <anchor>a208a3c9f9bb09e78b0634c3600089c14</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>std::tuple&lt; Args... &gt;</type>
+      <name>read</name>
+      <anchorfile>classbinary__io_1_1istream__interface.html</anchorfile>
+      <anchor>a80f992beda72a305e6b1bf22c2fb01a8</anchor>
+      <arglist>(std::endian a_endian)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>read</name>
+      <anchorfile>classbinary__io_1_1istream__interface.html</anchorfile>
+      <anchor>a83b23de76d802127774314ad121b83ee</anchor>
+      <arglist>(Args &amp;... a_args)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>read</name>
+      <anchorfile>classbinary__io_1_1istream__interface.html</anchorfile>
+      <anchor>af38e4e965d07057051425a070e6f8749</anchor>
+      <arglist>(std::endian a_endian, Args &amp;... a_args)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::endian</type>
+      <name>endian</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__format__stream.html</anchorfile>
+      <anchor>a11ee75ddde73abac06ef38cb1f08cce7</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>endian</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__format__stream.html</anchorfile>
+      <anchor>a6e21cdc592189d71fded71d74a64977e</anchor>
+      <arglist>(std::endian a_endian) noexcept</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>binary_io::basic_memory_ostream</name>
+    <filename>classbinary__io_1_1basic__memory__ostream.html</filename>
+    <templarg>class Container</templarg>
+    <base>binary_io::components::basic_memory_stream_base</base>
+    <base>ostream_interface&lt; basic_memory_ostream&lt; Container &gt; &gt;</base>
+    <member kind="typedef">
+      <type>typename super::container_type</type>
+      <name>container_type</name>
+      <anchorfile>classbinary__io_1_1basic__memory__ostream.html</anchorfile>
+      <anchor>a39b1ce435910877e94913c50dccee845</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>write_bytes</name>
+      <anchorfile>classbinary__io_1_1basic__memory__ostream.html</anchorfile>
+      <anchor>ac2cd72cf38306a502eba1f56382a47db</anchor>
+      <arglist>(std::span&lt; const std::byte &gt; a_src)</arglist>
+    </member>
+    <member kind="function">
+      <type>container_type &amp;</type>
+      <name>rdbuf</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__memory__stream__base.html</anchorfile>
+      <anchor>abbe42c5c2e1633d948329817eb337ae0</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>const container_type &amp;</type>
+      <name>rdbuf</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__memory__stream__base.html</anchorfile>
+      <anchor>a37fd9765a6a608d60dade992e8d404de</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>seek_absolute</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__seek__stream.html</anchorfile>
+      <anchor>af3fef3770045073b971b5841e31f142e</anchor>
+      <arglist>(binary_io::streamoff a_pos) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>seek_relative</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__seek__stream.html</anchorfile>
+      <anchor>a7004db7081dc5b2176faeb9c971540d7</anchor>
+      <arglist>(binary_io::streamoff a_off) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>binary_io::streamoff</type>
+      <name>tell</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__seek__stream.html</anchorfile>
+      <anchor>a4ae1c5c59ec71ca0611d995e76d4b320</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>write</name>
+      <anchorfile>classbinary__io_1_1ostream__interface.html</anchorfile>
+      <anchor>a0c7d9c1e6e39691a84bd40f58f9c863f</anchor>
+      <arglist>(Args... a_args)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>write</name>
+      <anchorfile>classbinary__io_1_1ostream__interface.html</anchorfile>
+      <anchor>a3a42170bd3e0efcad71ca53ce8154a4f</anchor>
+      <arglist>(std::endian a_endian, Args... a_args)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::endian</type>
+      <name>endian</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__format__stream.html</anchorfile>
+      <anchor>a11ee75ddde73abac06ef38cb1f08cce7</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>endian</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__format__stream.html</anchorfile>
+      <anchor>a6e21cdc592189d71fded71d74a64977e</anchor>
+      <arglist>(std::endian a_endian) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>write_bytes</name>
+      <anchorfile>classbinary__io_1_1basic__memory__ostream.html</anchorfile>
+      <anchor>ac2cd72cf38306a502eba1f56382a47db</anchor>
+      <arglist>(std::span&lt; const std::byte &gt; a_src)</arglist>
+    </member>
+    <member kind="function">
+      <type>container_type &amp;</type>
+      <name>rdbuf</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__memory__stream__base.html</anchorfile>
+      <anchor>abbe42c5c2e1633d948329817eb337ae0</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>const container_type &amp;</type>
+      <name>rdbuf</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__memory__stream__base.html</anchorfile>
+      <anchor>a37fd9765a6a608d60dade992e8d404de</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>seek_absolute</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__seek__stream.html</anchorfile>
+      <anchor>af3fef3770045073b971b5841e31f142e</anchor>
+      <arglist>(binary_io::streamoff a_pos) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>seek_relative</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__seek__stream.html</anchorfile>
+      <anchor>a7004db7081dc5b2176faeb9c971540d7</anchor>
+      <arglist>(binary_io::streamoff a_off) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>binary_io::streamoff</type>
+      <name>tell</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__seek__stream.html</anchorfile>
+      <anchor>a4ae1c5c59ec71ca0611d995e76d4b320</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>write</name>
+      <anchorfile>classbinary__io_1_1ostream__interface.html</anchorfile>
+      <anchor>a0c7d9c1e6e39691a84bd40f58f9c863f</anchor>
+      <arglist>(Args... a_args)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>write</name>
+      <anchorfile>classbinary__io_1_1ostream__interface.html</anchorfile>
+      <anchor>a3a42170bd3e0efcad71ca53ce8154a4f</anchor>
+      <arglist>(std::endian a_endian, Args... a_args)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::endian</type>
+      <name>endian</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__format__stream.html</anchorfile>
+      <anchor>a11ee75ddde73abac06ef38cb1f08cce7</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>endian</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__format__stream.html</anchorfile>
+      <anchor>a6e21cdc592189d71fded71d74a64977e</anchor>
+      <arglist>(std::endian a_endian) noexcept</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>binary_io::components::basic_memory_stream_base</name>
+    <filename>classbinary__io_1_1components_1_1basic__memory__stream__base.html</filename>
+    <templarg>class Container</templarg>
+    <base>binary_io::components::basic_seek_stream</base>
+    <member kind="typedef">
+      <type>Container</type>
+      <name>container_type</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__memory__stream__base.html</anchorfile>
+      <anchor>aff958f0c9fed983be15eb50d65632a92</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>basic_memory_stream_base</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__memory__stream__base.html</anchorfile>
+      <anchor>a0e3f6164ac7d3371ac12274c2a6243d3</anchor>
+      <arglist>()=default</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>basic_memory_stream_base</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__memory__stream__base.html</anchorfile>
+      <anchor>aa63a428cd07062e1c6e8aa47e4ce705a</anchor>
+      <arglist>(const container_type &amp;a_container) noexcept(std::is_nothrow_copy_constructible_v&lt; container_type &gt;)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>basic_memory_stream_base</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__memory__stream__base.html</anchorfile>
+      <anchor>af179161747935e4398b53cb02e231710</anchor>
+      <arglist>(container_type &amp;&amp;a_container) noexcept(std::is_nothrow_move_constructible_v&lt; container_type &gt;)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>basic_memory_stream_base</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__memory__stream__base.html</anchorfile>
+      <anchor>ac38b73aba305f56962407d0955251c49</anchor>
+      <arglist>(std::in_place_t, Args &amp;&amp;... a_args) noexcept(std::is_nothrow_constructible_v&lt; container_type, Args &amp;&amp;... &gt;)</arglist>
+    </member>
+    <member kind="function">
+      <type>container_type &amp;</type>
+      <name>rdbuf</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__memory__stream__base.html</anchorfile>
+      <anchor>abbe42c5c2e1633d948329817eb337ae0</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>const container_type &amp;</type>
+      <name>rdbuf</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__memory__stream__base.html</anchorfile>
+      <anchor>a37fd9765a6a608d60dade992e8d404de</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>seek_absolute</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__seek__stream.html</anchorfile>
+      <anchor>af3fef3770045073b971b5841e31f142e</anchor>
+      <arglist>(binary_io::streamoff a_pos) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>seek_relative</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__seek__stream.html</anchorfile>
+      <anchor>a7004db7081dc5b2176faeb9c971540d7</anchor>
+      <arglist>(binary_io::streamoff a_off) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>binary_io::streamoff</type>
+      <name>tell</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__seek__stream.html</anchorfile>
+      <anchor>a4ae1c5c59ec71ca0611d995e76d4b320</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>container_type &amp;</type>
+      <name>rdbuf</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__memory__stream__base.html</anchorfile>
+      <anchor>abbe42c5c2e1633d948329817eb337ae0</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>const container_type &amp;</type>
+      <name>rdbuf</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__memory__stream__base.html</anchorfile>
+      <anchor>a37fd9765a6a608d60dade992e8d404de</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>seek_absolute</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__seek__stream.html</anchorfile>
+      <anchor>af3fef3770045073b971b5841e31f142e</anchor>
+      <arglist>(binary_io::streamoff a_pos) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>seek_relative</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__seek__stream.html</anchorfile>
+      <anchor>a7004db7081dc5b2176faeb9c971540d7</anchor>
+      <arglist>(binary_io::streamoff a_off) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>binary_io::streamoff</type>
+      <name>tell</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__seek__stream.html</anchorfile>
+      <anchor>a4ae1c5c59ec71ca0611d995e76d4b320</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>binary_io::components::basic_seek_stream</name>
+    <filename>classbinary__io_1_1components_1_1basic__seek__stream.html</filename>
+    <member kind="function">
+      <type>void</type>
+      <name>seek_absolute</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__seek__stream.html</anchorfile>
+      <anchor>af3fef3770045073b971b5841e31f142e</anchor>
+      <arglist>(binary_io::streamoff a_pos) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>seek_relative</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__seek__stream.html</anchorfile>
+      <anchor>a7004db7081dc5b2176faeb9c971540d7</anchor>
+      <arglist>(binary_io::streamoff a_off) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>binary_io::streamoff</type>
+      <name>tell</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__seek__stream.html</anchorfile>
+      <anchor>a4ae1c5c59ec71ca0611d995e76d4b320</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>seek_absolute</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__seek__stream.html</anchorfile>
+      <anchor>af3fef3770045073b971b5841e31f142e</anchor>
+      <arglist>(binary_io::streamoff a_pos) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>seek_relative</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__seek__stream.html</anchorfile>
+      <anchor>a7004db7081dc5b2176faeb9c971540d7</anchor>
+      <arglist>(binary_io::streamoff a_off) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>binary_io::streamoff</type>
+      <name>tell</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__seek__stream.html</anchorfile>
+      <anchor>a4ae1c5c59ec71ca0611d995e76d4b320</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>binary_io::buffer_exhausted</name>
+    <filename>classbinary__io_1_1buffer__exhausted.html</filename>
+    <base>binary_io::exception</base>
+    <member kind="function">
+      <type></type>
+      <name>buffer_exhausted</name>
+      <anchorfile>classbinary__io_1_1buffer__exhausted.html</anchorfile>
+      <anchor>a6ec1b880ee3160b113aa941cadeb6612</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>const char *</type>
+      <name>what</name>
+      <anchorfile>classbinary__io_1_1exception.html</anchorfile>
+      <anchor>ac6b675a10e619f6e2be538a386ba746b</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>binary_io::concepts::buffered_stream</name>
+    <filename>structbinary__io_1_1concepts_1_1buffered__stream.html</filename>
+    <templarg>class T</templarg>
+  </compound>
+  <compound kind="class">
+    <name>binary_io::exception</name>
+    <filename>classbinary__io_1_1exception.html</filename>
+    <base>std::exception</base>
+    <member kind="function">
+      <type></type>
+      <name>exception</name>
+      <anchorfile>classbinary__io_1_1exception.html</anchorfile>
+      <anchor>a84f9af8a2bc2659e0772c91b148019f4</anchor>
+      <arglist>(const char *a_what) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>const char *</type>
+      <name>what</name>
+      <anchorfile>classbinary__io_1_1exception.html</anchorfile>
+      <anchor>ac6b675a10e619f6e2be538a386ba746b</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>binary_io::file_istream</name>
+    <filename>classbinary__io_1_1file__istream.html</filename>
+    <base>binary_io::components::file_stream_base</base>
+    <base>istream_interface&lt; binary_io::file_istream &gt;</base>
+    <member kind="function">
+      <type></type>
+      <name>file_istream</name>
+      <anchorfile>classbinary__io_1_1file__istream.html</anchorfile>
+      <anchor>a28d14718fea68eb57dea3a437d6e3c4e</anchor>
+      <arglist>(const std::filesystem::path &amp;a_path)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>open</name>
+      <anchorfile>classbinary__io_1_1file__istream.html</anchorfile>
+      <anchor>af69ecbc04ae1cabe57aa77b238256f0b</anchor>
+      <arglist>(const std::filesystem::path &amp;a_path)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>read_bytes</name>
+      <anchorfile>classbinary__io_1_1file__istream.html</anchorfile>
+      <anchor>a06466b0be182f405c5acd6e76e5cc340</anchor>
+      <arglist>(std::span&lt; std::byte &gt; a_dst)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>flush</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>a0c34a9b97812c17417a75d3b83fbf93e</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>std::FILE *</type>
+      <name>rdbuf</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>af80830c770d64f2d599a08678a81bc27</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>const std::FILE *</type>
+      <name>rdbuf</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>aeb29040080e71a96e067d68f82754408</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>is_open</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>a8105e6ab55286ad13a12ff79b38a3c91</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>close</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>a2f266c413737d10ee88db4ffdf9cafb6</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>seek_absolute</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>ad383c9ddb666c5b141d0a7cd1e0ab329</anchor>
+      <arglist>(binary_io::streamoff a_pos) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>seek_relative</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>a9c1d0cb6b1d660fec6fc1ed74cbb0ea8</anchor>
+      <arglist>(binary_io::streamoff a_off) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>binary_io::streamoff</type>
+      <name>tell</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>a2e43d1e6c8b9dedf46aee76ba2f05749</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>std::tuple&lt; Args... &gt;</type>
+      <name>read</name>
+      <anchorfile>classbinary__io_1_1istream__interface.html</anchorfile>
+      <anchor>a208a3c9f9bb09e78b0634c3600089c14</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>std::tuple&lt; Args... &gt;</type>
+      <name>read</name>
+      <anchorfile>classbinary__io_1_1istream__interface.html</anchorfile>
+      <anchor>a80f992beda72a305e6b1bf22c2fb01a8</anchor>
+      <arglist>(std::endian a_endian)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>read</name>
+      <anchorfile>classbinary__io_1_1istream__interface.html</anchorfile>
+      <anchor>a83b23de76d802127774314ad121b83ee</anchor>
+      <arglist>(Args &amp;... a_args)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>read</name>
+      <anchorfile>classbinary__io_1_1istream__interface.html</anchorfile>
+      <anchor>af38e4e965d07057051425a070e6f8749</anchor>
+      <arglist>(std::endian a_endian, Args &amp;... a_args)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::endian</type>
+      <name>endian</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__format__stream.html</anchorfile>
+      <anchor>a11ee75ddde73abac06ef38cb1f08cce7</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>endian</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__format__stream.html</anchorfile>
+      <anchor>a6e21cdc592189d71fded71d74a64977e</anchor>
+      <arglist>(std::endian a_endian) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>open</name>
+      <anchorfile>classbinary__io_1_1file__istream.html</anchorfile>
+      <anchor>af69ecbc04ae1cabe57aa77b238256f0b</anchor>
+      <arglist>(const std::filesystem::path &amp;a_path)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>read_bytes</name>
+      <anchorfile>classbinary__io_1_1file__istream.html</anchorfile>
+      <anchor>a06466b0be182f405c5acd6e76e5cc340</anchor>
+      <arglist>(std::span&lt; std::byte &gt; a_dst)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>flush</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>a0c34a9b97812c17417a75d3b83fbf93e</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>std::FILE *</type>
+      <name>rdbuf</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>af80830c770d64f2d599a08678a81bc27</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>const std::FILE *</type>
+      <name>rdbuf</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>aeb29040080e71a96e067d68f82754408</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>is_open</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>a8105e6ab55286ad13a12ff79b38a3c91</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>close</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>a2f266c413737d10ee88db4ffdf9cafb6</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>seek_absolute</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>ad383c9ddb666c5b141d0a7cd1e0ab329</anchor>
+      <arglist>(binary_io::streamoff a_pos) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>seek_relative</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>a9c1d0cb6b1d660fec6fc1ed74cbb0ea8</anchor>
+      <arglist>(binary_io::streamoff a_off) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>binary_io::streamoff</type>
+      <name>tell</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>a2e43d1e6c8b9dedf46aee76ba2f05749</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>std::tuple&lt; Args... &gt;</type>
+      <name>read</name>
+      <anchorfile>classbinary__io_1_1istream__interface.html</anchorfile>
+      <anchor>a208a3c9f9bb09e78b0634c3600089c14</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>std::tuple&lt; Args... &gt;</type>
+      <name>read</name>
+      <anchorfile>classbinary__io_1_1istream__interface.html</anchorfile>
+      <anchor>a80f992beda72a305e6b1bf22c2fb01a8</anchor>
+      <arglist>(std::endian a_endian)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>read</name>
+      <anchorfile>classbinary__io_1_1istream__interface.html</anchorfile>
+      <anchor>a83b23de76d802127774314ad121b83ee</anchor>
+      <arglist>(Args &amp;... a_args)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>read</name>
+      <anchorfile>classbinary__io_1_1istream__interface.html</anchorfile>
+      <anchor>af38e4e965d07057051425a070e6f8749</anchor>
+      <arglist>(std::endian a_endian, Args &amp;... a_args)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::endian</type>
+      <name>endian</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__format__stream.html</anchorfile>
+      <anchor>a11ee75ddde73abac06ef38cb1f08cce7</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>endian</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__format__stream.html</anchorfile>
+      <anchor>a6e21cdc592189d71fded71d74a64977e</anchor>
+      <arglist>(std::endian a_endian) noexcept</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>binary_io::file_ostream</name>
+    <filename>classbinary__io_1_1file__ostream.html</filename>
+    <base>binary_io::components::file_stream_base</base>
+    <base>ostream_interface&lt; binary_io::file_ostream &gt;</base>
+    <member kind="function">
+      <type></type>
+      <name>file_ostream</name>
+      <anchorfile>classbinary__io_1_1file__ostream.html</anchorfile>
+      <anchor>a4deede817588cbd160af3ca972a45277</anchor>
+      <arglist>(const std::filesystem::path &amp;a_path, write_mode a_mode=write_mode::truncate)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>open</name>
+      <anchorfile>classbinary__io_1_1file__ostream.html</anchorfile>
+      <anchor>abf7bf1e452f0624cee1713cfb063f7af</anchor>
+      <arglist>(const std::filesystem::path &amp;a_path, write_mode a_mode=write_mode::truncate)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>write_bytes</name>
+      <anchorfile>classbinary__io_1_1file__ostream.html</anchorfile>
+      <anchor>ae0cec98df9c6b5f1730430062614b962</anchor>
+      <arglist>(std::span&lt; const std::byte &gt; a_src)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>flush</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>a0c34a9b97812c17417a75d3b83fbf93e</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>std::FILE *</type>
+      <name>rdbuf</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>af80830c770d64f2d599a08678a81bc27</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>const std::FILE *</type>
+      <name>rdbuf</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>aeb29040080e71a96e067d68f82754408</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>is_open</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>a8105e6ab55286ad13a12ff79b38a3c91</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>close</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>a2f266c413737d10ee88db4ffdf9cafb6</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>seek_absolute</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>ad383c9ddb666c5b141d0a7cd1e0ab329</anchor>
+      <arglist>(binary_io::streamoff a_pos) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>seek_relative</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>a9c1d0cb6b1d660fec6fc1ed74cbb0ea8</anchor>
+      <arglist>(binary_io::streamoff a_off) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>binary_io::streamoff</type>
+      <name>tell</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>a2e43d1e6c8b9dedf46aee76ba2f05749</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>write</name>
+      <anchorfile>classbinary__io_1_1ostream__interface.html</anchorfile>
+      <anchor>a0c7d9c1e6e39691a84bd40f58f9c863f</anchor>
+      <arglist>(Args... a_args)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>write</name>
+      <anchorfile>classbinary__io_1_1ostream__interface.html</anchorfile>
+      <anchor>a3a42170bd3e0efcad71ca53ce8154a4f</anchor>
+      <arglist>(std::endian a_endian, Args... a_args)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::endian</type>
+      <name>endian</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__format__stream.html</anchorfile>
+      <anchor>a11ee75ddde73abac06ef38cb1f08cce7</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>endian</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__format__stream.html</anchorfile>
+      <anchor>a6e21cdc592189d71fded71d74a64977e</anchor>
+      <arglist>(std::endian a_endian) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>open</name>
+      <anchorfile>classbinary__io_1_1file__ostream.html</anchorfile>
+      <anchor>abf7bf1e452f0624cee1713cfb063f7af</anchor>
+      <arglist>(const std::filesystem::path &amp;a_path, write_mode a_mode=write_mode::truncate)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>write_bytes</name>
+      <anchorfile>classbinary__io_1_1file__ostream.html</anchorfile>
+      <anchor>ae0cec98df9c6b5f1730430062614b962</anchor>
+      <arglist>(std::span&lt; const std::byte &gt; a_src)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>flush</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>a0c34a9b97812c17417a75d3b83fbf93e</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>std::FILE *</type>
+      <name>rdbuf</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>af80830c770d64f2d599a08678a81bc27</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>const std::FILE *</type>
+      <name>rdbuf</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>aeb29040080e71a96e067d68f82754408</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>is_open</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>a8105e6ab55286ad13a12ff79b38a3c91</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>close</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>a2f266c413737d10ee88db4ffdf9cafb6</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>seek_absolute</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>ad383c9ddb666c5b141d0a7cd1e0ab329</anchor>
+      <arglist>(binary_io::streamoff a_pos) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>seek_relative</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>a9c1d0cb6b1d660fec6fc1ed74cbb0ea8</anchor>
+      <arglist>(binary_io::streamoff a_off) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>binary_io::streamoff</type>
+      <name>tell</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>a2e43d1e6c8b9dedf46aee76ba2f05749</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>write</name>
+      <anchorfile>classbinary__io_1_1ostream__interface.html</anchorfile>
+      <anchor>a0c7d9c1e6e39691a84bd40f58f9c863f</anchor>
+      <arglist>(Args... a_args)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>write</name>
+      <anchorfile>classbinary__io_1_1ostream__interface.html</anchorfile>
+      <anchor>a3a42170bd3e0efcad71ca53ce8154a4f</anchor>
+      <arglist>(std::endian a_endian, Args... a_args)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::endian</type>
+      <name>endian</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__format__stream.html</anchorfile>
+      <anchor>a11ee75ddde73abac06ef38cb1f08cce7</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>endian</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__format__stream.html</anchorfile>
+      <anchor>a6e21cdc592189d71fded71d74a64977e</anchor>
+      <arglist>(std::endian a_endian) noexcept</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>binary_io::components::file_stream_base</name>
+    <filename>classbinary__io_1_1components_1_1file__stream__base.html</filename>
+    <member kind="function">
+      <type></type>
+      <name>file_stream_base</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>a31aca0e03b6b28f276cf5db34a560b4e</anchor>
+      <arglist>() noexcept=default</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>file_stream_base</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>a54ef65c85b0e01f34a2cc22e4eaba103</anchor>
+      <arglist>(const file_stream_base &amp;)=delete</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>file_stream_base</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>aa0b2b936144ea052f5265372f68cd286</anchor>
+      <arglist>(file_stream_base &amp;&amp;) noexcept=default</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>~file_stream_base</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>a3ce8a98bf5b2338eff6d60232d8f769e</anchor>
+      <arglist>() noexcept=default</arglist>
+    </member>
+    <member kind="function">
+      <type>file_stream_base &amp;</type>
+      <name>operator=</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>a284874e2f44048220e75fef2b1534071</anchor>
+      <arglist>(const file_stream_base &amp;)=delete</arglist>
+    </member>
+    <member kind="function">
+      <type>file_stream_base &amp;</type>
+      <name>operator=</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>a205588ac8c03969911089d7393af326a</anchor>
+      <arglist>(file_stream_base &amp;&amp;) noexcept=default</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>flush</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>a0c34a9b97812c17417a75d3b83fbf93e</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>std::FILE *</type>
+      <name>rdbuf</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>af80830c770d64f2d599a08678a81bc27</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>const std::FILE *</type>
+      <name>rdbuf</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>aeb29040080e71a96e067d68f82754408</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>is_open</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>a8105e6ab55286ad13a12ff79b38a3c91</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>close</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>a2f266c413737d10ee88db4ffdf9cafb6</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>seek_absolute</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>ad383c9ddb666c5b141d0a7cd1e0ab329</anchor>
+      <arglist>(binary_io::streamoff a_pos) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>seek_relative</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>a9c1d0cb6b1d660fec6fc1ed74cbb0ea8</anchor>
+      <arglist>(binary_io::streamoff a_off) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>binary_io::streamoff</type>
+      <name>tell</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>a2e43d1e6c8b9dedf46aee76ba2f05749</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>flush</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>a0c34a9b97812c17417a75d3b83fbf93e</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>std::FILE *</type>
+      <name>rdbuf</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>af80830c770d64f2d599a08678a81bc27</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>const std::FILE *</type>
+      <name>rdbuf</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>aeb29040080e71a96e067d68f82754408</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>is_open</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>a8105e6ab55286ad13a12ff79b38a3c91</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>close</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>a2f266c413737d10ee88db4ffdf9cafb6</anchor>
+      <arglist>() noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>seek_absolute</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>ad383c9ddb666c5b141d0a7cd1e0ab329</anchor>
+      <arglist>(binary_io::streamoff a_pos) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>seek_relative</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>a9c1d0cb6b1d660fec6fc1ed74cbb0ea8</anchor>
+      <arglist>(binary_io::streamoff a_off) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>binary_io::streamoff</type>
+      <name>tell</name>
+      <anchorfile>classbinary__io_1_1components_1_1file__stream__base.html</anchorfile>
+      <anchor>a2e43d1e6c8b9dedf46aee76ba2f05749</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>binary_io::concepts::input_stream</name>
+    <filename>structbinary__io_1_1concepts_1_1input__stream.html</filename>
+    <templarg>class T</templarg>
+  </compound>
+  <compound kind="struct">
+    <name>binary_io::concepts::integral</name>
+    <filename>structbinary__io_1_1concepts_1_1integral.html</filename>
+    <templarg>class T</templarg>
+  </compound>
+  <compound kind="class">
+    <name>binary_io::istream_interface</name>
+    <filename>classbinary__io_1_1istream__interface.html</filename>
+    <templarg>class Derived</templarg>
+    <base>binary_io::components::basic_format_stream</base>
+    <member kind="function">
+      <type>std::endian</type>
+      <name>endian</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__format__stream.html</anchorfile>
+      <anchor>a11ee75ddde73abac06ef38cb1f08cce7</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>endian</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__format__stream.html</anchorfile>
+      <anchor>a6e21cdc592189d71fded71d74a64977e</anchor>
+      <arglist>(std::endian a_endian) noexcept</arglist>
+    </member>
+    <member kind="friend">
+      <type>friend derived_type &amp;</type>
+      <name>operator&gt;&gt;</name>
+      <anchorfile>classbinary__io_1_1istream__interface.html</anchorfile>
+      <anchor>ae97e97719c7637872820bb7b3fe5ef39</anchor>
+      <arglist>(derived_type &amp;a_in, std::endian a_endian) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>std::tuple&lt; Args... &gt;</type>
+      <name>read</name>
+      <anchorfile>classbinary__io_1_1istream__interface.html</anchorfile>
+      <anchor>a208a3c9f9bb09e78b0634c3600089c14</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>std::tuple&lt; Args... &gt;</type>
+      <name>read</name>
+      <anchorfile>classbinary__io_1_1istream__interface.html</anchorfile>
+      <anchor>a80f992beda72a305e6b1bf22c2fb01a8</anchor>
+      <arglist>(std::endian a_endian)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>read</name>
+      <anchorfile>classbinary__io_1_1istream__interface.html</anchorfile>
+      <anchor>a83b23de76d802127774314ad121b83ee</anchor>
+      <arglist>(Args &amp;... a_args)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>read</name>
+      <anchorfile>classbinary__io_1_1istream__interface.html</anchorfile>
+      <anchor>af38e4e965d07057051425a070e6f8749</anchor>
+      <arglist>(std::endian a_endian, Args &amp;... a_args)</arglist>
+    </member>
+    <member kind="friend">
+      <type>friend derived_type &amp;</type>
+      <name>operator&gt;&gt;</name>
+      <anchorfile>classbinary__io_1_1istream__interface.html</anchorfile>
+      <anchor>a5876c6526a240ffbd6f986ff3c1f2701</anchor>
+      <arglist>(derived_type &amp;a_in, T &amp;a_value)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::endian</type>
+      <name>endian</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__format__stream.html</anchorfile>
+      <anchor>a11ee75ddde73abac06ef38cb1f08cce7</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>endian</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__format__stream.html</anchorfile>
+      <anchor>a6e21cdc592189d71fded71d74a64977e</anchor>
+      <arglist>(std::endian a_endian) noexcept</arglist>
+    </member>
+    <member kind="friend">
+      <type>friend derived_type &amp;</type>
+      <name>operator&gt;&gt;</name>
+      <anchorfile>classbinary__io_1_1istream__interface.html</anchorfile>
+      <anchor>ae97e97719c7637872820bb7b3fe5ef39</anchor>
+      <arglist>(derived_type &amp;a_in, std::endian a_endian) noexcept</arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>binary_io::concepts::no_copy_input_stream</name>
+    <filename>structbinary__io_1_1concepts_1_1no__copy__input__stream.html</filename>
+    <templarg>class T</templarg>
+  </compound>
+  <compound kind="class">
+    <name>binary_io::ostream_interface</name>
+    <filename>classbinary__io_1_1ostream__interface.html</filename>
+    <templarg>class Derived</templarg>
+    <base>binary_io::components::basic_format_stream</base>
+    <member kind="function">
+      <type>std::endian</type>
+      <name>endian</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__format__stream.html</anchorfile>
+      <anchor>a11ee75ddde73abac06ef38cb1f08cce7</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>endian</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__format__stream.html</anchorfile>
+      <anchor>a6e21cdc592189d71fded71d74a64977e</anchor>
+      <arglist>(std::endian a_endian) noexcept</arglist>
+    </member>
+    <member kind="friend">
+      <type>friend derived_type &amp;</type>
+      <name>operator&lt;&lt;</name>
+      <anchorfile>classbinary__io_1_1ostream__interface.html</anchorfile>
+      <anchor>a418a931956783375df4a87f043552a5e</anchor>
+      <arglist>(derived_type &amp;a_out, std::endian a_endian) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>write</name>
+      <anchorfile>classbinary__io_1_1ostream__interface.html</anchorfile>
+      <anchor>a0c7d9c1e6e39691a84bd40f58f9c863f</anchor>
+      <arglist>(Args... a_args)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>write</name>
+      <anchorfile>classbinary__io_1_1ostream__interface.html</anchorfile>
+      <anchor>a3a42170bd3e0efcad71ca53ce8154a4f</anchor>
+      <arglist>(std::endian a_endian, Args... a_args)</arglist>
+    </member>
+    <member kind="friend">
+      <type>friend derived_type &amp;</type>
+      <name>operator&lt;&lt;</name>
+      <anchorfile>classbinary__io_1_1ostream__interface.html</anchorfile>
+      <anchor>aa0bfb8123437b14eee75800c2e028cd4</anchor>
+      <arglist>(derived_type &amp;a_out, T a_value)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::endian</type>
+      <name>endian</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__format__stream.html</anchorfile>
+      <anchor>a11ee75ddde73abac06ef38cb1f08cce7</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>endian</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__format__stream.html</anchorfile>
+      <anchor>a6e21cdc592189d71fded71d74a64977e</anchor>
+      <arglist>(std::endian a_endian) noexcept</arglist>
+    </member>
+    <member kind="friend">
+      <type>friend derived_type &amp;</type>
+      <name>operator&lt;&lt;</name>
+      <anchorfile>classbinary__io_1_1ostream__interface.html</anchorfile>
+      <anchor>a418a931956783375df4a87f043552a5e</anchor>
+      <arglist>(derived_type &amp;a_out, std::endian a_endian) noexcept</arglist>
+    </member>
+  </compound>
+  <compound kind="struct">
+    <name>binary_io::concepts::output_stream</name>
+    <filename>structbinary__io_1_1concepts_1_1output__stream.html</filename>
+    <templarg>class T</templarg>
+  </compound>
+  <compound kind="struct">
+    <name>binary_io::concepts::resizable</name>
+    <filename>structbinary__io_1_1concepts_1_1resizable.html</filename>
+    <templarg>class T</templarg>
+  </compound>
+  <compound kind="struct">
+    <name>binary_io::concepts::seekable_stream</name>
+    <filename>structbinary__io_1_1concepts_1_1seekable__stream.html</filename>
+    <templarg>class T</templarg>
+  </compound>
+  <compound kind="class">
+    <name>binary_io::span_istream</name>
+    <filename>classbinary__io_1_1span__istream.html</filename>
+    <base>span_stream_base&lt; const std::byte &gt;</base>
+    <base>istream_interface&lt; span_istream &gt;</base>
+    <member kind="function">
+      <type>void</type>
+      <name>read_bytes</name>
+      <anchorfile>classbinary__io_1_1span__istream.html</anchorfile>
+      <anchor>a8aa230fc035afc33f6f770092515b74e</anchor>
+      <arglist>(std::span&lt; std::byte &gt; a_dst)</arglist>
+    </member>
+    <member kind="function">
+      <type>auto</type>
+      <name>read_bytes</name>
+      <anchorfile>classbinary__io_1_1span__istream.html</anchorfile>
+      <anchor>afdd762bf64b9ce3abe05decf919b0236</anchor>
+      <arglist>(std::size_t a_count) -&gt; std::span&lt; const std::byte &gt;</arglist>
+    </member>
+    <member kind="function">
+      <type>auto</type>
+      <name>rdbuf</name>
+      <anchorfile>classbinary__io_1_1components_1_1span__stream__base.html</anchorfile>
+      <anchor>a5ab265f168f4f7f798410e00f2f151f1</anchor>
+      <arglist>() noexcept -&gt; std::span&lt; const std::byte &gt;</arglist>
+    </member>
+    <member kind="function">
+      <type>auto</type>
+      <name>rdbuf</name>
+      <anchorfile>classbinary__io_1_1components_1_1span__stream__base.html</anchorfile>
+      <anchor>ab393e60fd0523ba0fbaeadedf24e64f1</anchor>
+      <arglist>() const noexcept -&gt; std::span&lt; const const std::byte &gt;</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>seek_absolute</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__seek__stream.html</anchorfile>
+      <anchor>af3fef3770045073b971b5841e31f142e</anchor>
+      <arglist>(binary_io::streamoff a_pos) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>seek_relative</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__seek__stream.html</anchorfile>
+      <anchor>a7004db7081dc5b2176faeb9c971540d7</anchor>
+      <arglist>(binary_io::streamoff a_off) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>binary_io::streamoff</type>
+      <name>tell</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__seek__stream.html</anchorfile>
+      <anchor>a4ae1c5c59ec71ca0611d995e76d4b320</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>std::tuple&lt; Args... &gt;</type>
+      <name>read</name>
+      <anchorfile>classbinary__io_1_1istream__interface.html</anchorfile>
+      <anchor>a208a3c9f9bb09e78b0634c3600089c14</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>std::tuple&lt; Args... &gt;</type>
+      <name>read</name>
+      <anchorfile>classbinary__io_1_1istream__interface.html</anchorfile>
+      <anchor>a80f992beda72a305e6b1bf22c2fb01a8</anchor>
+      <arglist>(std::endian a_endian)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>read</name>
+      <anchorfile>classbinary__io_1_1istream__interface.html</anchorfile>
+      <anchor>a83b23de76d802127774314ad121b83ee</anchor>
+      <arglist>(Args &amp;... a_args)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>read</name>
+      <anchorfile>classbinary__io_1_1istream__interface.html</anchorfile>
+      <anchor>af38e4e965d07057051425a070e6f8749</anchor>
+      <arglist>(std::endian a_endian, Args &amp;... a_args)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::endian</type>
+      <name>endian</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__format__stream.html</anchorfile>
+      <anchor>a11ee75ddde73abac06ef38cb1f08cce7</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>endian</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__format__stream.html</anchorfile>
+      <anchor>a6e21cdc592189d71fded71d74a64977e</anchor>
+      <arglist>(std::endian a_endian) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>read_bytes</name>
+      <anchorfile>classbinary__io_1_1span__istream.html</anchorfile>
+      <anchor>a8aa230fc035afc33f6f770092515b74e</anchor>
+      <arglist>(std::span&lt; std::byte &gt; a_dst)</arglist>
+    </member>
+    <member kind="function">
+      <type>auto</type>
+      <name>read_bytes</name>
+      <anchorfile>classbinary__io_1_1span__istream.html</anchorfile>
+      <anchor>afdd762bf64b9ce3abe05decf919b0236</anchor>
+      <arglist>(std::size_t a_count) -&gt; std::span&lt; const std::byte &gt;</arglist>
+    </member>
+    <member kind="function">
+      <type>auto</type>
+      <name>rdbuf</name>
+      <anchorfile>classbinary__io_1_1components_1_1span__stream__base.html</anchorfile>
+      <anchor>a5ab265f168f4f7f798410e00f2f151f1</anchor>
+      <arglist>() noexcept -&gt; std::span&lt; const std::byte &gt;</arglist>
+    </member>
+    <member kind="function">
+      <type>auto</type>
+      <name>rdbuf</name>
+      <anchorfile>classbinary__io_1_1components_1_1span__stream__base.html</anchorfile>
+      <anchor>ab393e60fd0523ba0fbaeadedf24e64f1</anchor>
+      <arglist>() const noexcept -&gt; std::span&lt; const const std::byte &gt;</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>seek_absolute</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__seek__stream.html</anchorfile>
+      <anchor>af3fef3770045073b971b5841e31f142e</anchor>
+      <arglist>(binary_io::streamoff a_pos) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>seek_relative</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__seek__stream.html</anchorfile>
+      <anchor>a7004db7081dc5b2176faeb9c971540d7</anchor>
+      <arglist>(binary_io::streamoff a_off) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>binary_io::streamoff</type>
+      <name>tell</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__seek__stream.html</anchorfile>
+      <anchor>a4ae1c5c59ec71ca0611d995e76d4b320</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>std::tuple&lt; Args... &gt;</type>
+      <name>read</name>
+      <anchorfile>classbinary__io_1_1istream__interface.html</anchorfile>
+      <anchor>a208a3c9f9bb09e78b0634c3600089c14</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>std::tuple&lt; Args... &gt;</type>
+      <name>read</name>
+      <anchorfile>classbinary__io_1_1istream__interface.html</anchorfile>
+      <anchor>a80f992beda72a305e6b1bf22c2fb01a8</anchor>
+      <arglist>(std::endian a_endian)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>read</name>
+      <anchorfile>classbinary__io_1_1istream__interface.html</anchorfile>
+      <anchor>a83b23de76d802127774314ad121b83ee</anchor>
+      <arglist>(Args &amp;... a_args)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>read</name>
+      <anchorfile>classbinary__io_1_1istream__interface.html</anchorfile>
+      <anchor>af38e4e965d07057051425a070e6f8749</anchor>
+      <arglist>(std::endian a_endian, Args &amp;... a_args)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::endian</type>
+      <name>endian</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__format__stream.html</anchorfile>
+      <anchor>a11ee75ddde73abac06ef38cb1f08cce7</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>endian</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__format__stream.html</anchorfile>
+      <anchor>a6e21cdc592189d71fded71d74a64977e</anchor>
+      <arglist>(std::endian a_endian) noexcept</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>binary_io::span_ostream</name>
+    <filename>classbinary__io_1_1span__ostream.html</filename>
+    <base>span_stream_base&lt; std::byte &gt;</base>
+    <base>ostream_interface&lt; span_ostream &gt;</base>
+    <member kind="function">
+      <type>void</type>
+      <name>write_bytes</name>
+      <anchorfile>classbinary__io_1_1span__ostream.html</anchorfile>
+      <anchor>ac2a20fd1a12e83555cdbd6840ea867f9</anchor>
+      <arglist>(std::span&lt; const std::byte &gt; a_src)</arglist>
+    </member>
+    <member kind="function">
+      <type>auto</type>
+      <name>rdbuf</name>
+      <anchorfile>classbinary__io_1_1components_1_1span__stream__base.html</anchorfile>
+      <anchor>a5ab265f168f4f7f798410e00f2f151f1</anchor>
+      <arglist>() noexcept -&gt; std::span&lt; std::byte &gt;</arglist>
+    </member>
+    <member kind="function">
+      <type>auto</type>
+      <name>rdbuf</name>
+      <anchorfile>classbinary__io_1_1components_1_1span__stream__base.html</anchorfile>
+      <anchor>ab393e60fd0523ba0fbaeadedf24e64f1</anchor>
+      <arglist>() const noexcept -&gt; std::span&lt; const std::byte &gt;</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>seek_absolute</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__seek__stream.html</anchorfile>
+      <anchor>af3fef3770045073b971b5841e31f142e</anchor>
+      <arglist>(binary_io::streamoff a_pos) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>seek_relative</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__seek__stream.html</anchorfile>
+      <anchor>a7004db7081dc5b2176faeb9c971540d7</anchor>
+      <arglist>(binary_io::streamoff a_off) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>binary_io::streamoff</type>
+      <name>tell</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__seek__stream.html</anchorfile>
+      <anchor>a4ae1c5c59ec71ca0611d995e76d4b320</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>write</name>
+      <anchorfile>classbinary__io_1_1ostream__interface.html</anchorfile>
+      <anchor>a0c7d9c1e6e39691a84bd40f58f9c863f</anchor>
+      <arglist>(Args... a_args)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>write</name>
+      <anchorfile>classbinary__io_1_1ostream__interface.html</anchorfile>
+      <anchor>a3a42170bd3e0efcad71ca53ce8154a4f</anchor>
+      <arglist>(std::endian a_endian, Args... a_args)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::endian</type>
+      <name>endian</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__format__stream.html</anchorfile>
+      <anchor>a11ee75ddde73abac06ef38cb1f08cce7</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>endian</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__format__stream.html</anchorfile>
+      <anchor>a6e21cdc592189d71fded71d74a64977e</anchor>
+      <arglist>(std::endian a_endian) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>write_bytes</name>
+      <anchorfile>classbinary__io_1_1span__ostream.html</anchorfile>
+      <anchor>ac2a20fd1a12e83555cdbd6840ea867f9</anchor>
+      <arglist>(std::span&lt; const std::byte &gt; a_src)</arglist>
+    </member>
+    <member kind="function">
+      <type>auto</type>
+      <name>rdbuf</name>
+      <anchorfile>classbinary__io_1_1components_1_1span__stream__base.html</anchorfile>
+      <anchor>a5ab265f168f4f7f798410e00f2f151f1</anchor>
+      <arglist>() noexcept -&gt; std::span&lt; std::byte &gt;</arglist>
+    </member>
+    <member kind="function">
+      <type>auto</type>
+      <name>rdbuf</name>
+      <anchorfile>classbinary__io_1_1components_1_1span__stream__base.html</anchorfile>
+      <anchor>ab393e60fd0523ba0fbaeadedf24e64f1</anchor>
+      <arglist>() const noexcept -&gt; std::span&lt; const std::byte &gt;</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>seek_absolute</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__seek__stream.html</anchorfile>
+      <anchor>af3fef3770045073b971b5841e31f142e</anchor>
+      <arglist>(binary_io::streamoff a_pos) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>seek_relative</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__seek__stream.html</anchorfile>
+      <anchor>a7004db7081dc5b2176faeb9c971540d7</anchor>
+      <arglist>(binary_io::streamoff a_off) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>binary_io::streamoff</type>
+      <name>tell</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__seek__stream.html</anchorfile>
+      <anchor>a4ae1c5c59ec71ca0611d995e76d4b320</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>write</name>
+      <anchorfile>classbinary__io_1_1ostream__interface.html</anchorfile>
+      <anchor>a0c7d9c1e6e39691a84bd40f58f9c863f</anchor>
+      <arglist>(Args... a_args)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>write</name>
+      <anchorfile>classbinary__io_1_1ostream__interface.html</anchorfile>
+      <anchor>a3a42170bd3e0efcad71ca53ce8154a4f</anchor>
+      <arglist>(std::endian a_endian, Args... a_args)</arglist>
+    </member>
+    <member kind="function">
+      <type>std::endian</type>
+      <name>endian</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__format__stream.html</anchorfile>
+      <anchor>a11ee75ddde73abac06ef38cb1f08cce7</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>endian</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__format__stream.html</anchorfile>
+      <anchor>a6e21cdc592189d71fded71d74a64977e</anchor>
+      <arglist>(std::endian a_endian) noexcept</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>binary_io::components::span_stream_base</name>
+    <filename>classbinary__io_1_1components_1_1span__stream__base.html</filename>
+    <templarg>class T</templarg>
+    <base>binary_io::components::basic_seek_stream</base>
+    <member kind="function">
+      <type></type>
+      <name>span_stream_base</name>
+      <anchorfile>classbinary__io_1_1components_1_1span__stream__base.html</anchorfile>
+      <anchor>abb1640eb7150d07b9a57844d0adc6db3</anchor>
+      <arglist>(std::span&lt; T &gt; a_span) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>auto</type>
+      <name>rdbuf</name>
+      <anchorfile>classbinary__io_1_1components_1_1span__stream__base.html</anchorfile>
+      <anchor>a5ab265f168f4f7f798410e00f2f151f1</anchor>
+      <arglist>() noexcept -&gt; std::span&lt; T &gt;</arglist>
+    </member>
+    <member kind="function">
+      <type>auto</type>
+      <name>rdbuf</name>
+      <anchorfile>classbinary__io_1_1components_1_1span__stream__base.html</anchorfile>
+      <anchor>ab393e60fd0523ba0fbaeadedf24e64f1</anchor>
+      <arglist>() const noexcept -&gt; std::span&lt; const T &gt;</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>seek_absolute</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__seek__stream.html</anchorfile>
+      <anchor>af3fef3770045073b971b5841e31f142e</anchor>
+      <arglist>(binary_io::streamoff a_pos) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>seek_relative</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__seek__stream.html</anchorfile>
+      <anchor>a7004db7081dc5b2176faeb9c971540d7</anchor>
+      <arglist>(binary_io::streamoff a_off) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>binary_io::streamoff</type>
+      <name>tell</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__seek__stream.html</anchorfile>
+      <anchor>a4ae1c5c59ec71ca0611d995e76d4b320</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>auto</type>
+      <name>rdbuf</name>
+      <anchorfile>classbinary__io_1_1components_1_1span__stream__base.html</anchorfile>
+      <anchor>a5ab265f168f4f7f798410e00f2f151f1</anchor>
+      <arglist>() noexcept -&gt; std::span&lt; T &gt;</arglist>
+    </member>
+    <member kind="function">
+      <type>auto</type>
+      <name>rdbuf</name>
+      <anchorfile>classbinary__io_1_1components_1_1span__stream__base.html</anchorfile>
+      <anchor>ab393e60fd0523ba0fbaeadedf24e64f1</anchor>
+      <arglist>() const noexcept -&gt; std::span&lt; const T &gt;</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>seek_absolute</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__seek__stream.html</anchorfile>
+      <anchor>af3fef3770045073b971b5841e31f142e</anchor>
+      <arglist>(binary_io::streamoff a_pos) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>seek_relative</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__seek__stream.html</anchorfile>
+      <anchor>a7004db7081dc5b2176faeb9c971540d7</anchor>
+      <arglist>(binary_io::streamoff a_off) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>binary_io::streamoff</type>
+      <name>tell</name>
+      <anchorfile>classbinary__io_1_1components_1_1basic__seek__stream.html</anchorfile>
+      <anchor>a4ae1c5c59ec71ca0611d995e76d4b320</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+  </compound>
+  <compound kind="namespace">
+    <name>binary_io</name>
+    <filename>namespacebinary__io.html</filename>
+    <namespace>binary_io::components</namespace>
+    <namespace>binary_io::concepts</namespace>
+    <namespace>binary_io::endian</namespace>
+    <class kind="class">binary_io::any_istream</class>
+    <class kind="class">binary_io::any_ostream</class>
+    <class kind="class">binary_io::basic_memory_istream</class>
+    <class kind="class">binary_io::basic_memory_ostream</class>
+    <class kind="class">binary_io::buffer_exhausted</class>
+    <class kind="class">binary_io::exception</class>
+    <class kind="class">binary_io::file_istream</class>
+    <class kind="class">binary_io::file_ostream</class>
+    <class kind="class">binary_io::istream_interface</class>
+    <class kind="class">binary_io::ostream_interface</class>
+    <class kind="class">binary_io::span_istream</class>
+    <class kind="class">binary_io::span_ostream</class>
+    <member kind="typedef">
+      <type>long long</type>
+      <name>streamoff</name>
+      <anchorfile>namespacebinary__io.html</anchorfile>
+      <anchor>aef6f65ec52818493995621626af0f1c3</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>binary_io::basic_memory_istream&lt; std::vector&lt; std::byte &gt; &gt;</type>
+      <name>memory_istream</name>
+      <anchorfile>namespacebinary__io.html</anchorfile>
+      <anchor>a094035bb639de5577d7aca0c84d254f2</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="typedef">
+      <type>binary_io::basic_memory_ostream&lt; std::vector&lt; std::byte &gt; &gt;</type>
+      <name>memory_ostream</name>
+      <anchorfile>namespacebinary__io.html</anchorfile>
+      <anchor>a3157c4b0793a1d89c5f86ac2dc1f49d4</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumeration">
+      <type></type>
+      <name>write_mode</name>
+      <anchorfile>namespacebinary__io.html</anchorfile>
+      <anchor>aedb17e4d257428541f62de6cebfe5076</anchor>
+      <arglist></arglist>
+      <enumvalue file="namespacebinary__io.html" anchor="aedb17e4d257428541f62de6cebfe5076a244f58cf07c35fd48d7524b289551e5c">truncate</enumvalue>
+      <enumvalue file="namespacebinary__io.html" anchor="aedb17e4d257428541f62de6cebfe5076a9516dfb15f51c7ee19a4d46b8c0dbe1d">append</enumvalue>
+    </member>
+    <member kind="function">
+      <type>T</type>
+      <name>read</name>
+      <anchorfile>namespacebinary__io.html</anchorfile>
+      <anchor>a0e9905220de53e1607e865bd9afdcc1c</anchor>
+      <arglist>(std::span&lt; const std::byte, sizeof(T)&gt; a_src, std::endian a_endian)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>write</name>
+      <anchorfile>namespacebinary__io.html</anchorfile>
+      <anchor>a05e8b32faa6e6efcebfd5d74612714e7</anchor>
+      <arglist>(std::span&lt; std::byte, sizeof(T)&gt; a_dst, T a_value, std::endian a_endian)</arglist>
+    </member>
+  </compound>
+  <compound kind="namespace">
+    <name>binary_io::components</name>
+    <filename>namespacebinary__io_1_1components.html</filename>
+    <class kind="class">binary_io::components::any_stream_base</class>
+    <class kind="class">binary_io::components::basic_format_stream</class>
+    <class kind="class">binary_io::components::basic_memory_stream_base</class>
+    <class kind="class">binary_io::components::basic_seek_stream</class>
+    <class kind="class">binary_io::components::file_stream_base</class>
+    <class kind="class">binary_io::components::span_stream_base</class>
+  </compound>
+  <compound kind="namespace">
+    <name>binary_io::concepts</name>
+    <filename>namespacebinary__io_1_1concepts.html</filename>
+    <class kind="struct">binary_io::concepts::buffered_stream</class>
+    <class kind="struct">binary_io::concepts::input_stream</class>
+    <class kind="struct">binary_io::concepts::integral</class>
+    <class kind="struct">binary_io::concepts::no_copy_input_stream</class>
+    <class kind="struct">binary_io::concepts::output_stream</class>
+    <class kind="struct">binary_io::concepts::resizable</class>
+    <class kind="struct">binary_io::concepts::seekable_stream</class>
+  </compound>
+  <compound kind="namespace">
+    <name>binary_io::endian</name>
+    <filename>namespacebinary__io_1_1endian.html</filename>
+    <member kind="function">
+      <type>T</type>
+      <name>reverse</name>
+      <anchorfile>namespacebinary__io_1_1endian.html</anchorfile>
+      <anchor>a590609ff5ff9c5a07db5047cc705a55f</anchor>
+      <arglist>(T a_value) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>T</type>
+      <name>load</name>
+      <anchorfile>namespacebinary__io_1_1endian.html</anchorfile>
+      <anchor>ac21c4643df2704aa8ac76f4062ff4a04</anchor>
+      <arglist>(std::span&lt; const std::byte, sizeof(T)&gt; a_src) noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>store</name>
+      <anchorfile>namespacebinary__io_1_1endian.html</anchorfile>
+      <anchor>a83089bfa80fd0e7694b96bc165ec686a</anchor>
+      <arglist>(std::span&lt; std::byte, sizeof(T)&gt; a_dst, T a_value) noexcept</arglist>
+    </member>
+  </compound>
+  <compound kind="page">
+    <name>index</name>
+    <title>binary_io</title>
+    <filename>index.html</filename>
+    <docanchor file="index.html" title="Overview">overview</docanchor>
+    <docanchor file="index.html" title="Synopsis">overview-synopsis</docanchor>
+    <docanchor file="index.html" title="Inspiration">overview-inspiration</docanchor>
+    <docanchor file="index.html" title="Examples">examples</docanchor>
+    <docanchor file="index.html" title="Reading a local file header from a zip file">examples-reading</docanchor>
+    <docanchor file="index.html" title="Writing an anonymous compiled papyrus script header">examples-writing</docanchor>
+    <docanchor file="index.html" title="CMake Options">cmake-options</docanchor>
+    <docanchor file="index.html" title="Integration">integration</docanchor>
+  </compound>
+</tagfile>
