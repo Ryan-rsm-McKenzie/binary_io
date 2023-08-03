@@ -126,11 +126,11 @@ jobs:
 
       - name: Configure CMake
         working-directory: ${{ github.workspace }}/binary_io
-        run: cmake --preset ninja-windows-vcpkg -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
+        run: cmake --preset ninja-windows-vcpkg
 
       - name: Build
         working-directory: ${{ github.workspace }}/binary_io
-        run: cmake --build build
+        run: cmake --build build --config ${{ env.BUILD_TYPE }}
 
       - name: Test
         working-directory: ${{ github.workspace }}/binary_io/build
