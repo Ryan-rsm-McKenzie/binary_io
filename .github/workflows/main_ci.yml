@@ -31,7 +31,7 @@ jobs:
           - compiler: gcc
             version: '10'
           - compiler: clang
-            version: '10'
+            version: '11'
 
     steps:
       - uses: actions/checkout@v2
