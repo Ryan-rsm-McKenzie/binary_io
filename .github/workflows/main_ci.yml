@@ -126,7 +126,7 @@ jobs:
 
       - name: Configure CMake
         working-directory: ${{ github.workspace }}/binary_io
-        run: cmake --preset ninja-windows-vcpkg
+        run: cmake --preset ninja-windows-vcpkg -DVCPKG_TARGET_TRIPLET="${{ matrix.arch }}-windows-static-md"
 
       - name: Build
         working-directory: ${{ github.workspace }}/binary_io
