@@ -160,7 +160,7 @@ namespace binary_io
 
 		this->seek_relative(static_cast<binary_io::streamoff>(a_count));
 		return {
-			std::data(buffer) + where,
+			buffer.data() + where,
 			a_count
 		};
 	}
