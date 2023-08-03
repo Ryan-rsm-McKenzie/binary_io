@@ -15,7 +15,7 @@ show_includes = false
 
 [badges]
 'build' = [
-	'https://img.shields.io/github/workflow/status/Ryan-rsm-McKenzie/binary_io/Main%20CI?logo=github&style=flat-square',
+	'https://img.shields.io/github/actions/workflow/status/Ryan-rsm-McKenzie/binary_io/main_ci.yml?branch=main&logo=github&style=flat-square',
 	'https://github.com/Ryan-rsm-McKenzie/binary_io/actions/workflows/main_ci.yml'
 ]
 'codecov' = [
