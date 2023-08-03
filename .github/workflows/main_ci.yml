@@ -61,7 +61,7 @@ jobs:
       - name: Download Catch2
         uses: actions/checkout@v2
         with:
-          ref: v2.13.6
+          ref: v3.4.0
           repository: catchorg/Catch2
           path: catch2
 

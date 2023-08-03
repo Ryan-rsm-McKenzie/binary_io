@@ -3,7 +3,6 @@ set(ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/..")
 set(SOURCE_DIR "${ROOT_DIR}/tests")
 set(SOURCE_FILES
 	"${SOURCE_DIR}/binary_io/binary_io.test.cpp"
-	"${SOURCE_DIR}/main.cpp"
 )
 
 source_group(TREE "${SOURCE_DIR}" PREFIX "src" FILES ${SOURCE_FILES})
@@ -31,5 +30,5 @@ target_link_libraries(
 	tests
 	PRIVATE
 		binary_io::binary_io
-		Catch2::Catch2
+		Catch2::Catch2WithMain
 )

@@ -14,7 +14,7 @@
 #include <utility>
 #include <vector>
 
-#include <catch2/catch.hpp>
+#include <catch2/catch_all.hpp>
 
 #ifdef _WIN32
 #	include <Windows.h>  // ensure windows.h compatibility
@@ -250,7 +250,7 @@ TEST_CASE("stream read/write")
 					REQUIRE_THROWS_AS(a_stream.write<std::uint32_t>(42), binary_io::buffer_exhausted);
 					REQUIRE_THROWS_WITH(
 						a_stream.write<std::uint32_t>(42),
-						Catch::Contains("exhausted", Catch::CaseSensitive::No));
+						Catch::Matchers::ContainsSubstring("exhausted", Catch::CaseSensitive::No));
 				});
 		}
 	}
