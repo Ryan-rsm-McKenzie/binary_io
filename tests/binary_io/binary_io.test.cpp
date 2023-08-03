@@ -363,7 +363,7 @@ TEST_CASE("file_stream is a move-only type")
 
 TEST_CASE("writing 0 bytes to a stream is a no-op")
 {
-	const std::filesystem::path filename{ "zero_byte_test.txt"sv };
+	const std::filesystem::path filename{ "zero_byte_write_test.txt"sv };
 	std::filesystem::remove(filename);
 
 	const auto f = []<class T>(T a_stream) {
@@ -376,4 +376,22 @@ TEST_CASE("writing 0 bytes to a stream is a no-op")
 	f(binary_io::file_ostream(filename));
 	f(binary_io::memory_ostream());
 	f(binary_io::span_ostream());
+}
+
+TEST_CASE("reading 0 bytes from a stream is a no-op")
+{
+	const std::filesystem::path filename{ "zero_byte_read_test.txt"sv };
+	std::filesystem::remove(filename);
+	(void)binary_io::file_ostream(filename);
+
+	const auto f = []<class T>(T a_stream) {
+		const std::span<std::byte> empty;
+		a_stream.read_bytes(empty);
+		auto any = binary_io::any_istream(std::move(a_stream));
+		any.read_bytes(empty);
+	};
+
+	f(binary_io::file_istream(filename));
+	f(binary_io::memory_istream());
+	f(binary_io::span_istream());
 }
